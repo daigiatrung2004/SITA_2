@@ -1,0 +1,71 @@
+#sidebar-left{
+    background-color:black;
+    position: absolute;
+    z-index: 100;
+}
+@media only screen and (min-width: 768px){
+    .pushable>.pusher:after{
+        display:none!important;
+    }
+
+}
+.left .sidebar.menu{
+    min-width: 400px;
+}
+.ui.labeled.icon.menu .item{
+    text-align: left;
+}
+.ui.labeled.icon.menu .item>.icon:not(.dropdown){
+    font-size: 16px!important;
+    float: right!important;
+    margin-left: 10px!important;
+}
+#img-logo{
+    height: 150px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+
+}
+.ul-hr-admin{
+    margin-top: 20px;
+    padding: 0;
+    padding-left: 20px;
+}
+.ul-admin li{
+    padding: 10px;
+    padding-left: 0px;
+    font-size: 16px;
+    color: #8e8c8c;
+
+}
+.ul-admin li:hover{
+    color: white;
+}
+.ul-admin li a{
+    padding: 10px;
+    padding-left: 0px;
+    font-size: 16px;
+    color: #8e8c8c;
+
+}
+.ul-admin li a:hover{
+    color: white;
+}
+.anchor-hr{
+
+}
+#div-hr-amdin{
+    display: none;
+}
+#div-manager-hotel-admin{
+    display: none;
+}
+.item:hover{
+    cursor: pointer!important;
+    background-color:rgba(255,255,255,.1)!important;
+
+}
+
