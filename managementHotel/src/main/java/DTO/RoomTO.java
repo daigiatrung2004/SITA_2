@@ -4,21 +4,31 @@ public class RoomTO {
     private int room_id;
     private String name;
     private int kind_room_id;
+    private int price_id;
     private int region_id;
     private String status;
     private String remark;
     private int max_people;
 
-    public RoomTO(int room_id, String name, int kind_room_id, int region_id, String status, String remark, int max_people) {
+
+
+    public RoomTO(int room_id, String name, int kind_room_id, int price_id, int region_id, String status, String remark, int max_people) {
         this.room_id = room_id;
         this.name = name;
         this.kind_room_id = kind_room_id;
+        this.price_id = price_id;
         this.region_id = region_id;
         this.status = status;
         this.remark = remark;
         this.max_people = max_people;
     }
+    public int getPrice_id() {
+        return price_id;
+    }
 
+    public void setPrice_id(int price_id) {
+        this.price_id = price_id;
+    }
     public int getRoom_id() {
         return room_id;
     }

@@ -1,4 +1,6 @@
-<%--
+<%@ page import="DTO.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="Utils.TextCustomizeFormat" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 3/11/2020
@@ -6,6 +8,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArrayList<SearchTO> listSearchNew = (ArrayList<SearchTO>) request.getAttribute("listSearchNew");
+    ArrayList listUploadResouce = (ArrayList) request.getAttribute("listUploadResouce");
+    ArrayList listPriceRoom = (ArrayList) request.getAttribute("listPriceRoom");
+    ArrayList listPromote = (ArrayList) request.getAttribute("listPromote");
+    ArrayList listServiceAll = (ArrayList) request.getAttribute("listServiceAll");
+    ArrayList listAllRoom = (ArrayList) request.getAttribute("listAllRoom");
+    String checkIn = request.getParameter("checkIn") != null ? (String) request.getParameter("checkIn") : "";
+    String checkOut = request.getParameter("checkOut") != null ? (String) request.getParameter("checkOut") : "";
+    String numOfPeo = request.getParameter("numOfPeo") != null ? (String) request.getParameter("numOfPeo") : "0";
+
+%>
 <html>
 <head>
     <link rel="stylesheet" href="css/home-css.css"/>
@@ -27,19 +41,19 @@
 
             <div class="processing-payment col-md-12" style="padding-top: 20px!important;">
                 <!--cac buoc trong thanh toan (processing)-->
-                <div  class="processing-display-flex" style="margin-left: 200px;">
+                <div class="processing-display-flex" style="margin-left: 200px;">
                     <!--label cho tung muc-->
                     <div class="label-item-payment">Chọn phòng</div>
-                    <div class="label-item-payment" >Chọn lựa bổ sung</div>
-                    <div class="label-item-payment" >Đặt phòng</div>
+                    <div class="label-item-payment">Chọn lựa bổ sung</div>
+                    <div class="label-item-payment">Đặt phòng</div>
 
                 </div>
                 <div class="processing-display-flex">
-                <div class="circle active">1</div>
-                <div class="straight"></div>
-                <div class="circle">2</div>
-                <div class="straight"></div>
-                <div class="circle">3</div>
+                    <div class="circle active">1</div>
+                    <div class="straight"></div>
+                    <div class="circle">2</div>
+                    <div class="straight"></div>
+                    <div class="circle">3</div>
                 </div>
             </div>
             <div class="col-md-12" style="display: flex">
@@ -53,40 +67,94 @@
                             <b>Quý khách sẽ được đặt phòng ở mức giá tốt nhất</b> do không phải qua đơn vị trung gian:
                             Quý khách đang ghé thăm trang web của khách sạn.
                         </div>
-                        <div class="carousel slide slide-room" data-ride="carousel" id="slide-gardens">
+                        <%
+                            if (listSearchNew != null) {
+                                for (int i = 0; i < listSearchNew.size(); i++) {
+                                    KindRoomTO kindRoomTO = listSearchNew.get(i).getKindRoomTO();
+                                    RegionTO regionTO=listSearchNew.get(i).getRegionTO();
+
+                                    if (listUploadResouce != null) {
+                                        ArrayList<UploadResourceTO> listUploadResourceTO = (ArrayList<UploadResourceTO>) listUploadResouce.get(i);
+
+                        %>
+                        <div class="carousel slide slide-room" data-ride="carousel" id="slide-gardens-<%=i%>">
+                            <div class="kind-room">
+                                <h3><%=kindRoomTO.getName_vi()%>
+                                </h3>
+                            </div>
                             <!-- Indicators -->
                             <ul class="carousel-indicators">
-                                <li data-target="#slide-gardens" data-slide-to="0" class="active"></li>
-                                <li data-target="#slide-gardens" data-slide-to="1"></li>
-                                <li data-target="#slide-gardens" data-slide-to="2"></li>
+                                <%
+                                    for (int j = 0; j < listUploadResourceTO.size(); j++) {
+                                        if (j == 0) {
+                                %>
+                                <li data-target="#slide-gardens-<%=i%>" data-slide-to="<%=j%>" class="active"></li>
+                                <%
+                                } else {
+                                %>
+                                <li data-target="#slide-gardens-<%=i%>" data-slide-to="<%=j%>" class="active"></li>
+                                <%
+                                        }
+                                    }
+                                %>
+
 
                             </ul>
 
                             <!-- The slideshow -->
                             <div class="carousel-inner">
+                                <%
+                                    for (int j = 0; j < listUploadResourceTO.size(); j++) {
+
+                                        if (j == 0) {
+                                %>
                                 <div class="carousel-item active">
-                                    <img src="./img/zoom/gadens/423c534d84d060e12cdc19ba2f78bf4b-w704-scale.jpg"
+                                    <img src="<%=listUploadResourceTO.get(j).getFile_url().replace(StaticTO.STATIC_PATH,".\\")%>"
                                          class="img-slide-zoom">
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="./img/zoom/gadens/b4209857280ac0d8f9b3c401b9426a2e-w704-scale.jpg"
+                                <%
+                                } else {
+                                %>
+                                <div class="carousel-item ">
+                                    <img src="<%=listUploadResourceTO.get(j).getFile_url().replace(StaticTO.STATIC_PATH,".\\")%>"
                                          class="img-slide-zoom">
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="./img/zoom/gadens/caa8c196f48e17bc9b580b9e1c7d2808-w704-scale.jpg"
-                                         class="img-slide-zoom">
-                                </div>
+                                <%
+                                        }
+                                    }%>
+
                             </div>
 
                             <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#slide-gardens" data-slide="prev">
+                            <a class="carousel-control-prev" href="#slide-gardens-<%=i%>" data-slide="prev">
                                 <span class="carousel-control-prev-icon"></span>
                             </a>
-                            <a class="carousel-control-next" href="#slide-gardens" data-slide="next">
+                            <a class="carousel-control-next" href="#slide-gardens-<%=i%>" data-slide="next">
                                 <span class="carousel-control-next-icon"></span>
                             </a>
                         </div>
                         <div class="detail-room">
+                            <%
+                                ArrayList<PriceRoomTO> listPriceRoomTO = (ArrayList<PriceRoomTO>) listPriceRoom.get(i);
+                                ArrayList<PromoteTO> listpromoteTO = (ArrayList<PromoteTO>) listPromote.get(i);
+                                ArrayList listServiceTO = (ArrayList) listServiceAll.get(i);
+                               int listNumOfRoom=(Integer)listAllRoom.get(i);
+                                if(listNumOfRoom>0){
+                                if (listPriceRoomTO != null) {
+                                    for (int j = 0; j < listPriceRoomTO.size(); j++) {
+                                        PromoteTO promoteTO = (PromoteTO) listpromoteTO.get(j);
+                                        ArrayList<ServiceTO> listService=(ArrayList<ServiceTO> )listServiceTO.get(j);
+
+                                        PriceRoomTO priceRoomTO=listPriceRoomTO.get(j);
+                                        long price=priceRoomTO.getPrice_1_night();
+                                        long discount=0;
+                                        if(promoteTO!=null){
+                                            discount= Long.parseLong(promoteTO.getPro_value());
+                                        }
+                                        long priceDiscount=price-((price*discount)/100);
+
+
+                            %>
                             <!--gadens online-->
                             <div id="vnpha30475-pack-100-Online-Exclusive-Rate-Garden-View-Bungalow"
                                  class="col-xs-12 fb-results-rate fb-light-bg">
@@ -96,7 +164,8 @@
 				<span class="details">
 					<a href="#" data-key="Details">
 						<i class="fa fa-caret-down"></i>
-						<span class="fb-translate rate-title">placeholder="Online Exclusive Rate">Online Exclusive Rate</span>
+						<span class="fb-translate rate-title"
+                              style="color:black;"><%=listPriceRoomTO.get(j).getType_price_room_vi()%></span>
 					</a>
 				</span>
                                         </div>
@@ -104,54 +173,40 @@
 				<span style="font-size: 13px; color: red;">
 					<span class="fb-translate" data-key="Only-x-accommodations-left" data-mode="-1" data-fallback=""
                           data-disablehtmlclean="false" data-nodefaultlanguagefallback="false" data-placeholders="[3]"
-                          placeholder="Chỉ còn 3 phòng nghỉ!">Chỉ còn 3 phòng nghỉ!</span>
+                          placeholder="Chỉ còn 3 phòng nghỉ!">Chỉ còn <%=listNumOfRoom%> phòng nghỉ!</span>
 				</span>
                                         </div>
                                     </div>
+                                    <!--check promote nếu có -->
+                                    <%if (promoteTO!= null) {%>
                                     <div class="fb-results-rate-labels-container">
 			<span class="fb-discount-tag rate-badge-container" title="Chỉ cung cấp tại phòng">
 				<span class="fb-discount-tag-price">
-					<span class="fb-translate">-10%</span>
+					<span class="fb-translate">-<%=promoteTO.getPro_value()%>%</span>
 				</span>
 			</span>
                                         <span class="fb-translate campaign-text-color campaign-title"
                                               placeholder="Today's offer!">Today's offer!</span>
                                     </div>
+                                    <%}%>
                                     <div style="margin-top: auto;display: flex">
+                                        <%
+                                            for (int k = 0; k <listService.size() ; k++) {
+
+
+                                        %>
                                         <div class="fb-results-ratekeys fb-container" style="display: flex;">
                                             <div class="col-xs-4 fb-dark-gray fb-container">
                                             <span class="col-xs-12 col-sm-2 fb-container">
-                                                 <img src="./img/zoom/icon-package-mealplan-breakfast.png" border="0"/>
+                                                 <img src="<%=listService.get(k).getFile_img_url().replace(StaticTO.STATIC_PATH,".\\")%>" border="0"/>
                                             </span>
                                             </div>
                                             <div class="col-xs-12 col-sm-10 fb-results-ratekey">
                                                 <span class="fb-translate"
-                                                      placeholder="Bao gồm bữa sáng">Bao gồm bữa sáng</span>
+                                                      placeholder="Bao gồm bữa sáng"><%=listService.get(k).getService_name_vi()%></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                            <div class="col-xs-12 col-sm-1 fb-container">
-                                                <img src="./img/zoom/icon-package-salesterms-cross.png" border="0">
-                                            </div>
-                                            <div class="col-xs-12 col-sm-11 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="warrant-cancellable-not-amendable"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]"
-                                                      placeholder="Không thể hủy và thay đổi">Không thể hủy và thay đổi</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                            <div class="col-xs-12 col-sm-2 fb-container">
-                                                <img src="./img/zoom/icon-package-salesterms-payment-online.png"
-                                                     border="0">
-                                            </div>
-                                            <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="results-rate-payment-internet"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]"
-                                                      placeholder="Thanh toán ngay">Thanh toán ngay</span>
-                                            </div>
-                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
                                 <div style="margin-top: 10px; margin-left: -15px"></div>
@@ -165,356 +220,48 @@
 						</span>
                                     </div>
                                     <div style="padding-right: 5px; padding-bottom: 5px;">
+                                        <%if(promoteTO!=null){%>
                                         <div>
-							<span class="fb-price barred-price last-barred-price" data-price="109.19624192459"
+
+							<span class="fb-price barred-price last-barred-price" data-price="<%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>"
                                   data-symbol="true">
-								<span>2.857.541&nbsp;
+								<span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
 									<span class="fb-price-currency">₫</span>
 								</span>
 							</span>
                                         </div>
+                                        <%}%>
                                         <div class="new-price campaign-text-color">
 							<span class="fb-price" data-price="98.276617732135" data-symbol="true">
-								<span>2.571.787&nbsp;
+								<span><%=TextCustomizeFormat.currency_format(priceDiscount)%>
 									<span class="fb-price-currency">₫</span>
 								</span>
 							</span>
                                         </div>
                                     </div>
-                                    <button class="btn btn-static fb-font-bold btn--price-select">
+
+                                    <button class="btn btn-static fb-font-bold btn--price-select" data-price="<%if(promoteTO!=null){%><%=TextCustomizeFormat.currency_format(priceDiscount)%><%}else{%><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%><%}%>" data-kindroom="<%=kindRoomTO.getKindroom_id()%>" data-region="<%=regionTO.getRegion_id()%>"
+                                       data-typeprice="<%=listPriceRoomTO.get(j).getPrice_id()%>" data-numberofpeople="<%=numOfPeo%>" data-checkin="<%=checkIn%>" data-checkout="<%=checkOut%>"
+                                    >
                                     <span class="fb-translate "
                                           placeholder="Chọn" style="text-transform: uppercase;">Chọn</span>
                                     </button>
+
                                 </div>
                             </div>
-                            <!--gadens standard-->
-                            <div id="vnpha30475-pack-101-Standard-Rate-Garden-View-Bungalow"
-                                 class="col-xs-12 fb-results-rate fb-light-bg">
-                                <div class="fb-results-rate--left">
-                                    <div>
-                                        <div class="fb-results-rate-title">
-				<span class="details">
-					<a href="#" data-key="Details">
-						<i class="fa fa-caret-right"></i>
-						<span class="fb-translate rate-title" placeholder="Standard Rate">Standard Rate</span>
-					</a>
-				</span>
-                                        </div>
-                                        <div style="padding-left: 12px;">
-				<span style="font-size: 13px; color: red;">
-					<span class="fb-translate" data-key="Only-x-accommodations-left" data-mode="-1" data-fallback=""
-                          data-disablehtmlclean="false" data-nodefaultlanguagefallback="false" data-placeholders="[3]"
-                          placeholder="Chỉ còn 3 phòng nghỉ!">Chỉ còn 3 phòng nghỉ!</span>
-				</span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: auto;display: flex">
-                                        <div class="fb-results-ratekeys fb-container" style="display: flex">
-                                            <div class="col-xs-4 fb-dark-gray fb-container">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-mealplan-breakfast.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate"
-                                                      placeholder="Bao gồm bữa sáng">Bao gồm bữa sáng</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-1 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-cross.png" border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-11 fb-results-ratekey">
-                                                <span class="fb-translate"
-                                                      placeholder="Không thể hủy và thay đổi">Không thể hủy và thay đổi</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-payment-checkout.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate"
-                                                      placeholder="Thanh toán sau">Thanh toán sau</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 10px; margin-left: -15px"></div>
-                                </div>
-                                <div class="fb-results-rate--right">
-                                    <div>
-						<span class="fb-dark-gray fb-price-small-text">
-							<span class="fb-translate" data-key="night" data-mode="1" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[1]" placeholder="1 đêm">1 đêm</span>
-							<span class="fb-price-params-separator">, </span>
-							<span class="fb-translate" data-key="person" data-mode="2" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[2]" placeholder="2 người">2 người</span>
-						</span>
-                                    </div>
-                                    <div style="padding-right: 5px; padding-bottom: 5px;">
-                                        <div class="new-price">
-							<span class="fb-price" data-price="136.49530240574" data-symbol="true">
-								<span>3.571.927&nbsp;
-									<span class="fb-price-currency">₫</span>
-								</span>
-							</span>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-static fb-action fb-font-bold btn--price-select">
-                                    <span class="fb-translate "
-                                          placeholder="Chọn" style="text-transform: uppercase;">Chọn</span>
-                                    </button>
-                                </div>
-                            </div>
+                            <%
+                                        }
+                                    }
+                                }
+                            %>
+
                         </div>
+                        <%
+                                    }
+                                }
+                            }
+                        %>
                     </div>
-
-
-                    <div>
-                        <div class="carousel slide slide-room" data-ride="carousel" id="slide-family">
-                            <!-- Indicators -->
-                            <ul class="carousel-indicators">
-                                <li data-target="#slide-family" data-slide-to="0" class="active"></li>
-                                <li data-target="#slide-family" data-slide-to="1"></li>
-                                <li data-target="#slide-family" data-slide-to="2"></li>
-                                <li data-target="#slide-gardens" data-slide-to="3"></li>
-                            </ul>
-
-                            <!-- The slideshow -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="./img/zoom/family/2b43c01cb12aba95f3dd1007f2ad7f53-w704-scale.jpg"
-                                         class="img-slide-zoom">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="./img/zoom/family/6cd64c8e30d2c04b88794752533baeb8-w704-scale.jpg"
-                                         class="img-slide-zoom">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="./img/zoom/family/85884fa101dd6dfc2abd49facc02a25a-w704-scale.jpg"
-                                         class="img-slide-zoom">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="./img/zoom/family/d3aed162fa8afaa8dae98ddfb37fa692-w704-scale.jpg"
-                                         class="img-slide-zoom">
-                                </div>
-                            </div>
-
-                            <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#slide-family" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#slide-family" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </a>
-                        </div>
-                        <div class="detail-room">
-                            <!--online family-->
-                            <div id="vnpha30475-pack-102-Online-Exclusive-Rate-Family-Bungalows"
-                                 class="col-xs-12 fb-results-rate fb-light-bg">
-                                <div class="fb-results-rate--left">
-                                    <div>
-                                        <div class="fb-results-rate-title">
-				<span class="details">
-					<a href="#" data-key="Details">
-						<i class="fa fa-caret-right"></i>
-						<span class="fb-translate rate-title" data-key="vnpha30475:promotiontitle:Online-Exclusive-Rate"
-                              data-mode="-1" data-fallback="Online Exclusive Rate" data-disablehtmlclean="false"
-                              data-nodefaultlanguagefallback="false" data-placeholders="[]">Online Exclusive Rate</span>
-					</a>
-				</span>
-                                        </div>
-                                        <div style="padding-left: 12px;">
-				<span style="font-size: 13px; color: red;">
-					<span class="fb-translate" data-key="Only-x-accommodations-left" data-mode="-1" data-fallback=""
-                          data-disablehtmlclean="false" data-nodefaultlanguagefallback="false" data-placeholders="[2]">Chỉ còn 2 phòng nghỉ!</span>
-				</span>
-                                        </div>
-                                    </div>
-                                    <div class="fb-results-rate-labels-container">
-			<span class="fb-discount-tag rate-badge-container" title="Chỉ cung cấp tại phòng">
-				<span class="fb-discount-tag-price">
-					<span class="fb-translate" data-key="mcm-results-discount-value" data-mode="-1" data-fallback=""
-                          data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                          data-placeholders="[&quot;-10%&quot;]">-10%</span>
-				</span>
-			</span>
-                                        <span class="fb-translate campaign-text-color campaign-title"
-                                              data-key="campaign-5535" data-mode="-1" data-fallback=""
-                                              data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                              data-placeholders="[]">Today's offer!</span>
-                                    </div>
-                                    <div style="margin-top: auto;">
-                                        <div class="fb-results-ratekeys fb-container" style="display: flex;">
-                                            <div class="col-xs-4 fb-dark-gray fb-container">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-mealplan-breakfast.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="results-rate-meal-type-breakfast"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Bao gồm bữa sáng</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-1 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-cross.png" border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-11 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="warrant-cancellable-not-amendable"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Không thể hủy và thay đổi</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-payment-online.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="results-rate-payment-internet"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Thanh toán ngay</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 10px; margin-left: -15px"></div>
-                                </div>
-                                <div class="fb-results-rate--right">
-                                    <div>
-						<span class="fb-dark-gray fb-price-small-text">
-							<span class="fb-translate" data-key="night" data-mode="1" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[1]">1 đêm</span>
-							<span class="fb-price-params-separator">, </span>
-							<span class="fb-translate" data-key="person" data-mode="2" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[2]">2 người</span>
-						</span>
-                                    </div>
-                                    <div style="padding-right: 5px; padding-bottom: 5px;">
-                                        <div>
-							<span class="fb-price barred-price last-barred-price" data-price="122.69240675499"
-                                  data-symbol="true">
-								<span>3.210.721&nbsp;
-									<span class="fb-price-currency">₫</span>
-								</span>
-							</span>
-                                        </div>
-                                        <div class="new-price campaign-text-color">
-							<span class="fb-price" data-price="110.42316607949" data-symbol="true">
-								<span>2.889.649&nbsp;
-									<span class="fb-price-currency">₫</span>
-								</span>
-							</span>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-static fb-action fb-font-bold btn--price-select">
-                                    <span class="fb-translate" data-key="results-rate-choose" data-mode="-1"
-                                          data-fallback="" data-disablehtmlclean="false"
-                                          data-nodefaultlanguagefallback="false" data-placeholders="[]"
-                                          style="text-transform: uppercase;">Chọn</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- standard family-->
-                            <div id="vnpha30475-pack-103-Standard-Rate-Family-Bungalows"
-                                 class="col-xs-12 fb-results-rate fb-light-bg">
-                                <div class="fb-results-rate--left">
-                                    <div>
-                                        <div class="fb-results-rate-title">
-				<span class="details">
-					<a href="#" data-key="Details">
-						<i class="fa fa-caret-right"></i>
-						<span class="fb-translate rate-title" data-key="vnpha30475:promotiontitle:Standard-Rate"
-                              data-mode="-1" data-fallback="Standard Rate" data-disablehtmlclean="false"
-                              data-nodefaultlanguagefallback="false" data-placeholders="[]">Standard Rate</span>
-					</a>
-				</span>
-                                        </div>
-                                        <div style="padding-left: 12px;">
-				<span style="font-size: 13px; color: red;">
-					<span class="fb-translate" data-key="Only-x-accommodations-left" data-mode="-1" data-fallback=""
-                          data-disablehtmlclean="false" data-nodefaultlanguagefallback="false" data-placeholders="[2]">Chỉ còn 2 phòng nghỉ!</span>
-				</span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: auto;">
-                                        <div class="fb-results-ratekeys fb-container" style="display: flex">
-                                            <div class="col-xs-4 fb-dark-gray fb-container">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-mealplan-breakfast.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="results-rate-meal-type-breakfast"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Bao gồm bữa sáng</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-1 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-cross.png" border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-11 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="warrant-cancellable-not-amendable"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Không thể hủy và thay đổi</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 fb-dark-gray fb-container fb-ratekey-clickable">
-                                                <div class="col-xs-12 col-sm-2 fb-container">
-                                                    <img src="./img/zoom/icon-package-salesterms-payment-checkout.png"
-                                                         border="0">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-10 fb-results-ratekey">
-                                                <span class="fb-translate" data-key="results-rate-payment-hotel"
-                                                      data-mode="-1" data-fallback="" data-disablehtmlclean="false"
-                                                      data-nodefaultlanguagefallback="false" data-placeholders="[]">Thanh toán sau</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 10px; margin-left: -15px"></div>
-                                </div>
-                                <div class="fb-results-rate--right">
-                                    <div>
-						<span class="fb-dark-gray fb-price-small-text">
-							<span class="fb-translate" data-key="night" data-mode="1" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[1]">1 đêm</span>
-							<span class="fb-price-params-separator">, </span>
-							<span class="fb-translate" data-key="person" data-mode="2" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[2]">2 người</span>
-						</span>
-                                    </div>
-                                    <div style="padding-right: 5px; padding-bottom: 5px;">
-                                        <div class="new-price">
-							<span class="fb-price" data-price="153.36550844374" data-symbol="true">
-								<span>4.013.401&nbsp;
-									<span class="fb-price-currency">₫</span>
-								</span>
-							</span>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-static fb-action fb-font-bold btn--price-select">
-                                    <span class="fb-translate" data-key="results-rate-choose" data-mode="-1"
-                                          data-fallback="" data-disablehtmlclean="false"
-                                          data-nodefaultlanguagefallback="false" data-placeholders="[]"
-                                          style="text-transform: uppercase;">Chọn</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!--thanh toan-->

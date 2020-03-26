@@ -54,7 +54,7 @@ public class EncryptDecryptPassword {
     }
 
     public static void main(String[] args) {
-        Random random=new Random(11);
+        Random random=new Random();
         String randomStr=String.valueOf(random.nextInt(1999999999));
         System.out.println(randomStr);
 

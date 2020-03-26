@@ -13,6 +13,14 @@
         <param-name>WEB_SERVER_ADMIN</param-name>
         <param-value>localhost:8084/managementHotel_war_exploded/admin/</param-value>
     </context-param>
+    <context-param>
+        <param-name>FOLDER_SAVE_IMAGE</param-name>
+        <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\temp\</param-value>
+    </context-param>
+    <context-param>
+        <param-name>FOLDER_SERVICE</param-name>
+        <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\img\zoom\service\</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>servlet.Home</servlet-class>
@@ -70,6 +78,70 @@
         <servlet-name>SettingManagerHotel</servlet-name>
         <servlet-class>servlet.Admin.SettingManagerHotel</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxUploadResourceKindRoom</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxUploadResourceKindRoom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchControl</servlet-name>
+        <servlet-class>servlet.SearchControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxInsertService</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxInsertService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxInsertServiceRoom</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxInsertServiceRoom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxPromoteCode</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxPromoteCode</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTransport</servlet-name>
+        <servlet-class>servlet.Admin.InsertTransport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxInsertTransport</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxInsertTransport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentAutoReturn</servlet-name>
+        <servlet-class>servlet.PaymentAutoReturn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentAutoReturn</servlet-name>
+        <url-pattern>/PaymentAutoReturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxInsertTransport</servlet-name>
+        <url-pattern>/AjaxInsertTransport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTransport</servlet-name>
+        <url-pattern>/InsertTransport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxPromoteCode</servlet-name>
+        <url-pattern>/AjaxPromoteCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxInsertServiceRoom</servlet-name>
+        <url-pattern>/AjaxInsertServiceRoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxInsertService</servlet-name>
+        <url-pattern>/AjaxInsertService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchControl</servlet-name>
+        <url-pattern>/SearchControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxUploadResourceKindRoom</servlet-name>
+        <url-pattern>/AjaxUploadResourceKindRoom</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SettingManagerHotel</servlet-name>
         <url-pattern>/SettingManagerHotel</url-pattern>

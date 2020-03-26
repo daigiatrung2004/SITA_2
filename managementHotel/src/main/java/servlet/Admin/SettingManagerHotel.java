@@ -53,15 +53,22 @@ public class SettingManagerHotel extends WebServletAdmin {
                     // add du lieu phong
                     String name = request.getParameter("name") != null ? (String) request.getParameter("name") : "";
                     String kindroom = request.getParameter("kindroom") != null ? (String) request.getParameter("kindroom") : "0";
+                    String priceroom = request.getParameter("priceroom") != null ? (String) request.getParameter("priceroom") : "0";
                     String region = request.getParameter("region") != null ? (String) request.getParameter("region") : "0";
                     String max_peo=request.getParameter("max_peo")!=null?(String)request.getParameter("max_peo"):"0";
 
-                    int kindroomId, regionId,max_people;
+                    int kindroomId, regionId,max_people,priceroomInt;
                     try {
                         kindroomId = Integer.parseInt(kindroom);
                     } catch (NumberFormatException e) {
                         kindroomId = 0;
                     }
+                    try {
+                        priceroomInt=Integer.parseInt(priceroom);
+                    } catch (NumberFormatException e) {
+                        priceroomInt=0;
+                    }
+                    System.out.println("priceroomInt:"+priceroomInt);
                     try {
                         regionId = Integer.parseInt(region);
                     } catch (NumberFormatException e) {
@@ -72,7 +79,7 @@ public class SettingManagerHotel extends WebServletAdmin {
                     } catch (NumberFormatException e) {
                         max_people=0;
                     }
-                    RoomTO roomTO=new RoomTO(0,name,kindroomId,regionId,StaticTO.ACTIVE_STATUS,"",max_people);
+                    RoomTO roomTO=new RoomTO(0,name,kindroomId,priceroomInt,regionId,StaticTO.ACTIVE_STATUS,"",max_people);
                     checkSuccess=roomOfALLDA.addRoom(roomTO);
 
                 } else {

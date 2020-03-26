@@ -1,0 +1,24 @@
+.main-timkiem{
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    height: auto;
+    background-color: #E6E6E6;
+}
+.item-search{
+    min-height: 350px;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+
+
+
+}
+.img-gallery{
+    justify-content: center;
+    align-items: center;
+}
+.img-gallery img{
+    height: 200px;
+    width: 200px;
+}

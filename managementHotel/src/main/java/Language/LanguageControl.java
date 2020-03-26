@@ -20,12 +20,12 @@ public class LanguageControl {
         try {
         if(this.lang.equals(EN_LAN)) {
 
-                in= new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\managementHotel\\src\\main\\java\\Language\\Eng_Languages.properties");
+                in= new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\java\\Language\\Eng_Languages.properties");
 
 
 
         }else{
-            in= new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\managementHotel\\src\\main\\java\\Language\\Vi_Languages.properties");
+            in= new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\java\\Language\\Vi_Languages.properties");
         }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

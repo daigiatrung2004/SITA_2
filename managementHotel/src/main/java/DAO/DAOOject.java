@@ -41,7 +41,7 @@ public abstract class DAOOject {
     private static Properties getInfoProperties() {
         if (properties == null) {
             try {
-                InputStream in = new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\managementHotel\\System_Parameter.properties");
+                InputStream in = new FileInputStream("C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\System_Parameter.properties");
                 properties = new Properties();
                 properties.load(in);
             } catch (FileNotFoundException e) {

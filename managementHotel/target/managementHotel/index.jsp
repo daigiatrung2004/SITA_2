@@ -1,4 +1,6 @@
 <%@ page import="Language.LanguageControl" %>
+<%@ page import="DTO.RegionTO" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%LanguageControl lang = (LanguageControl) session.getAttribute("LanguageControl");%>
 <% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;%>
@@ -12,114 +14,136 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <main class="container">
+    <%
+        ArrayList<RegionTO> listRegionTO = (ArrayList<RegionTO>) request.getAttribute("listRegionTO");
 
+    %>
     <div class="div-main-home-customer">
         <!--danh cho booking-->
         <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
             <div class="search-booking">
                 <!--search booking-->
-                <form id="form-search-home" method="get" action="PaymentLoadView">
+                <form id="form-search-home" method="get" action="SearchControl">
 
 
-                <ul class="ul-search">
-                    <li>
-                        <!--location-->
-                        <div>
-                            <label><%=lang.readXMl("DESTINATION_TITLE")%>
-                            </label>
-                        </div>
-                        <div class="element-search">
-                            <select class="select-search">
-                                <option>Khu Nghỉ Dưỡng Biển & Spa Victoria</option>
-
-                            </select>
-
-                        </div>
-                        <input type="hidden" name="location" value="2" id="location">
-                    </li>
-                    <li>
-                        <!--check in-->
-                        <div>
-                            <label><%=lang.readXMl("CHECK_IN_TITLE")%>
-                            </label>
-                        </div>
-                        <div class="element-search">
-                            <div class="div-text-check">
-                                <span id="text-check-in"></span>
-                                <span><i class="calendar alternate icon"></i></span>
+                    <ul class="ul-search">
+                        <li>
+                            <!--location-->
+                            <div>
+                                <label><%=lang.readXMl("DESTINATION_TITLE")%>
+                                </label>
                             </div>
-                            <div class="check-pos" id="pos-check-in">
+                            <div class="element-search">
+                                <select class="select-search" name="location">
+                                    <%
+                                        if(listRegionTO!=null){
+                                        for (int i = 0; i < listRegionTO.size(); i++) {
+                                            if (language.equals(LanguageControl.VN_LAN)) {
+                                    %>
 
-                            </div>
+                                    <option value="<%=listRegionTO.get(i).getRegion_id()%>"><%=listRegionTO.get(i).getName_vi()%>
+                                    </option>
+                                    <%
+                                    } else {
+                                    %>
+                                    <option value="<%=listRegionTO.get(i).getRegion_id()%>"><%=listRegionTO.get(i).getName_vi()%>
+                                    </option>
+                                    <%
+
+                                            }
+                                        }
+                                        }
+                                    %>
 
 
-                        </div>
-                        <input type="hidden" name="checkIn" value="2" id="checkIn">
-                    </li>
-                    <li>
-                        <!--check out-->
-                        <div>
-                            <label><%=lang.readXMl("CHECK_OUT_TITLE")%>
-                            </label>
-                        </div>
-                        <div class="element-search">
-                            <div class="div-text-check">
-                                <span id="text-check-out"></span>
-                                <span><i class="calendar alternate icon"></i></span>
-                            </div>
-                            <div class="check-pos" id="pos-check-out">
+                                </select>
 
                             </div>
-                        </div>
-                        <input type="hidden" name="checkOut" value="2" id="checkOut">
-                    </li>
-                    <li>
-                        <!--so luong nguoi -->
-                        <div>
-                            <label><%=lang.readXMl("NUMOFPEO")%>
-                            </label>
-                        </div>
-                        <div class="element-search">
-                            <div class="select-customize">
+<%--                            <input type="hidden" name="location" value="2" id="location">--%>
+                        </li>
+                        <li>
+                            <!--check in-->
+                            <div>
+                                <label><%=lang.readXMl("CHECK_IN_TITLE")%>
+                                </label>
+                            </div>
+                            <div class="element-search">
+                                <div class="div-text-check">
+                                    <span id="text-check-in"></span>
+                                    <span><i class="calendar alternate icon"></i></span>
+                                </div>
+                                <div class="check-pos" id="pos-check-in">
+
+                                </div>
+
+
+                            </div>
+                            <input type="hidden" name="checkIn" value="2" id="checkIn">
+                        </li>
+                        <li>
+                            <!--check out-->
+                            <div>
+                                <label><%=lang.readXMl("CHECK_OUT_TITLE")%>
+                                </label>
+                            </div>
+                            <div class="element-search">
+                                <div class="div-text-check">
+                                    <span id="text-check-out"></span>
+                                    <span><i class="calendar alternate icon"></i></span>
+                                </div>
+                                <div class="check-pos" id="pos-check-out">
+
+                                </div>
+                            </div>
+                            <input type="hidden" name="checkOut" value="2" id="checkOut">
+                        </li>
+                        <li>
+                            <!--so luong nguoi -->
+                            <div>
+                                <label><%=lang.readXMl("NUMOFPEO")%>
+                                </label>
+                            </div>
+                            <div class="element-search">
+                                <div class="select-customize">
 
                                 <span id="show-num-people">
                                     <span id="soluong">2</span> người lớn
                                     <input type="hidden" value="2" name="numOfPeo" id="numOfPeo"/>
                                 </span>
-                                <span class="icon"><i class="angle down icon"></i></span>
-                            </div>
-                            <div class="pos-show-num-people">
-                                <div>
-                                    <label>Người lớn per room</label>
+                                    <span class="icon"><i class="angle down icon"></i></span>
+                                </div>
+                                <div class="pos-show-num-people">
                                     <div>
-                                        <div class="bg-num-people">-</div>
-                                        <div class="div-show-num-people bg-num-people">2</div>
-                                        <div class="bg-num-people">+</div>
+                                        <label>Người lớn per room</label>
+                                        <div>
+                                            <div class="bg-num-people">-</div>
+                                            <div class="div-show-num-people bg-num-people">2</div>
+                                            <div class="bg-num-people">+</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <input type="hidden" name="numOfPeople" value="2" id="numOfPeople">
-                    </li>
-                    <li>
-                        <!--promotion-->
-                        <div>
-                            <label><%=lang.readXMl("PROMOTION_TITLE")%>
-                            </label>
-                        </div>
-                        <div class="element-search">
-                            <input type="text" value="" name="promote" id="promote" placeholder="Mã Khuyến Mãi">
+                            <input type="hidden" name="numOfPeople" value="2" id="numOfPeople">
+                        </li>
+                        <li>
+                            <!--promotion-->
+                            <div>
+                                <label><%=lang.readXMl("PROMOTION_TITLE")%>
+                                </label>
+                            </div>
+                            <div class="element-search">
+                                <input type="text" value="" name="promote" id="promote" placeholder="Mã Khuyến Mãi">
 
-                        </div>
-                    </li>
-                    <li style="align-items: center; margin-top: 35px;">
-                        <!--btn tìm kiếm -->
-                        <button class="search-btn-booking">
-                            TÌM KIẾM
-                        </button>
-                    </li>
+                            </div>
+                        </li>
+                        <li style="align-items: center; margin-top: 35px;">
+                            <!--btn tìm kiếm -->
+                            <button class="search-btn-booking">
+                                TÌM KIẾM
+                            </button>
+                        </li>
 
-                </ul>
+                    </ul>
                 </form>
             </div>
         </nav>

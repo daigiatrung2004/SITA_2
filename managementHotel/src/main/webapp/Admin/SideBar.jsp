@@ -36,12 +36,28 @@
             </ul>
         </div>
     </div>
+    <div class="item" id="menu-transport">
+
+        <i class="shipping fast icon"></i>
+        <font style="vertical-align: inherit;margin-left: 30px;"><h4 style="vertical-align: inherit;">
+            Manager transport
+        </h4></font>
+
+        <div id="div-manager-trans-admin">
+            <ul class="ul-admin">
+                <li><a href="InsertTransport">Thêm dữ liệu vận chuyển</a></li>
+                <li>Danh sách dữ liệu vận chuyển</li>
+
+
+            </ul>
+        </div>
+    </div>
     <div class="item" id="anchor-hr">
 
-            <i class="user icon"></i>
-            <font style="vertical-align: inherit;margin-left: 30px"><h4 style="vertical-align: inherit;">
-                Settings Humans Resource
-            </h4></font>
+        <i class="user icon"></i>
+        <font style="vertical-align: inherit;margin-left: 30px"><h4 style="vertical-align: inherit;">
+            Settings Humans Resource
+        </h4></font>
 
 
         <div id="div-hr-amdin">

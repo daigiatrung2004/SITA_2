@@ -1,0 +1,36 @@
+.btn-upload-img {
+    border: 5px dashed grey;
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+    font-size: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.content-img:hover {
+    cursor: pointer;
+}
+
+.array-img {
+    display: flex;
+    align-items: center;
+}
+
+.img-service-div {
+    min-height: 30px;
+
+    border: 1px solid black;
+}
+.img-service-div:hover{
+    cursor: pointer;
+}
+
+.img-service-div img {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border: 1px solid black;
+}
