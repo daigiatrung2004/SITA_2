@@ -46,12 +46,12 @@ public class PaymentAutoReturn extends WebServlet {
             Random rnd = new Random();
             int password = rnd.nextInt(StaticTO.numOfRandom);
             int sankey = rnd.nextInt(StaticTO.numOfRandom);
-            Date now=new Date();
-            DateFormat dateFormat=new SimpleDateFormat("yyyy-M-dd");
-            String nowStr=dateFormat.format(now);
+            Date now = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd");
+            String nowStr = dateFormat.format(now);
             EncryptDecryptPassword encryptDecryptPassword = new EncryptDecryptPassword(String.valueOf(sankey));
             String pass = encryptDecryptPassword.encrypt(String.valueOf(password));
-            CustomerTO customerTO = new CustomerTO(0, email, String.valueOf(sankey), pass, nowStr, buyer_phone, verify_person, StaticTO.ACTIVE_STATUS, "",firstname,lastname);
+            CustomerTO customerTO = new CustomerTO(0, email, String.valueOf(sankey), pass, nowStr, buyer_phone, verify_person, StaticTO.ACTIVE_STATUS, "", firstname, lastname);
             BookingDA bookingDA = new BookingDA();
             bookingDA.addCustomer(customerTO);
             CustomerTO customer = bookingDA.retreiveCustomerLatest();
@@ -64,22 +64,25 @@ public class PaymentAutoReturn extends WebServlet {
                     bookingDA.addBookingTrans(bookingTO2);
                 }
             }
-            request.setAttribute("name",firstname+" "+lastname);
-            request.setAttribute("contact_person",buyer_phone);
-            request.setAttribute("verify_person",verify_person);
+
+            request.setAttribute("name", firstname + " " + lastname);
+            request.setAttribute("contact_person", buyer_phone);
+            request.setAttribute("verify_person", verify_person);
             // get info room
-            RoomOfALLDA roomOfALLDA=new RoomOfALLDA();
-            RoomTO roomTO=roomOfALLDA.searchRoomById(Integer.parseInt(room_id));
-            request.setAttribute("roomTO",roomTO);
+            RoomOfALLDA roomOfALLDA = new RoomOfALLDA();
+            RoomTO roomTO = roomOfALLDA.searchRoomById(Integer.parseInt(room_id));
+            roomTO.setStatus(StaticTO.BOOKED_STATUS);
+            roomOfALLDA.updateRoom(roomTO);
+            request.setAttribute("roomTO", roomTO);
             // hinh thuc thanh toan
-            PriceRoomTO priceRoomTO=roomOfALLDA.retrievePriceById(Integer.parseInt(price_id));
-            request.setAttribute("priceRoomTO",priceRoomTO);
+            PriceRoomTO priceRoomTO = roomOfALLDA.retrievePriceById(Integer.parseInt(price_id));
+            request.setAttribute("priceRoomTO", priceRoomTO);
             //loai phong
-            KindRoomTO kindRoomTO=roomOfALLDA.retrieveKindRoomById(Integer.parseInt(kind_room_id));
-            request.setAttribute("kindRoomTO",kindRoomTO);
+            KindRoomTO kindRoomTO = roomOfALLDA.retrieveKindRoomById(Integer.parseInt(kind_room_id));
+            request.setAttribute("kindRoomTO", kindRoomTO);
             //code nhận phong
-            request.setAttribute("code_receive",pass);
-            request.setAttribute("total",total);
+            request.setAttribute("code_receive", pass);
+            request.setAttribute("total", total);
             forward("ReceiptPayment.jsp", request, response);
         } catch (ServletException e) {
             e.printStackTrace();

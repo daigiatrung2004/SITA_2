@@ -38,6 +38,35 @@ public class RoomOfALLDA extends DAOOject {
         return (rs > 0);
     }
 
+    // update room
+    public boolean updateRoom(RoomTO roomTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "UPDATE " + StaticTO.DB_ROOM_NAME + " SET "
+                + "  name=? AND kind_room_id=? AND region_id=? AND price_id=? AND status=? AND remark=? AND max_peopel=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setString(index++, roomTO.getName());
+            pstmt.setInt(index++, roomTO.getKind_room_id());
+            pstmt.setInt(index++, roomTO.getRegion_id());
+            pstmt.setInt(index++, roomTO.getPrice_id());
+            pstmt.setString(index++, roomTO.getStatus());
+            pstmt.setString(index++, roomTO.getRemark());
+            pstmt.setInt(index, roomTO.getMax_people());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("updateRoom+++"+pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("updateRoom+++"+pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
+
     // thêm giá trị price của room
     public boolean addPriceRoom(PriceRoomTO priceRoomTO) {
         int rs = 0;
@@ -352,7 +381,7 @@ public class RoomOfALLDA extends DAOOject {
         RoomTO roomTO = null;
 
 
-        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " WHERE ROOM_ID=? AND STATUS=?";
+        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " WHERE ROOM_ID=?";
         conn = getConnection();
         try {
 //            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -360,7 +389,7 @@ public class RoomOfALLDA extends DAOOject {
             pstmt = conn.prepareStatement(sql);
             int index = 1;
             pstmt.setInt(index++, room_id);
-            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+//            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
 //            pstmt.setString(index++,date1.toString());
 
             rs = pstmt.executeQuery();

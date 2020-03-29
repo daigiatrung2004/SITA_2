@@ -110,6 +110,30 @@
         <servlet-name>PaymentAutoReturn</servlet-name>
         <servlet-class>servlet.PaymentAutoReturn</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogOutEmployee</servlet-name>
+        <servlet-class>servlet.Employee.LogOutEmployee</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingBooking</servlet-name>
+        <servlet-class>servlet.Employee.ListingBooking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxListingBooking</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxListingBooking</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxListingBooking</servlet-name>
+        <url-pattern>/AjaxListingBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingBooking</servlet-name>
+        <url-pattern>/ListingBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutEmployee</servlet-name>
+        <url-pattern>/LogOutEmployee</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PaymentAutoReturn</servlet-name>
         <url-pattern>/PaymentAutoReturn</url-pattern>

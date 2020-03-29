@@ -16,7 +16,7 @@
             the url will be rewritten.
         </note>
         <condition name="host" operator="notequal">localhost:8084</condition>
-        <from>/test/LoginPanel/</from>
+        <from>/LoginPanel</from>
 
         <to type="redirect">%{context-path}/LoginEmployee</to>
 

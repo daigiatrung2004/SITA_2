@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -109,10 +110,10 @@ public class BookingDA extends DAOOject {
             pstmt.setString(index++, customerTO.getLastname());
             rs = pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("addCustomer++++"+pstmt.toString());
+            System.out.println("addCustomer++++" + pstmt.toString());
             e.printStackTrace();
         } finally {
-            System.out.println("addCustomer++++"+pstmt.toString());
+            System.out.println("addCustomer++++" + pstmt.toString());
             DbUtils.closeQuietly(conn, pstmt);
         }
         return (rs > 0);
@@ -125,37 +126,79 @@ public class BookingDA extends DAOOject {
         String sql = "SELECT * FROM " + StaticTO.DB_CUSTOMER_NAME + " ORDER BY CUSTOMER_ID DESC LIMIT 1";
         conn = getConnection();
         ResultSet rs = null;
-        CustomerTO customer=null;
+        CustomerTO customer = null;
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            Date start_date=null;
-            String start_dateStr="";
-            DateFormat dateFormat=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            Date start_date = null;
+            String start_dateStr = "";
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             if (rs.next()) {
-             if(rs.getTimestamp("start_date")!=null){
-                 start_date=new Date(rs.getTimestamp("start_date").getTime());
-                 start_dateStr=dateFormat.format(start_date);
-             }
-              customer=new CustomerTO(rs.getLong("customer_id"),
-                     rs.getString("email"),
-                     rs.getString("sankey"),
-                     rs.getString("encryptpass"),
-                     start_dateStr,
-                     rs.getString("contact_person"),
-                     rs.getString("verify_person"),
-                     rs.getString("status"),
-                     rs.getString("remark")
-                     );
+                if (rs.getTimestamp("start_date") != null) {
+                    start_date = new Date(rs.getTimestamp("start_date").getTime());
+                    start_dateStr = dateFormat.format(start_date);
+                }
+                customer = new CustomerTO(rs.getLong("customer_id"),
+                        rs.getString("email"),
+                        rs.getString("sankey"),
+                        rs.getString("encryptpass"),
+                        start_dateStr,
+                        rs.getString("contact_person"),
+                        rs.getString("verify_person"),
+                        rs.getString("status"),
+                        rs.getString("remark")
+                );
 
             }
 
         } catch (SQLException e) {
-            System.out.println("retreiveCustomerLatest++++"+pstmt.toString());
+            System.out.println("retreiveCustomerLatest++++" + pstmt.toString());
             e.printStackTrace();
         } finally {
-            System.out.println("retreiveCustomerLatest++++"+pstmt.toString());
+            System.out.println("retreiveCustomerLatest++++" + pstmt.toString());
             DbUtils.closeQuietly(conn, pstmt);
+        }
+        return customer;
+    }
+
+    // retrieve customer by id
+    public CustomerTO retrieveCustomer(long customer_id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        conn = getConnection();
+        String sql = "SELECT * FROM " + StaticTO.DB_CUSTOMER_NAME + " WHERE CUSTOMER_ID=? LIMIT 1";
+        ResultSet rs = null;
+        CustomerTO customer = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, customer_id);
+            rs = pstmt.executeQuery();
+            Date start_date = null;
+            String start_dateStr = "";
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+
+            if (rs.next()) {
+                if (rs.getDate("start_date") != null) {
+                    start_date = new Date(rs.getTimestamp("start_date").getTime());
+                    start_dateStr = dateFormat.format(start_date);
+                }
+                customer = new CustomerTO(rs.getLong("customer_id"),
+                        rs.getString("email"),
+                        rs.getString("sankey"),
+                        rs.getString("encryptpass"),
+                        start_dateStr,
+                        rs.getString("contact_person"),
+                        rs.getString("verify_person"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(rs);
         }
         return customer;
     }
@@ -190,57 +233,154 @@ public class BookingDA extends DAOOject {
         }
         return (rs > 0);
     }
-     // get booking mới nhất
-     public BookingTO retrieveBookingLatest() {
-         Connection conn = null;
-         PreparedStatement pstmt = null;
-         String sql = "SELECT * FROM "+StaticTO.DB_BOOKING_NAME +" ORDER BY BOOKING_ID DESC LIMIT 1";
-         conn = getConnection();
-         ResultSet rs=null;
-         BookingTO bookingTO=null;
-         try {
-             pstmt = conn.prepareStatement(sql);
 
-             rs = pstmt.executeQuery();
-             Date start_booking_date=null,check_in_date=null,check_out_date=null;
-             String start_booking_dateStr="",check_in_dateStr="",check_out_dateStr="";
-             if(rs.next()) {
-                 DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-                 if (rs.getDate("start_booking_date") != null) {
-                     start_booking_date = new Date(rs.getTimestamp("start_booking_date").getTime());
-                     start_booking_dateStr = dateFormat.format(start_booking_date);
-                 }
-                 if (rs.getDate("check_in_date") != null) {
-                     check_in_date = new Date(rs.getTimestamp("check_in_date").getTime());
-                     check_in_dateStr = dateFormat.format(check_in_date);
-                 }
-                 if (rs.getDate("check_out_date") != null) {
-                     check_out_date = new Date(rs.getTimestamp("check_out_date").getTime());
-                     check_out_dateStr = dateFormat.format(check_out_date);
-                 }
-                 bookingTO = new BookingTO(rs.getLong("booking_id"),
-                         rs.getLong("customer_id"),
-                         start_booking_dateStr,
-                         check_in_dateStr,
-                         check_out_dateStr,
-                         rs.getInt("kind_room_id"),
-                         rs.getInt("region_id"),
-                         rs.getInt("room_id"),
-                         rs.getString("status"),
-                         rs.getString("remark"),
-                         rs.getString("code_booking")
-                 );
-             }
+    // get booking mới nhất
+    public BookingTO retrieveBookingLatest() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_BOOKING_NAME + " ORDER BY BOOKING_ID DESC LIMIT 1";
+        conn = getConnection();
+        ResultSet rs = null;
+        BookingTO bookingTO = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
 
-         } catch (SQLException e) {
-             System.out.println("retrieveBookingLatest++++"+pstmt.toString());
-             e.printStackTrace();
-         } finally {
-             System.out.println("retrieveBookingLatest++++"+pstmt.toString());
-             DbUtils.closeQuietly(conn, pstmt);
-         }
-         return bookingTO;
-     }
+            rs = pstmt.executeQuery();
+            Date start_booking_date = null, check_in_date = null, check_out_date = null;
+            String start_booking_dateStr = "", check_in_dateStr = "", check_out_dateStr = "";
+            if (rs.next()) {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                if (rs.getDate("start_booking_date") != null) {
+                    start_booking_date = new Date(rs.getTimestamp("start_booking_date").getTime());
+                    start_booking_dateStr = dateFormat.format(start_booking_date);
+                }
+                if (rs.getDate("check_in_date") != null) {
+                    check_in_date = new Date(rs.getTimestamp("check_in_date").getTime());
+                    check_in_dateStr = dateFormat.format(check_in_date);
+                }
+                if (rs.getDate("check_out_date") != null) {
+                    check_out_date = new Date(rs.getTimestamp("check_out_date").getTime());
+                    check_out_dateStr = dateFormat.format(check_out_date);
+                }
+                bookingTO = new BookingTO(rs.getLong("booking_id"),
+                        rs.getLong("customer_id"),
+                        start_booking_dateStr,
+                        check_in_dateStr,
+                        check_out_dateStr,
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("room_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("code_booking")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("retrieveBookingLatest++++" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("retrieveBookingLatest++++" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return bookingTO;
+    }
+
+    // get all booking
+    public ArrayList<BookingTO> retrieveAllBooking() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ArrayList<BookingTO> listBooking = new ArrayList<BookingTO>();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_BOOKING_NAME;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Date start_booking_date = null, check_in_date = null, check_out_date = null;
+                String start_booking_dateStr = "", check_in_dateStr = "", check_out_dateStr = "";
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                if (rs.getDate("start_booking_date") != null) {
+                    start_booking_date = new Date(rs.getTimestamp("start_booking_date").getTime());
+                    start_booking_dateStr = dateFormat.format(start_booking_date);
+                }
+                if (rs.getDate("check_in_date") != null) {
+                    check_in_date = new Date(rs.getTimestamp("check_in_date").getTime());
+                    check_in_dateStr = dateFormat.format(check_in_date);
+                }
+                if (rs.getDate("check_out_date") != null) {
+                    check_out_date = new Date(rs.getTimestamp("check_out_date").getTime());
+                    check_out_dateStr = dateFormat.format(check_out_date);
+                }
+                BookingTO bookingTO = new BookingTO(rs.getLong("booking_id"),
+                        rs.getLong("customer_id"),
+                        start_booking_dateStr,
+                        check_in_dateStr,
+                        check_out_dateStr,
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("room_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("code_booking")
+                );
+                listBooking.add(bookingTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listBooking;
+    }
+    // get all booking by region
+    public ArrayList<BookingTO> retrieveAllBookingByRegion(int region_id,String keyword) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ArrayList<BookingTO> listBooking = new ArrayList<BookingTO>();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_BOOKING_NAME+" WHERE REGION_ID=? AND CODE_BOOKING LIKE ?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,region_id);
+            pstmt.setString(2,"%"+keyword+"%");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Date start_booking_date = null, check_in_date = null, check_out_date = null;
+                String start_booking_dateStr = "", check_in_dateStr = "", check_out_dateStr = "";
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                if (rs.getDate("start_booking_date") != null) {
+                    start_booking_date = new Date(rs.getTimestamp("start_booking_date").getTime());
+                    start_booking_dateStr = dateFormat.format(start_booking_date);
+                }
+                if (rs.getDate("check_in_date") != null) {
+                    check_in_date = new Date(rs.getTimestamp("check_in_date").getTime());
+                    check_in_dateStr = dateFormat.format(check_in_date);
+                }
+                if (rs.getDate("check_out_date") != null) {
+                    check_out_date = new Date(rs.getTimestamp("check_out_date").getTime());
+                    check_out_dateStr = dateFormat.format(check_out_date);
+                }
+                BookingTO bookingTO = new BookingTO(rs.getLong("booking_id"),
+                        rs.getLong("customer_id"),
+                        start_booking_dateStr,
+                        check_in_dateStr,
+                        check_out_dateStr,
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("room_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("code_booking")
+                );
+                listBooking.add(bookingTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listBooking;
+    }
+
     // thêm dữ liệu booking vs transport
     public boolean addBookingTrans(BookingTO bookingTO) {
         Connection conn = null;

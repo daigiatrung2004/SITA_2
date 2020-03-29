@@ -72,7 +72,7 @@ public class EmployeeDA extends DAOOject {
 
     public Boolean addEmployee(EmployeeTO employeeTO) {
         Connection conn = null;
-        String sql = "INSERT INTO  " + StaticTO.DB_EMPLOYEE_NAME + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO  " + StaticTO.DB_EMPLOYEE_NAME + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement pstmt = null;
         conn = getConnection();
         int result=0;
@@ -96,6 +96,7 @@ public class EmployeeDA extends DAOOject {
             pstmt.setString(index++,employeeTO.getLast_login());
             pstmt.setString(index++,employeeTO.getFirstName());
             pstmt.setString(index++,employeeTO.getLastName());
+            pstmt.setInt(index++,employeeTO.getRegion_id());
             result=pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,7 +152,8 @@ public class EmployeeDA extends DAOOject {
                         rs.getString("ipAddress"),
                         last_login_str,
                         rs.getString("first_name"),
-                        rs.getString("last_name")
+                        rs.getString("last_name"),
+                       rs.getInt("region_id")
                 );
 
 

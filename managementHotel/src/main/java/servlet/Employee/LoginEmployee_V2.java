@@ -20,7 +20,7 @@ public class LoginEmployee_V2 extends WebServletEmployee {
                 // chua co seesion dang nhap
                 employeeTO=(EmployeeTO)session.getAttribute("mem_sid");
                 if(employeeTO!=null){
-                    response.sendRedirect("/HomeEmployee");
+                   response.sendRedirect("HomeEmployee");
                 }else {
                     forward("/EMPLOYEE/loginEmployee.jsp", request, response);
                 }
@@ -33,7 +33,7 @@ public class LoginEmployee_V2 extends WebServletEmployee {
                     if(employeeTO!=null){
                         // tam thoi luu seesions
                         session.setAttribute("mem_sid",employeeTO);
-
+                        response.sendRedirect("HomeEmployee");
                     }else{
                         forward("/EMPLOYEE/loginEmployee.jsp?loginStatus=false",request,response);
                     }

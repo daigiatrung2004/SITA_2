@@ -15,9 +15,10 @@ public class HomeEmployee extends WebServletEmployee {
         EmployeeTO employeeTO=(EmployeeTO)session.getAttribute("mem_sid");
         try {
             if(employeeTO!=null){
-                forward("/EMPLOYEE/homeEmployee.jsp",request,response);
+                forward("/EMPLOYEE/homeEmployee.jsp", request, response);
             }else{
-                forward("LoginEmployee_V2",request,response);
+//                forward("LoginEmployee_V2",request,response);
+                response.sendRedirect("LoginPanel");
             }
         } catch (ServletException e) {
             e.printStackTrace();

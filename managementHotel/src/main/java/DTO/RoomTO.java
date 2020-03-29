@@ -9,8 +9,19 @@ public class RoomTO {
     private String status;
     private String remark;
     private int max_people;
+    private KindRoomTO kindRoomTO;
+    private RegionTO regionTO;
+    private RoomTO roomTO;
+    private CustomerTO customerTO;
+    // danh de luu cho du lieu danh sach booking
 
 
+    public RoomTO(KindRoomTO kindRoomTO, RegionTO regionTO, RoomTO roomTO, CustomerTO customerTO) {
+        this.kindRoomTO = kindRoomTO;
+        this.regionTO = regionTO;
+        this.roomTO = roomTO;
+        this.customerTO = customerTO;
+    }
 
     public RoomTO(int room_id, String name, int kind_room_id, int price_id, int region_id, String status, String remark, int max_people) {
         this.room_id = room_id;
@@ -83,5 +94,37 @@ public class RoomTO {
 
     public void setMax_people(int max_people) {
         this.max_people = max_people;
+    }
+
+    public KindRoomTO getKindRoomTO() {
+        return kindRoomTO;
+    }
+
+    public void setKindRoomTO(KindRoomTO kindRoomTO) {
+        this.kindRoomTO = kindRoomTO;
+    }
+
+    public RegionTO getRegionTO() {
+        return regionTO;
+    }
+
+    public void setRegionTO(RegionTO regionTO) {
+        this.regionTO = regionTO;
+    }
+
+    public RoomTO getRoomTO() {
+        return roomTO;
+    }
+
+    public void setRoomTO(RoomTO roomTO) {
+        this.roomTO = roomTO;
+    }
+
+    public CustomerTO getCustomerTO() {
+        return customerTO;
+    }
+
+    public void setCustomerTO(CustomerTO customerTO) {
+        this.customerTO = customerTO;
     }
 }

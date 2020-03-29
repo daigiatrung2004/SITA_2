@@ -20,6 +20,29 @@ public class EmployeeTO {
     private String last_login;
     private String firstName;
     private String lastName;
+    private int region_id;
+
+    public EmployeeTO(long id, long positionEmployeeId, String loginName, String sankey, String encryptpass, String start_date, String address, String country, String contact_person, String contact_email, long salary, String status, String remark, String ipAdress, String last_login, String firstName, String lastName, int region_id) {
+        this.id = id;
+        this.positionEmployeeId = positionEmployeeId;
+        this.loginName = loginName;
+        this.sankey = sankey;
+        this.encryptpass = encryptpass;
+        this.start_date = start_date;
+        this.address = address;
+        this.country = country;
+        this.contact_person = contact_person;
+        this.contact_email = contact_email;
+        this.salary = salary;
+        this.status = status;
+        this.remark = remark;
+        this.ipAdress = ipAdress;
+        this.last_login = last_login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region_id = region_id;
+    }
+
     public EmployeeTO(long id, long positionEmployeeId, String loginName, String sankey, String encryptpass, String start_date, String address, String country, String contact_person, String contact_email, long salary, String status, String remark, String ipAdress, String last_login, String firstName, String lastName) {
         this.id = id;
         this.positionEmployeeId = positionEmployeeId;
@@ -191,6 +214,11 @@ public class EmployeeTO {
         this.last_login = last_login;
     }
 
+    public int getRegion_id() {
+        return region_id;
+    }
 
-
+    public void setRegion_id(int region_id) {
+        this.region_id = region_id;
+    }
 }

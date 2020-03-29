@@ -26,6 +26,7 @@ public class StaticTO {
     public static final String  PENDING_STATUS="Pending";
     public static final String  REMOVE_STATUS="Remove";
     public static final String  DELETE_STATUS="Delete";
+    public static final String  BOOKED_STATUS="Booked";
     // seed random
     public static final int  numOfRandom=1999999999;
     public static final long  ADMINID=1;
