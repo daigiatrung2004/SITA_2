@@ -122,6 +122,14 @@
         <servlet-name>AjaxListingBooking</servlet-name>
         <servlet-class>servlet.Ajax.AjaxListingBooking</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListingHR</servlet-name>
+        <servlet-class>servlet.Admin.ListingHR</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListingHR</servlet-name>
+        <url-pattern>/ListingHR</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AjaxListingBooking</servlet-name>
         <url-pattern>/AjaxListingBooking</url-pattern>

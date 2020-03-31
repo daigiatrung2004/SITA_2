@@ -33,9 +33,10 @@ function Insert(index) {
         var phone=$("#phone").val();
         var email=$("#email").val();
         var salary=$("#salary").val();
+        var region=$("#region").val();
         str="position="+position+"&firstName="+firstName+"&lastName="+lastName;
-        str+="&username="+username+"&pwd="+pwd+"&address="+address+"&country="+country+"&phone="+phone+"&email="+email+"&salary="+salary+"&type=2";
-
+        str+="&username="+username+"&pwd="+pwd+"&address="+address+"&country="+country+"&phone="+phone+"&email="+email+"&salary="+salary+"&type=2&region="+region;
+        alert(str);
     }
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

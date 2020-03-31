@@ -11,7 +11,7 @@
 <div class="header-div-main ">
     <div class="heaader-home col-md-10">
         <div class="header-div-home">
-            <a href="/">
+            <a href="Home">
                 <img src="./img/viclogo.png" style="height: 80px">
             </a>
         </div>
@@ -60,3 +60,4 @@
 
     </div>
 </div>
+<script src="scripts/header-home.js"></script>

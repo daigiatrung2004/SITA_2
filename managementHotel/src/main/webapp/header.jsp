@@ -32,5 +32,5 @@
     </a>
 
 </div>
-<script src="scripts/header-home.js"></script>
+<%--<script src="scripts/header-home.js"></script>--%>
 

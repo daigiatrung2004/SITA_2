@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="DTO.PositionEmployeeTO" %><%--
+<%@ page import="DTO.PositionEmployeeTO" %>
+<%@ page import="DTO.RegionTO" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 3/5/2020
@@ -15,6 +16,8 @@
 <body>
 <%
     ArrayList<PositionEmployeeTO> listPosEm = (ArrayList<PositionEmployeeTO>) request.getAttribute("listPosEm");
+    ArrayList<RegionTO> listRegion = (ArrayList<RegionTO>) request.getAttribute("listRegion");
+
     String addPositionStatus = request.getAttribute("addPositionStatus") != null ? (String) request.getAttribute("addPositionStatus") : "false";
 %>
 <div class="admin">
@@ -91,6 +94,21 @@
                 <div class="form-group">
                     <label for="salary">Lương:</label>
                     <input type="number" name="salary" class="form-control" placeholder="Lương bổng" id="salary">
+                </div>
+                <div class="form-group">
+                    <label for="region">Khu vực:</label>
+                   <select name="region" id="region">
+                       <%if(listRegion!=null){
+                           for (int i = 0; i <listRegion.size() ; i++) {
+
+
+                       %>
+                       <option value="<%=listRegion.get(i).getRegion_id()%>"><%=listRegion.get(i).getName_vi()%></option>
+                       <%
+                           }
+                           }
+                       %>
+                   </select>
                 </div>
                 <button type="submit" class="btn btn-primary" id="insertEmployee" name="2">Thêm</button>
 

@@ -21,6 +21,7 @@ public class EmployeeTO {
     private String firstName;
     private String lastName;
     private int region_id;
+    private String postionName;
 
     public EmployeeTO(long id, long positionEmployeeId, String loginName, String sankey, String encryptpass, String start_date, String address, String country, String contact_person, String contact_email, long salary, String status, String remark, String ipAdress, String last_login, String firstName, String lastName, int region_id) {
         this.id = id;
@@ -221,4 +222,13 @@ public class EmployeeTO {
     public void setRegion_id(int region_id) {
         this.region_id = region_id;
     }
+
+    public String getPostionName() {
+        return postionName;
+    }
+
+    public void setPostionName(String postionName) {
+        this.postionName = postionName;
+    }
 }
+

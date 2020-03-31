@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    EmployeeTO employeeTO = (EmployeeTO) request.getAttribute("employeeTO");
+    EmployeeTO employeeTO = (EmployeeTO)session.getAttribute("admin_id");
 %>
 <link rel="stylesheet" href="./css/Admin/header-admin.css?ver=2.0">
 <div id="header-admin">

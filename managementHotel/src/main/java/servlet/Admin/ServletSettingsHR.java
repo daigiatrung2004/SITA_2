@@ -39,6 +39,8 @@ public class ServletSettingsHR extends WebServletAdmin {
                 String phone = request.getParameter("phone") != null ? request.getParameter("phone") : "";
                 String email = request.getParameter("email") != null ? request.getParameter("email") : "";
                 String salary = request.getParameter("salary") != null ? request.getParameter("salary") : "0";
+                String region = request.getParameter("region") != null ? request.getParameter("region") : "0";
+
                 // ma hoa password
                 Random rd = new Random(11);
                 String sankey = String.valueOf(rd.nextInt(StaticTO.numOfRandom));
@@ -49,7 +51,8 @@ public class ServletSettingsHR extends WebServletAdmin {
                 String startDate=df.format(dnow).toString();
                 String laslogin=df.format(dnow).toString();
                 String ipAdress=request.getRemoteAddr();
-                EmployeeTO employeeTO=new EmployeeTO(0,Long.parseLong(position),username,sankey,encryptPass,startDate,address,country,phone,email,Long.parseLong(salary),StaticTO.ACTIVE_STATUS,"",ipAdress,laslogin,firstname,lastname);
+
+                EmployeeTO employeeTO=new EmployeeTO(0,Long.parseLong(position),username,sankey,encryptPass,startDate,address,country,phone,email,Long.parseLong(salary),StaticTO.ACTIVE_STATUS,"",ipAdress,laslogin,firstname,lastname,Integer.parseInt(region));
                 System.out.println("check date "+startDate+"ip address"+ipAdress);
                 checkAddSuccessful=employeeDA.addEmployee(employeeTO);
 

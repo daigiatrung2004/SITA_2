@@ -63,8 +63,8 @@
         <div id="div-hr-amdin">
             <ul class="ul-admin">
                 <li><a href="InsertEmployee">Thêm nhân viên</a></li>
-                <li>Danh sách quản lí nhân viên</li>
-                <li>Danh sách vị trí làm việc</li>
+                <li><a href="ListingHR">Danh sách quản lí nhân viên</a></li>
+                <li><a href="ListingHR?position=true">Danh sách vị trí làm việc</a></li>
 
             </ul>
         </div>

@@ -139,7 +139,7 @@
                         <li style="align-items: center; margin-top: 35px;">
                             <!--btn tìm kiếm -->
                             <button class="search-btn-booking">
-                                TÌM KIẾM
+                                <%=lang.readXMl("SEARCH")%>
                             </button>
                         </li>
 
