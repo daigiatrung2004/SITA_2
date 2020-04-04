@@ -19,6 +19,8 @@ public class StaticTO {
     public static final String  DB_TRANS_REGION_NAME="transport_region";
     public static final String  DB_CUSTOMER_NAME="customer";
     public static final String  DB_BOOKING_TRANS_NAME="trans_booking";
+    public static final String  DB_FURNITURE_NAME="furniture";
+    public static final String  DB_FURNITURE_ROOM_NAME="furniture_kind_room";
 
 
     // status name static

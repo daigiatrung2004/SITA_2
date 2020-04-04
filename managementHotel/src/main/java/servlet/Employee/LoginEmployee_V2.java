@@ -22,6 +22,7 @@ public class LoginEmployee_V2 extends WebServletEmployee {
                 if(employeeTO!=null){
                    response.sendRedirect("HomeEmployee");
                 }else {
+
                     forward("/EMPLOYEE/loginEmployee.jsp", request, response);
                 }
             } else {
@@ -35,10 +36,10 @@ public class LoginEmployee_V2 extends WebServletEmployee {
                         session.setAttribute("mem_sid",employeeTO);
                         response.sendRedirect("HomeEmployee");
                     }else{
-                        forward("/EMPLOYEE/loginEmployee.jsp?loginStatus=false",request,response);
+                        forward("/EMPLOYEE/loginEmployee.jsp?loginStatus=true",request,response);
                     }
                 }else{
-                    forward("/EMPLOYEE/loginEmployee.jsp?loginStatus=false",request,response);
+                    forward("/EMPLOYEE/loginEmployee.jsp?loginStatus=true",request,response);
                 }
             }
         } catch (ServletException e) {

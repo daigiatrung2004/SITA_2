@@ -9,7 +9,12 @@
     align-items: center;
     color: gray;
 }
-
+.modal-backdrop{
+    z-index: 1!important;
+}
+.modal{
+    z-index: 20!important;
+}
 .content-img:hover {
     cursor: pointer;
 }
@@ -26,6 +31,11 @@
 }
 .img-service-div:hover{
     cursor: pointer;
+}
+.close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .img-service-div img {

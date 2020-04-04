@@ -34,8 +34,7 @@
         <a class="item" data-tab="upload_img">Thêm ảnh phòng </a>
         <a class="item" data-tab="service_data">Thêm dữ liệu dịch vụ</a>
         <a class="item" data-tab="service_room">Thêm dịch vụ cho từng loại phòng̣</a>
-        <a class="item" data-tab="promotion">Tạo mã giảm giá</a>
-        <a class="item" data-tab="promote-price">Cập nhật mã giảm cho từng kiểu giá</a>
+
 
     </div>
 
@@ -176,7 +175,7 @@
     <!---->
 
     <!--upload img-->
-    <div class="ui bottom attached tab segment" data-tab="upload_img">
+    <div class="ui bottom attached tab segment" data-tab="upload_img" id="imgUpload">
 
         <div class="form-group">
             <label for="kindroom"> Select kind room :</label>
@@ -200,34 +199,32 @@
                 <div class="div-array-img">
 
                 </div>
-                <div class="btn-upload-img" data-toggle="modal" data-target="#myModal">
+                <div class="btn-upload-img" >
                     <span><i class="fas fa-plus"></i></span>
                 </div>
             </div>
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+            <div class="ui modal" id="myModal">
+
 
                         <!-- Modal Header -->
-                        <div class="modal-header">
+                        <div class="header">
                             <h4 class="modal-title">Thêm ảnh</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close ui ok" >&times;</button>
                         </div>
 
                         <!-- Modal body -->
-                        <div class="modal-body">
+                        <div class="content">
 
                             <input type="file" id="input-file-now" class="dropify"/>
                         </div>
 
                         <!-- Modal footer -->
-                        <div class="modal-footer">
+                        <div class="actions">
                             <button type="button" class="btn btn-primary" id="insert-img-resource">Insert</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary ui ok">Close</button>
                         </div>
 
-                    </div>
-                </div>
+
             </div>
         </div>
 
@@ -237,7 +234,7 @@
     </div>
 
     <!--Thêm dữ liệu dịch vụ -->
-    <div class="ui bottom attached tab segment" data-tab="service_data">
+    <div class="ui bottom attached tab segment" data-tab="service_data" id="serviceModal">
         <div class="form-group">
             <label for="name_service_vi"> Thêm tên dịch vụ tiếng việt :</label>
             <input type="text" class="form-control" placeholder="Nhập tên dịch vụ tiếng việt" id="name_service_vi"
@@ -262,36 +259,36 @@
         </div>
         <div class="form-group">
             <label for="en_name"> Thêm image dịch vụ:</label>
-            <div class="img-service-div" data-toggle="modal" data-target="#myModal_service">
+            <div class="img-service-div">
 
             </div>
             <button class="btn btn-primary" id="insert-service">Insert</button>
         </div>
-        <div class="modal fade" id="myModal_service">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        <div class="ui modal" id="myModal_service">
+
+
 
                     <!-- Modal Header -->
-                    <div class="modal-header">
+                    <div class="header">
                         <h4 class="modal-title">Thêm ảnh</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close  ui ok" >&times;</button>
                     </div>
 
                     <!-- Modal body -->
-                    <div class="modal-body">
+                    <div class="image content">
 
                         <input type="file" id="input-file-service" class="dropify"/>
                     </div>
 
                     <!-- Modal footer -->
-                    <div class="modal-footer">
+                    <div class="actions">
                         <button type="button" class="btn btn-primary" id="insert-img-service">Insert</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary ui ok " >Close</button>
                     </div>
 
-                </div>
+
             </div>
-        </div>
+
 
     </div>
 
@@ -400,7 +397,7 @@
     </div>
     <!---->
 </div>
-
+<jsp:include page="SideBar.jsp"></jsp:include>
 <script src="./scripts/Admin/InsertHotelManager.js"></script>
 
 
@@ -421,13 +418,24 @@
 </script>
 <script>
     $(document).ready(function () {
+
         var service = new SlimSelect({
             select: '#service'
         });
         var type_price = new SlimSelect({
             select: '#type_price'
         });
+        $(".img-service-div").click(function () {
 
+            $("#myModal_service").modal('show');
+        });
+        $(".close").click(function(){
+            $("#myModal_service").modal('hide');
+            $("#myModal").modal('hide');
+        });
+        $(".btn-upload-img").click(function(){
+            $("#myModal").modal('show');
+        });
     });
 </script>
 <script>

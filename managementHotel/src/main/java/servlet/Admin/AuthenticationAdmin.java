@@ -26,7 +26,7 @@ public class AuthenticationAdmin extends WebServletAdmin {
                 if(employeeTO!=null){
                     response.sendRedirect("Admin");
                 }else{
-                    forward("/Admin/LoginAdmin.jsp", request, response);
+                    forward("/Admin/LoginAdmin.jsp?loginStatus=true", request, response);
                 }
             }
         } catch (ServletException e) {

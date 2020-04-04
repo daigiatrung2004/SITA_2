@@ -1,0 +1,6 @@
+.edit-info{
+    display: none;
+}
+.editInfo:hover{
+    text-decoration: underline;
+}

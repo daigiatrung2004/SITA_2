@@ -1,0 +1,44 @@
+.item-img{
+    height: 40px;
+    width: 60px;
+}
+#imgRoom{
+    width: 600px;
+}
+.img-details-room{
+    padding: 50px;
+}
+.item-main-img{
+    height: 400px;
+    width: 600px;
+}
+.img-details-room{
+    margin: 50px;
+}
+.h2-nameroom{
+   color: #7d3036;
+    padding-top: 100px;
+}
+.services-room{
+    display: flex;
+}
+.item-service{
+    padding: 10px;
+}
+.detail{
+    margin-left: 50px;
+}
+#btn-pre-booking{
+    background-color: #7d3036;
+    padding: 25px;
+    font-size: 18px;
+    color: white;
+    min-width: 300px;
+}
+.booking-detail{
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -118,6 +118,7 @@
         <servlet-name>ListingBooking</servlet-name>
         <servlet-class>servlet.Employee.ListingBooking</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>AjaxListingBooking</servlet-name>
         <servlet-class>servlet.Ajax.AjaxListingBooking</servlet-class>
@@ -126,6 +127,70 @@
         <servlet-name>ListingHR</servlet-name>
         <servlet-class>servlet.Admin.ListingHR</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListingFurniture</servlet-name>
+        <servlet-class>servlet.Admin.ListingFurniture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxInsertFurniture</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxInsertFurniture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InformationEmployee</servlet-name>
+        <servlet-class>servlet.Employee.InformationEmployee</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditInfoPerson</servlet-name>
+        <servlet-class>servlet.Employee.EditInfoPerson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingRoom</servlet-name>
+        <servlet-class>servlet.Employee.ListingRoom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingPromote</servlet-name>
+        <servlet-class>servlet.Admin.ListingPromote</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailsRoom</servlet-name>
+        <servlet-class>servlet.Employee.DetailsRoom</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookingDirection</servlet-name>
+        <servlet-class>servlet.Employee.BookingDirection</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingDirection</servlet-name>
+        <url-pattern>/BookingDirection</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailsRoom</servlet-name>
+        <url-pattern>/DetailsRoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingPromote</servlet-name>
+        <url-pattern>/ListingPromote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingRoom</servlet-name>
+        <url-pattern>/ListingRoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditInfoPerson</servlet-name>
+        <url-pattern>/EditInfoPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformationEmployee</servlet-name>
+        <url-pattern>/InformationEmployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxInsertFurniture</servlet-name>
+        <url-pattern>/AjaxInsertFurniture</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingFurniture</servlet-name>
+        <url-pattern>/ListingFurniture</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListingHR</servlet-name>
         <url-pattern>/ListingHR</url-pattern>

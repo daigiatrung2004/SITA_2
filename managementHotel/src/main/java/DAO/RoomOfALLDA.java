@@ -1,9 +1,6 @@
 package DAO;
 
-import DTO.KindRoomTO;
-import DTO.PriceRoomTO;
-import DTO.RoomTO;
-import DTO.StaticTO;
+import DTO.*;
 import Utils.DbUtils;
 
 import java.sql.Connection;
@@ -44,7 +41,7 @@ public class RoomOfALLDA extends DAOOject {
         PreparedStatement pstmt = null;
         int rs = 0;
         String sql = "UPDATE " + StaticTO.DB_ROOM_NAME + " SET "
-                + "  name=? AND kind_room_id=? AND region_id=? AND price_id=? AND status=? AND remark=? AND max_peopel=?";
+                + "  name=? , kind_room_id=? , region_id=? , price_id=? , status=? , remark=? , max_peopel=?";
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
@@ -58,10 +55,10 @@ public class RoomOfALLDA extends DAOOject {
             pstmt.setInt(index, roomTO.getMax_people());
             rs = pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("updateRoom+++"+pstmt.toString());
+            System.out.println("updateRoom+++" + pstmt.toString());
             e.printStackTrace();
         } finally {
-            System.out.println("updateRoom+++"+pstmt.toString());
+            System.out.println("updateRoom+++" + pstmt.toString());
             DbUtils.closeQuietly(conn, pstmt);
         }
         return (rs > 0);
@@ -397,8 +394,8 @@ public class RoomOfALLDA extends DAOOject {
                 roomTO = new RoomTO(rs.getInt("room_id"),
                         rs.getString("name"),
                         rs.getInt("kind_room_id"),
-                        rs.getInt("region_id"),
                         rs.getInt("price_id"),
+                        rs.getInt("region_id"),
                         rs.getString("status"),
                         rs.getString("remark"),
                         rs.getInt("max_peopel")
@@ -415,6 +412,170 @@ public class RoomOfALLDA extends DAOOject {
         }
         return roomTO;
 
+    }
+    // tìm tất cả các phòng theo khu vuc
+    public  ArrayList<RoomTO> retrieveRoomByRegionId(int region_id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        RoomTO roomTO = null;
+
+        ArrayList<RoomTO> listRoomTO=new ArrayList<RoomTO>();
+        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " WHERE REGION_ID=?";
+        conn = getConnection();
+        try {
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date date1 = df.parse(checkOut);
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setInt(index++, region_id);
+//            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+//            pstmt.setString(index++,date1.toString());
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                roomTO = new RoomTO(rs.getInt("room_id"),
+                        rs.getString("name"),
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("price_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getInt("max_peopel")
+                );
+
+                listRoomTO.add(roomTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return listRoomTO;
+    }
+
+    // thêm furniture
+    public boolean addfurniture(FurnitureTO furnitureTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "INSERT INTO " + StaticTO.DB_FURNITURE_NAME + " VALUES(?,?,?,?,?,?,?,?,?)";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setInt(index++, furnitureTO.getId_furniture());
+            pstmt.setString(index++, furnitureTO.getName_vi());
+            pstmt.setString(index++, furnitureTO.getName_en());
+            pstmt.setString(index++, furnitureTO.getType());
+            pstmt.setLong(index++, furnitureTO.getPrice());
+            pstmt.setString(index++, furnitureTO.getDetails());
+            pstmt.setString(index++, furnitureTO.getStatus());
+            pstmt.setString(index++, furnitureTO.getRemark());
+            pstmt.setString(index++, furnitureTO.getType_en());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("addfurniture" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("addfurniture" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
+
+    // Danh sách các thiết bị
+    public ArrayList<FurnitureTO> listFurnitureAll() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ArrayList<FurnitureTO> listFurniture = new ArrayList<FurnitureTO>();
+        String sql = "SELECT * FROM " + StaticTO.DB_FURNITURE_NAME;
+        ResultSet rs = null;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                FurnitureTO furnitureTO = new FurnitureTO(rs.getInt("id_furniture"),
+                        rs.getString("name_vi"),
+                        rs.getString("name_en"),
+                        rs.getString("type"),
+                        rs.getLong("price"),
+                        rs.getString("details"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("type_en")
+                );
+                listFurniture.add(furnitureTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("listFurnitureAll:" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("listFurnitureAll:" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return listFurniture;
+    }
+    // retrieve furniture type giường
+//    public ArrayList<FurnitureTO> listFurnitureAll() {
+//        Connection conn = null;
+//        PreparedStatement pstmt = null;
+//        ArrayList<FurnitureTO> listFurniture = new ArrayList<FurnitureTO>();
+//        String sql = "SELECT * FROM " + StaticTO.DB_FURNITURE_NAME ;
+//        ResultSet rs = null;
+//        conn = getConnection();
+//        try {
+//            pstmt = conn.prepareStatement(sql);
+//            rs = pstmt.executeQuery();
+//            while(rs.next()) {
+//                FurnitureTO furnitureTO = new FurnitureTO(rs.getInt("id_furniture"),
+//                        rs.getString("name_vi"),
+//                        rs.getString("name_en"),
+//                        rs.getString("type"),
+//                        rs.getLong("price"),
+//                        rs.getString("details"),
+//                        rs.getString("status"),
+//                        rs.getString("remark"),
+//                        rs.getString("type_en")
+//                );
+//                listFurniture.add(furnitureTO);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("listFurnitureAll:" + pstmt.toString());
+//            e.printStackTrace();
+//        } finally {
+//            System.out.println("listFurnitureAll:" + pstmt.toString());
+//            DbUtils.closeQuietly(rs);
+//        }
+//        return listFurniture;
+//    }
+    //Thêm dữ liệu furniture room
+    public boolean addfurnitureKindRoom(FurnitureTO furnitureTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "INSERT INTO " + StaticTO.DB_FURNITURE_ROOM_NAME + " VALUES(?,?,?,?)";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setInt(index++, furnitureTO.getId_furniture_room());
+            pstmt.setInt(index++, furnitureTO.getId_furniture());
+            pstmt.setInt(index++, furnitureTO.getKind_room_id());
+            pstmt.setString(index++, furnitureTO.getStatus());
+
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("addfurniture" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("addfurniture" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
     }
 
 

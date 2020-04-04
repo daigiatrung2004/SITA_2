@@ -1,4 +1,13 @@
 $(document).ready(function () {
+    //
+//      $(".btn-upload-img").click(function(){
+//          $("body.modal-backdrop").remove();
+//           $("#imgUpload").append("<div class='modal-backdrop fade show'></div>");
+//      });
+//      $(".modal-backdrop").click(function () {
+// alert("xinchao");
+//      })
+
     // insert khu vuc cho từng khách sạn
     $("#btn-region").click(function () {
         var vi = $("#vi_name").val();
@@ -8,21 +17,29 @@ $(document).ready(function () {
     });
     //insert ảnh cho bang service
     $("#insert-img-service").click(function () {
+        $(".modal-backdrop.show").hide();
         var input_img = $("#input-file-service").val();
         var filename_origin = input_img.split("\\").pop();
         var input_img_src = $("#myModal_service .dropify-render img").attr("src");
+        $(".img-service-div img").remove();
+
         $(".img-service-div").append("<img  style='background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>");
     });
 
     //them anh cho bang upload resouce
     $("#insert-img-resource").click(function () {
+
         var input_img = $("#input-file-now").val();
 
         var filename_origin = input_img.split("\\").pop();
         var input_img_src = $("#myModal .dropify-render img").attr("src");
+        var count=0;
+        count=$(".div-array-img img").length;
 
-        $(".div-array-img").append("<img  style='height: 100px;width: 100px;background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>"
-        );
+        if(count<=4) {
+            $(".div-array-img").append("<img  style='height: 100px;width: 100px;margin:10px;background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>"
+            );
+        }
     });
 
     //thêm loại phòng
@@ -110,6 +127,7 @@ function insertPromote(url){
     xmlhttp.open('POST','AjaxPromoteCode?'+url,true);
     xmlhttp.send();
 }
+
 
 function serviceRoom() {
     var listService = $("#service").val();

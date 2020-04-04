@@ -35,7 +35,7 @@
                <div class="pos-booking">
                    <ul>
                        <li><a href="ListingBooking" style="color: black;">Danh sách booking</a></li>
-                       <li>Danh sách các phòng</li>
+                       <li><a href="ListingRoom" style="color: black;">Danh sách các phòng</a></li>
                    </ul>
                </div>
             </li>
@@ -60,7 +60,7 @@
 
                     </div>
                 </li>
-                <li class="li-item-menu-user">Thông tin cá nhân</li>
+                <li class="li-item-menu-user"><a href="InformationEmployee" style="color: black;">Thông tin cá nhân</a></li>
                 <li class="li-item-menu-user"><a id="a-logout" href="LogOutEmployee" style="color: black;">Đăng xuất</a></li>
             </ul>
         </div>

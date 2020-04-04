@@ -71,26 +71,27 @@ public class EmployeeDA extends DAOOject {
         }
         return listPosEmployee;
     }
+
+    //
     //tìm vi tri nhan vien
     public PositionEmployeeTO retrieveEmployeeById(long id) {
         Connection conn = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_POSITION_NAME +" WHERE position_employee_id=?";
+        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_POSITION_NAME + " WHERE position_employee_id=?";
         PreparedStatement pstmt = null;
         conn = getConnection();
-        PositionEmployeeTO posEm=null;
+        PositionEmployeeTO posEm = null;
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1,id);
+            pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
 
-                 posEm = new PositionEmployeeTO(rs.getLong("position_employee_id"),
+                posEm = new PositionEmployeeTO(rs.getLong("position_employee_id"),
                         rs.getString("name"),
                         rs.getString("status")
 
                 );
-
 
 
             }
@@ -286,6 +287,50 @@ public class EmployeeDA extends DAOOject {
             DbUtils.closeQuietly(rs);
         }
         return listEmployeeTO;
+    }
+
+    // Update employee
+    public boolean updateEmployee(EmployeeTO employeeTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE " + StaticTO.DB_EMPLOYEE_NAME + " SET position_employee_id=? , loginname=? , sankey=? "
+                + " , encryptpass=? , address=? , country=? , contact_person=? , contact_email=? , salary=? "
+                + " , status=? , remark=? , ipAddress=? , first_name=? , last_name=? , region_id=? WHERE employee_id=?";
+        conn = getConnection();
+        int rs = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setLong(index++, employeeTO.getPositionEmployeeId());
+            pstmt.setString(index++, employeeTO.getLoginName());
+            pstmt.setString(index++, employeeTO.getSankey());
+            pstmt.setString(index++, employeeTO.getEncryptpass());
+
+            pstmt.setString(index++, employeeTO.getAddress());
+            pstmt.setString(index++, employeeTO.getCountry());
+            pstmt.setString(index++, employeeTO.getContact_person());
+            pstmt.setString(index++, employeeTO.getContact_email());
+            pstmt.setLong(index++, employeeTO.getSalary());
+            pstmt.setString(index++, employeeTO.getStatus());
+            pstmt.setString(index++, employeeTO.getRemark());
+            pstmt.setString(index++, employeeTO.getIpAdress());
+
+            pstmt.setString(index++, employeeTO.getFirstName());
+            pstmt.setString(index++, employeeTO.getLastName());
+            pstmt.setInt(index++,employeeTO.getRegion_id());
+            pstmt.setLong(index++, employeeTO.getId());
+            rs = pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println("updateEmployee:"+pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("updateEmployee:"+pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+
     }
 
 }

@@ -6,7 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%
+    String loginStatus = request.getParameter("loginStatus") != null ?(String)request.getParameter("loginStatus") : "false";
+%>
 <html>
 <head>
     <title>Login Employee</title>
@@ -36,18 +38,27 @@
     <form action="LoginEmployee" method="post">
         <h4 class="h4" style="text-align: center">Đăng nhập nhân viên</h4>
         <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" name="email" class="form-control" placeholder="Enter email" id="email">
+            <label for="email">Tên đăng nhập:</label>
+            <input type="text" name="email" class="form-control" placeholder="Nhập tên đăng nhập" id="email" required="required" autocomplete="true">
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
-            <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd">
+            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" id="pwd" required="required" autocomplete="true">
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
                 <input class="form-check-input" type="checkbox"> Remember me
             </label>
         </div>
+        <%
+            if (loginStatus.equals("true")) {
+        %>
+        <div class="error-login" style="background-color: red;color:white;">
+            <span>Tên đăng nhập hoặc mật khẩu không đúng</span>
+        </div>
+        <%
+            }
+        %>
         <input type="hidden" name="login" value="true">
         <button type="submit" class="btn btn-danger" style="width:100%">Đăng nhập</button>
     </form>

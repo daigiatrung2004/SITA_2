@@ -16,3 +16,4 @@
 <script src="./scripts/UI/dist/semantic.min.js"></script>
 <script src="./scripts/fontAwesome/all.min.js"></script>
 <script src="./scripts/slim/slimselect.min.js"></script>
+<script src="./scripts/tinymce/tinymce.min.js" referrerpolicy="origin"></script>

@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String loginStatus = request.getParameter("loginStatus") != null ? (String) request.getParameter("loginStatus") : "false";
+%>
 
 <html>
 <head>
@@ -26,17 +29,26 @@
         <h4 class="h4" style="text-align: center">Đăng nhập Admin</h4>
         <div class="form-group">
             <label for="email">Username:</label>
-            <input type="text" name="username" class="form-control" placeholder="Enter username" id="email">
+            <input type="text" name="username" class="form-control" placeholder="Enter username" id="email" required="required" autocomplete="true">
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
-            <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd">
+            <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd" required="required" autocomplete="true">
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
                 <input class="form-check-input" type="checkbox"> Remember me
             </label>
         </div>
+        <%
+            if (loginStatus.equals("true")) {
+        %>
+        <div class="error-login" style="background-color: red;">
+            <span>Tên đăng nhập hoặc mật khẩu không đúng</span>
+        </div>
+        <%
+            }
+        %>
         <input type="hidden" name="LoginPanel" value="true">
         <button type="submit" class="btn btn-danger" style="width:100%">Đăng nhập</button>
     </form>

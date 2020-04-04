@@ -1,0 +1,23 @@
+.footer-item{
+    background-color: white;
+
+    font-size: 16px;
+    color: #E6E6E6;
+}
+.footer-div{
+    border:1px solid #ccc;
+    padding: 10px;
+    color: black!important;
+}
+
+.item-room{
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin: 50px;
+    box-shadow: 0px 2px 4px 0px #ccc;
+}
+.img-item img{
+    background-size: cover;
+    background-position: center;
+
+}

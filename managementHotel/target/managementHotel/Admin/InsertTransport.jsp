@@ -114,7 +114,7 @@
     <button class="btn btn-primary" id="btn-trans-region">Cập nhật</button>
 </div>
 <!---->
-
+<jsp:include page="SideBar.jsp"></jsp:include>
 <script src="./scripts/Admin/Inserttransport.js"></script>
 <script>
     $(document).ready(function () {
