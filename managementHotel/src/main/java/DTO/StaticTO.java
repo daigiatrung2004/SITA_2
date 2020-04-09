@@ -21,6 +21,7 @@ public class StaticTO {
     public static final String  DB_BOOKING_TRANS_NAME="trans_booking";
     public static final String  DB_FURNITURE_NAME="furniture";
     public static final String  DB_FURNITURE_ROOM_NAME="furniture_kind_room";
+    public static final String  DB_PAYMENT_NAME="paypment_order";
 
 
     // status name static
@@ -29,10 +30,28 @@ public class StaticTO {
     public static final String  REMOVE_STATUS="Remove";
     public static final String  DELETE_STATUS="Delete";
     public static final String  BOOKED_STATUS="Booked";
+    public static final String  COMPLETE_STATUS="Completed";
     // seed random
     public static final int  numOfRandom=1999999999;
     public static final long  ADMINID=1;
 
     // type file img
     public static final String  STATIC_PATH="C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\webapp\\";
+
+    // settings paypal
+    public static final String PAYPAL_URL="https://www.sandbox.paypal.com/cgi-bin/webscr";
+    public static final boolean PAYPAL_SANDBOX=true;
+    public static final String PAYPAL_ID="sb-opidp1373493@business.example.com";
+    public static final String CLIENT_ID="AQHWlkQFXe1BuWCRFmqrvRwgxL1NyVk2fBz2z_HsQfxoV-eLoKFwL7QKyv5ANO5bH5COqR7TvBiSbYZd";
+    public static final String APP_LOGINNAME="daoanhvu19284673502@gmail.com";
+    public static final String APP_PASSWORD="Daoanhvu1";
+    public static final String PAYPAL_CURRENCY="USD";
+    public static final String PAYPAL_AUTORETURN="http://127.0.0.1:8080/managementHotel_war_exploded/PaymentAutoReturn";
+
+
+    //payment
+    public static final String PAYPAL_METHOD="paypal";
+    public static final String CASH_METHOD="cash";
+
+
 }

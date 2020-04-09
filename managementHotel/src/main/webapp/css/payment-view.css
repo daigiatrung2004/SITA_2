@@ -473,7 +473,7 @@ extras-items div.fb-extras-item div.fb-price-amount {
     height: 100%;
     min-height: 400px;
     position: relative;
-    border-right: 1px solid #C4C4C4;
+
 }
 #fb-guarantee, #fb-confirmbutton, #fb-datacollect, #fb-recap-booking, #fb-confirm-recap-booking, #fb-confirmrecap-warrants {
     font-size: 14px;
@@ -508,6 +508,9 @@ td.hidden-lg {
     border-top: 1px solid #C4C4C4;
 }
 #fb-recap-extras-container {
+    border-bottom: 0px solid #C4C4C4;
+    border-left: 0px solid #C4C4C4;
+    border-right: 0px solid #C4C4C4;
     padding-bottom: 15px;
     padding-left: 15px;
     padding-right: 15px;
@@ -530,10 +533,10 @@ td.hidden-lg {
 #div-payment-end{
 
 background-color: white;
-margin-bottom: 15px;
-margin-left: 15px;
+/*margin-bottom: 15px;*/
+/*margin-left: 15px;*/
 width: auto;
-margin-right: 15px;
+/*margin-right: 15px;*/
 
 }
 #fb-confirmbutton div.fb-confirmbutton-container>form>div {
@@ -593,5 +596,32 @@ margin-right: 15px;
     align-items: center;
     padding: 20px;
 }
+#payment-paypal{
+    margin-top: 10px;
+    padding: 15px 0;
+    color: rgb(255, 255, 255) !important;
+    background: rgb(176, 160, 108);
+    min-width: 300px;
+}
+.div-paypal{
+    display: flex;
+    justify-content: center;
+}
+.ui.massive.loader {
 
+    font-size: 3.714286em!important;
+}
+.ui.loader:after {
+    border-color: rgba(124, 37, 41,1)transparent transparent!important;
+
+}
+#table-price td{
+    padding: 10px;
+}
+#table-price td span{
+    font-size: 25px;
+}
+. fb-dark-gray{
+    padding-left: 15px;
+}
 /**/

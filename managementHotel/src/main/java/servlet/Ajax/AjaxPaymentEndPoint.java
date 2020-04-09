@@ -1,9 +1,6 @@
 package servlet.Ajax;
 
-import DAO.RegionDA;
-import DAO.RoomOfALLDA;
-import DAO.ServiceDA;
-import DAO.TransportDA;
+import DAO.*;
 import DTO.*;
 import servlet.WebServlet;
 
@@ -25,7 +22,9 @@ public class AjaxPaymentEndPoint extends WebServlet {
             String checkin = request.getParameter("checkin") != null ? (String) request.getParameter("checkin") : "";
             String checkout = request.getParameter("checkout") != null ? (String) request.getParameter("checkout") : "";
             String room_id = request.getParameter("room_id") != null ? (String) request.getParameter("room_id") : "";
+
             String arraySelectAddition = request.getParameter("arraySelectAddition") != null ? (String) request.getParameter("arraySelectAddition") : "";
+
             String[] arraySelectAdditionSplit = arraySelectAddition.split(",");
             // check in ,out,pee
             request.setAttribute("checkin", checkin);
@@ -78,7 +77,12 @@ public class AjaxPaymentEndPoint extends WebServlet {
             ArrayList<ServiceTO> listServiceTO = serviceDA.retrieveServiceByPrice(Integer.parseInt(price_id));
             request.setAttribute("listServiceTO", listServiceTO);
             // promote
-
+            PaymentOrderDA paymentOrderDA=new PaymentOrderDA();
+            int countPayment=paymentOrderDA.countPayment()+1;
+            request.setAttribute("countPayment",String.valueOf(countPayment));
+            BookingDA bookingDA=new BookingDA();
+            int countBooking=bookingDA.countBooking();
+            request.setAttribute("countBooking",String.valueOf(countBooking));
             forward("paymentEndPoint.jsp", request, response);
         } catch (ServletException e) {
             e.printStackTrace();

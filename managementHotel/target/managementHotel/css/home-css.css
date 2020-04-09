@@ -289,9 +289,10 @@
     display: none;
 }
 
-.select-customize:hover{
+.select-customize:hover {
     cursor: pointer;
 }
+
 .check-pos a {
     color: black !important;
 
@@ -310,11 +311,20 @@
     text-align: center;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .div-text-check:hover {
     cursor: pointer;
 
+}
+
+.span-check {
+    position: absolute;
+    right: 0;
+    display: flex;
+    height: 40px;
+    align-items: center;
 }
 
 .search-btn-booking {
@@ -359,6 +369,10 @@
     font-weight: bolder;
     display: inline-block;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
 
 }
 
@@ -369,4 +383,35 @@
     font-size: 16px;
 }
 
+.item-input-check {
+    height: 100%;
+    border: none;
+    width: inherit;
+    text-indent: 5px;
+}
+
+.item-input-check:hover {
+    cursor: pointer;
+}
+
+.div-check-in, .div-check-out {
+    max-width: 140px;
+}
+
+.btn-peo {
+    width: inherit;
+
+    height: 22px;
+    text-align: center;
+    background: #7C2529;
+    color: #fff;
+    font-weight: bolder;
+    display: inline-block;
+    cursor: pointer;
+
+    border: none;
+}
+.btn-peo:focus{
+    outline: none!important;
+}
 

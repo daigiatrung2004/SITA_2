@@ -16,16 +16,16 @@
     <a class="item">
         <i class="home icon"></i>
 
-        <font style="vertical-align: inherit;margin-left: 30px;"><h4 style="vertical-align: inherit;">
+      <h4 style="vertical-align: inherit;">
             Home
-        </h4></font>
+        </h4>
     </a>
     <div class="item" id="menu-hotel">
 
         <i class="fas fa-hotel icon"></i>
-        <font style="vertical-align: inherit;margin-left: 30px;"><h4 style="vertical-align: inherit;">
+    <h4 style="vertical-align: inherit;">
             Manager Hotel
-        </h4></font>
+        </h4>
 
         <div id="div-manager-hotel-admin">
             <ul class="ul-admin">
@@ -41,9 +41,9 @@
     <div class="item" id="menu-transport">
 
         <i class="shipping fast icon"></i>
-        <font style="vertical-align: inherit;margin-left: 30px;"><h4 style="vertical-align: inherit;">
+       <h4 style="vertical-align: inherit;">
             Manager transport
-        </h4></font>
+        </h4>
 
         <div id="div-manager-trans-admin">
             <ul class="ul-admin">
@@ -57,9 +57,9 @@
     <div class="item" id="anchor-hr">
 
         <i class="user icon"></i>
-        <font style="vertical-align: inherit;margin-left: 30px"><h4 style="vertical-align: inherit;">
+        <h4 style="vertical-align: inherit;">
             Settings Humans Resource
-        </h4></font>
+        </h4>
 
 
         <div id="div-hr-amdin">

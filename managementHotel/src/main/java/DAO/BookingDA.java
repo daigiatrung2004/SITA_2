@@ -23,7 +23,7 @@ public class BookingDA extends DAOOject {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         int results = 0;
-        String sql = "SELECT COUNT(*) AS TOTAL  FROM " + StaticTO.DB_BOOKING_NAME + " B WHERE KIND_ROOM_ID=?  AND B.CHECK_IN_DATE<=? AND REGION_ID=? ";
+        String sql = "SELECT COUNT(*) AS TOTAL  FROM " + StaticTO.DB_BOOKING_NAME + " B INNER JOIN ROOM R ON R.ROOM_ID=B.ROOM_ID WHERE KIND_ROOM_ID=?  AND B.CHECK_IN_DATE<=? AND REGION_ID=?  ";
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
@@ -233,7 +233,32 @@ public class BookingDA extends DAOOject {
         }
         return (rs > 0);
     }
+     public int countBooking(){
+         Connection conn = null;
+         PreparedStatement pstmt = null;
+         String sql = "SELECT COUNT(*) AS TOTAL FROM " + StaticTO.DB_BOOKING_NAME ;
+         conn = getConnection();
+         ResultSet rs = null;
+         int count=0;
 
+         try {
+             pstmt = conn.prepareStatement(sql);
+
+             rs = pstmt.executeQuery();
+             while (rs.next()){
+                 count=rs.getInt("TOTAL");
+             }
+
+
+         } catch (SQLException e) {
+             System.out.println("countBooking++++" + pstmt.toString());
+             e.printStackTrace();
+         } finally {
+             System.out.println("countBooking++++" + pstmt.toString());
+             DbUtils.closeQuietly(rs);
+         }
+         return count;
+     }
     // get booking mới nhất
     public BookingTO retrieveBookingLatest() {
         Connection conn = null;

@@ -159,6 +159,14 @@
         <servlet-name>BookingDirection</servlet-name>
         <servlet-class>servlet.Employee.BookingDirection</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaypalAutoReturn</servlet-name>
+        <servlet-class>servlet.PaypalAutoReturn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaypalAutoReturn</servlet-name>
+        <url-pattern>/PaypalAutoReturn</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BookingDirection</servlet-name>
         <url-pattern>/BookingDirection</url-pattern>

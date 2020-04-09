@@ -21,7 +21,7 @@
     String pos = request.getAttribute("position") != null ? (String) request.getAttribute("position") : "";
 
 %>
-<div class="main-listing-hr">
+<div class="main-listing-hr" style="padding: 10px;">
     <!--search-->
 
     <%
@@ -87,6 +87,9 @@
             </td>
             <td><%=listEmployeeTO.get(i).getLoginName()%>
             </td>
+            <td>
+                <%=listEmployeeTO.get(i).getStart_date()%>
+            </td>
             <td><%=listEmployeeTO.get(i).getPostionName()%>
             </td>
 
@@ -134,5 +137,13 @@
 
 
 <jsp:include page="SideBar.jsp"></jsp:include>
+<script>
+    var pos = new SlimSelect({
+        select: '#pos'
+    });
+    var region = new SlimSelect({
+        select: '#region'
+    });
+</script>
 </body>
 </html>

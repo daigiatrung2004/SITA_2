@@ -25,7 +25,7 @@
 
 
     %>
-    <div class="item-room col-md-2">
+    <div class="item-room">
         <a href="DetailsRoom?roomId=<%=listRoomTO.get(i).getRoom_id()%>" style="color: black;">
         <div class="img-item">
             <img src="./img/employee/img-daidien-room.jpg" style="height: 150px;width: 100%">

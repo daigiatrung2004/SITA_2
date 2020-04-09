@@ -23,6 +23,7 @@
     ArrayList<TransportTO> listTrans = (ArrayList<TransportTO>) request.getAttribute("listTrans");
     PriceRoomTO priceRoomTO = (PriceRoomTO) request.getAttribute("priceRoomTO");
     String totalTemp=request.getAttribute("totalTemp")!=null?(String)request.getAttribute("totalTemp"):"0";
+    String price_type = request.getParameter("price_type") != null ? (String) request.getParameter("price_type") : "OFFLINE";
 
     String totalTempStr=request.getAttribute("totalTempLong")!=null?(String)request.getAttribute("totalTempLong"):"0";
       long totalTempLong=Long.parseLong(totalTempStr);
@@ -141,8 +142,8 @@
                                           data-nodefaultlanguagefallback="false" data-placeholders="[]"
                                           placeholder="Vui lòng cung cấp thêm thông tin: thời gian đến, dị ứng đồ ăn...">Vui lòng cung cấp thêm thông tin: thời gian đến, dị ứng đồ ăn...</span>
                             </label>
-                            <textarea class="form-control" rows="6" name="fb-comment-block"
-                                      maxlength="500"></textarea>
+                            <textarea class="form-control" id="comment-block" rows="6" name="fb-comment-block"
+                                      maxlength="500"  style="margin: 20px;"></textarea>
                             <span class="fb-dark-gray">0/500</span>
                         </div>
                     </form>
@@ -213,7 +214,9 @@
                             data-kindroom="<%=kind_room_id%>" data-region="<%=region_id%>"
                             data-typeprice="<%=price_id%>" data-numberofpeople="<%=numberOfPeo%>"
                             data-checkin="<%=checkin%>" data-checkout="<%=checkout%>"
-                            data-room="<%=roomTO.getRoom_id()%>">
+                            data-room="<%=roomTO.getRoom_id()%>"
+                            data-price-type="<%=price_type%>"
+                    >
                         <span class="fb-translate">TIẾP</span>
                     </button>
                     <div id="fb-widget-container"
@@ -282,6 +285,20 @@
             $(".span-price").text(formatter.format(data).replace("$",""));
             $(".span-price").data('price',data);
         });
+    });
+
+</script>
+<script>
+    tinymce.init({
+        selector: '#comment-block',
+        menu: {
+            format: {
+                title: 'Format',
+                items: 'bold italic underline'
+            },
+
+
+        }
     });
 
 </script>

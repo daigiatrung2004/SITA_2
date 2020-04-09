@@ -10,14 +10,24 @@
     color: black!important;
 }
 
-.item-room{
-    border: 1px solid #ccc;
-    padding: 0px;
-    margin: 50px;
-    box-shadow: 0px 2px 4px 0px #ccc;
-}
 .img-item img{
     background-size: cover;
     background-position: center;
 
+}
+.item-room{
+    min-height: 220px;
+    max-width: 300px;
+    transition: transform .1s;
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin: 10px;
+    box-shadow: 0px 2px 4px 0px #ccc;
+
+}
+.item-room:hover{
+    transform: scale(1.01);
+}
+.main-room{
+    padding: 25px;
 }

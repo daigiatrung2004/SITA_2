@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Thêm dữ liệu nhân viên</title>
@@ -97,18 +98,20 @@
                 </div>
                 <div class="form-group">
                     <label for="region">Khu vực:</label>
-                   <select name="region" id="region">
-                       <%if(listRegion!=null){
-                           for (int i = 0; i <listRegion.size() ; i++) {
+                    <select name="region" id="region">
+                        <%
+                            if (listRegion != null) {
+                                for (int i = 0; i < listRegion.size(); i++) {
 
 
-                       %>
-                       <option value="<%=listRegion.get(i).getRegion_id()%>"><%=listRegion.get(i).getName_vi()%></option>
-                       <%
-                           }
-                           }
-                       %>
-                   </select>
+                        %>
+                        <option value="<%=listRegion.get(i).getRegion_id()%>"><%=listRegion.get(i).getName_vi()%>
+                        </option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary" id="insertEmployee" name="2">Thêm</button>
 
@@ -121,5 +124,13 @@
     <jsp:include page="SideBar.jsp"></jsp:include>
 
     <script src="./scripts/Admin/InsertEmployee.js?ver=1.4"></script>
+   <script>
+       var position = new SlimSelect({
+           select: '#position'
+       });
+       var region = new SlimSelect({
+           select: '#region'
+       });
+   </script>
 </body>
 </html>

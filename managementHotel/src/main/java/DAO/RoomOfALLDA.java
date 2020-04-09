@@ -162,7 +162,7 @@ public class RoomOfALLDA extends DAOOject {
         ResultSet rs = null;
         String sql = "SELECT P.* FROM " + StaticTO.DB_PRICE_ROOM + " P "
                 + " INNER JOIN " + StaticTO.DB_ROOM_NAME + " R ON R.KIND_ROOM_ID=P.KIND_ROOM_ID "
-                + "WHERE R.KIND_ROOM_ID=? AND R.REGION_ID=? AND R.STATUS=?";
+                + "WHERE R.KIND_ROOM_ID=? AND R.REGION_ID=? AND R.STATUS=? GROUP BY PRICE_ID";
         ArrayList<PriceRoomTO> listPriceRoomTO = new ArrayList<PriceRoomTO>();
         conn = getConnection();
         try {

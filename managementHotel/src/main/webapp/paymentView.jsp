@@ -20,10 +20,12 @@
     String numOfPeo = request.getParameter("numOfPeo") != null ? (String) request.getParameter("numOfPeo") : "0";
 
 %>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="css/home-css.css"/>
     <link rel="stylesheet" href="css/payment-view.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <jsp:include page="Library.jsp"></jsp:include>
     <style>
         .header-div-main {
@@ -241,7 +243,7 @@
                                     </div>
 
                                     <button class="btn btn-static fb-font-bold btn--price-select" data-price="<%if(promoteTO!=null){%><%=TextCustomizeFormat.currency_format(priceDiscount)%><%}else{%><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%><%}%>" data-kindroom="<%=kindRoomTO.getKindroom_id()%>" data-region="<%=regionTO.getRegion_id()%>"
-                                       data-typeprice="<%=listPriceRoomTO.get(j).getPrice_id()%>" data-numberofpeople="<%=numOfPeo%>" data-checkin="<%=checkIn%>" data-checkout="<%=checkOut%>"
+                                       data-typeprice="<%=listPriceRoomTO.get(j).getPrice_id()%>" data-numberofpeople="<%=numOfPeo%>" data-checkin="<%=checkIn%>" data-checkout="<%=checkOut%>" <%if(listPriceRoomTO.get(j).getPrice_id()==3){%>data-price-type="ONLINE"<%}else{%>data-price-type="OFFLINE"<%}%>
                                     >
                                     <span class="fb-translate "
                                           placeholder="Chọn" style="text-transform: uppercase;">Chọn</span>
@@ -337,7 +339,17 @@
         </div>
     </div>
 </div>
-<script src="scripts/payment.js"></script>
+
+
 <jsp:include page="./Footer.jsp"></jsp:include>
+<!--loader-->
+
+<div class="ui dimmer" id="dimmer" style="display:none;position: fixed;top:0;left:0;right:0px;bottom:0px;width: 100%;height: 100%;background-color: rgba(224, 214, 214, 0.5);">
+    <div class="ui massive text loader">
+        <h3 style="color: rgba(124, 37, 41,1)">Loading</h3>
+    </div>
+</div>
+
+<script src="scripts/payment.js"></script>
 </body>
 </html>

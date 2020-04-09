@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Thêm dữ liệu khách sạn</title>
@@ -26,6 +27,7 @@
 %>
 <div class="insertData">
     <jsp:include page="HeaderAdmin.jsp"></jsp:include>
+    <div>
     <div class="ui top attached tabular menu menu_insertData">
         <a class="item active" data-tab="region">Thêm khu vực</a>
         <a class="item" data-tab="kindroom">Thêm loại phòng</a>
@@ -199,30 +201,30 @@
                 <div class="div-array-img">
 
                 </div>
-                <div class="btn-upload-img" >
+                <div class="btn-upload-img">
                     <span><i class="fas fa-plus"></i></span>
                 </div>
             </div>
             <div class="ui modal" id="myModal">
 
 
-                        <!-- Modal Header -->
-                        <div class="header">
-                            <h4 class="modal-title">Thêm ảnh</h4>
-                            <button type="button" class="close ui ok" >&times;</button>
-                        </div>
+                <!-- Modal Header -->
+                <div class="header">
+                    <h4 class="modal-title">Thêm ảnh</h4>
+                    <button type="button" class="close ui ok">&times;</button>
+                </div>
 
-                        <!-- Modal body -->
-                        <div class="content">
+                <!-- Modal body -->
+                <div class="content">
 
-                            <input type="file" id="input-file-now" class="dropify"/>
-                        </div>
+                    <input type="file" id="input-file-now" class="dropify"/>
+                </div>
 
-                        <!-- Modal footer -->
-                        <div class="actions">
-                            <button type="button" class="btn btn-primary" id="insert-img-resource">Insert</button>
-                            <button type="button" class="btn btn-primary ui ok">Close</button>
-                        </div>
+                <!-- Modal footer -->
+                <div class="actions">
+                    <button type="button" class="btn btn-primary" id="insert-img-resource">Insert</button>
+                    <button type="button" class="btn btn-primary ui ok">Close</button>
+                </div>
 
 
             </div>
@@ -267,27 +269,26 @@
         <div class="ui modal" id="myModal_service">
 
 
-
-                    <!-- Modal Header -->
-                    <div class="header">
-                        <h4 class="modal-title">Thêm ảnh</h4>
-                        <button type="button" class="close  ui ok" >&times;</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="image content">
-
-                        <input type="file" id="input-file-service" class="dropify"/>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="actions">
-                        <button type="button" class="btn btn-primary" id="insert-img-service">Insert</button>
-                        <button type="button" class="btn btn-primary ui ok " >Close</button>
-                    </div>
-
-
+            <!-- Modal Header -->
+            <div class="header">
+                <h4 class="modal-title">Thêm ảnh</h4>
+                <button type="button" class="close  ui ok">&times;</button>
             </div>
+
+            <!-- Modal body -->
+            <div class="image content">
+
+                <input type="file" id="input-file-service" class="dropify"/>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="actions">
+                <button type="button" class="btn btn-primary" id="insert-img-service">Insert</button>
+                <button type="button" class="btn btn-primary ui ok ">Close</button>
+            </div>
+
+
+        </div>
 
 
     </div>
@@ -395,9 +396,42 @@
             <button class="btn btn-primary" id="btn-promote-price">Thêm</button>
         </div>
     </div>
+    </div>
     <!---->
 </div>
 <jsp:include page="SideBar.jsp"></jsp:include>
+<script>
+    tinymce.init({
+        selector: '#content_service_vi',
+        menu: {
+            file: {title: 'File', items: 'newdocument'},
+            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+            insert: {title: 'Insert', items: 'link media | template hr'},
+            view: {title: 'View', items: 'visualaid'},
+            format: {
+                title: 'Format',
+                items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'
+            },
+            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+            tools: {title: 'Tools', items: 'spellchecker code'}
+        }
+    });
+    tinymce.init({
+        selector: '#content_service_en',
+        menu: {
+            file: {title: 'File', items: 'newdocument'},
+            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+            insert: {title: 'Insert', items: 'link media | template hr'},
+            view: {title: 'View', items: 'visualaid'},
+            format: {
+                title: 'Format',
+                items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'
+            },
+            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+            tools: {title: 'Tools', items: 'spellchecker code'}
+        }
+    });
+</script>
 <script src="./scripts/Admin/InsertHotelManager.js"></script>
 
 
@@ -425,23 +459,46 @@
         var type_price = new SlimSelect({
             select: '#type_price'
         });
+
+        var select_kind_room_id = new SlimSelect({
+            select: '#select-kind-room-id'
+        });
+        var select_kind_room = new SlimSelect({
+            select: '#select-kind-room'
+        });
+        var select_price_room_id_2 = new SlimSelect({
+            select: '#select-price-room-id-2'
+        });
+        var select_region = new SlimSelect({
+            select: '#select-region'
+        });
+        var kindroom = new SlimSelect({
+            select: '#kindroom'
+        });
+
+
         $(".img-service-div").click(function () {
 
             $("#myModal_service").modal('show');
         });
-        $(".close").click(function(){
+        $(".close").click(function () {
             $("#myModal_service").modal('hide');
             $("#myModal").modal('hide');
         });
-        $(".btn-upload-img").click(function(){
+        $(".btn-upload-img").click(function () {
             $("#myModal").modal('show');
         });
-    });
+
+
+
+
+
+});
 </script>
 <script>
-    $(function () {
-        $("#expried_date").datepicker();
-    });
+$(function () {
+    $("#expried_date").datepicker();
+});
 </script>
 
 </body>

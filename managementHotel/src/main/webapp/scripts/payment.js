@@ -29,17 +29,19 @@ function goPageContinue(case_condition, data) {
     var numberOfPeo = data.data('numberofpeople');
     var checkin = data.data('checkin');
     var checkout = data.data('checkout');
-
-    var url = "price=" + price + "&kind_room_id=" + kind_room_id + "&region_id=" + region_id + "&price_id=" + price_id + "&numberOfPeo=" + numberOfPeo + "&checkin=" + checkin + "&checkout=" + checkout;
+    var price_type=data.data('price-type');
+    $('#dimmer').dimmer('show');
+    var url = "price=" + price + "&kind_room_id=" + kind_room_id + "&region_id=" + region_id + "&price_id=" + price_id + "&numberOfPeo=" + numberOfPeo + "&checkin=" + checkin + "&checkout=" + checkout+"&price_type="+price_type;
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             $(".main-payment").html(xmlhttp.responseText);
+            $('#dimmer').dimmer('hide');
         }
     }
     if (case_condition === 1) {
 
-        alert("price:" + price + "kind_room_id:" + kind_room_id + "region_id:" + region_id + "price_id:" + price_id + "numberOfPeo:" + numberOfPeo + "checkin:" + checkin + "checkout:" + checkout);
+        // alert("price:" + price + "kind_room_id:" + kind_room_id + "region_id:" + region_id + "price_id:" + price_id + "numberOfPeo:" + numberOfPeo + "checkin:" + checkin + "checkout:" + checkout);
         xmlhttp.open("POST", "AjaxPaymentContinue?" + url, true);
     } else if (case_condition === 2) {
         var room_id = data.data('room');
@@ -52,7 +54,7 @@ function goPageContinue(case_condition, data) {
             }
         });
 
-        alert("price:" + price + "kind_room_id:" + kind_room_id + "region_id:" + region_id + "price_id:" + price_id + "numberOfPeo:" + numberOfPeo + "checkin:" + checkin + "checkout:" + checkout+"arraySelectAddition:"+arraySelectAddition);
+        // alert("price:" + price + "kind_room_id:" + kind_room_id + "region_id:" + region_id + "price_id:" + price_id + "numberOfPeo:" + numberOfPeo + "checkin:" + checkin + "checkout:" + checkout+"arraySelectAddition:"+arraySelectAddition);
         xmlhttp.open("POST", "AjaxPaymentEndPoint?" + url + "&room_id=" + room_id+"&arraySelectAddition="+arraySelectAddition, true);
     }
     xmlhttp.send();

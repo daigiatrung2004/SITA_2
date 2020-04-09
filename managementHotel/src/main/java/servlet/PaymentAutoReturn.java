@@ -1,6 +1,7 @@
 package servlet;
 
 import DAO.BookingDA;
+import DAO.PaymentOrderDA;
 import DAO.RoomOfALLDA;
 import DTO.*;
 import Utils.EncryptDecryptPassword;
@@ -23,6 +24,7 @@ public class PaymentAutoReturn extends WebServlet {
         try {
             String email = request.getParameter("email") != null ? (String) request.getParameter("email") : "";
             String verify_person = request.getParameter("verify_person") != null ? (String) request.getParameter("verify_person") : "";
+            String type_payment = request.getParameter("type_payment") != null ? (String) request.getParameter("type_payment") : "cash";
             String buyer_phone = request.getParameter("buyer-phone") != null ? (String) request.getParameter("buyer-phone") : "";
             String checkin = request.getParameter("checkin") != null ? (String) request.getParameter("checkin") : "";
             String checkout = request.getParameter("checkout") != null ? (String) request.getParameter("checkout") : "";
@@ -37,6 +39,12 @@ public class PaymentAutoReturn extends WebServlet {
             String[] checkoutSplit = checkout.split("/");
             String[] listTransSplit = listTrans.split(",");
             String[] checkinSplit = checkin.split("/");
+            long totalLong;
+            try {
+                totalLong=Long.parseLong(total);
+            } catch (NumberFormatException e) {
+                totalLong=0;
+            }
             if (!checkin.equals("") && !checkout.equals("")) {
                 checkin = checkinSplit[2] + "-" + checkinSplit[1] + "-" + checkinSplit[0] + " 14:00:00";
 
@@ -55,6 +63,7 @@ public class PaymentAutoReturn extends WebServlet {
             BookingDA bookingDA = new BookingDA();
             bookingDA.addCustomer(customerTO);
             CustomerTO customer = bookingDA.retreiveCustomerLatest();
+
             BookingTO bookingTO = new BookingTO(0, customer.getCustomer_id(), nowStr, checkin, checkout, Integer.parseInt(kind_room_id), Integer.parseInt(region_id), Integer.parseInt(room_id), StaticTO.ACTIVE_STATUS, "", pass);
             bookingDA.addBooking(bookingTO);
             BookingTO bookingTO1 = bookingDA.retrieveBookingLatest();
@@ -64,15 +73,29 @@ public class PaymentAutoReturn extends WebServlet {
                     bookingDA.addBookingTrans(bookingTO2);
                 }
             }
-
+            PaymentOrderDA paymentOrderDA=new PaymentOrderDA();
+            Date date=new Date();
+            DateFormat dateFormat1=new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+            String dateStr=dateFormat1.format(date);
+            System.out.println(dateStr);
+            if (type_payment.equals("paypal")) {
+               PaymentOrderTO paymentOrderTO=new PaymentOrderTO(0,customerTO.getCustomer_id(),"","","",dateStr,0,totalLong,"VNĐ","","","","","","","","","",StaticTO.PAYPAL_METHOD);
+               paymentOrderDA.addPaymentOrder(paymentOrderTO);
+            }
             request.setAttribute("name", firstname + " " + lastname);
             request.setAttribute("contact_person", buyer_phone);
             request.setAttribute("verify_person", verify_person);
             // get info room
             RoomOfALLDA roomOfALLDA = new RoomOfALLDA();
             RoomTO roomTO = roomOfALLDA.searchRoomById(Integer.parseInt(room_id));
-            roomTO.setStatus(StaticTO.BOOKED_STATUS);
-            roomOfALLDA.updateRoom(roomTO);
+            if (roomTO != null) {
+                if (type_payment.equals("paypal")) {
+                    roomTO.setStatus(StaticTO.COMPLETE_STATUS);
+                } else {
+                    roomTO.setStatus(StaticTO.BOOKED_STATUS);
+                }
+                roomOfALLDA.updateRoom(roomTO);
+            }
             request.setAttribute("roomTO", roomTO);
             // hinh thuc thanh toan
             PriceRoomTO priceRoomTO = roomOfALLDA.retrievePriceById(Integer.parseInt(price_id));

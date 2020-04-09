@@ -1,5 +1,5 @@
-<%@ page import="Language.LanguageControl" %>
 <%@ page import="DTO.RegionTO" %>
+<%@ page import="Language.LanguageControl" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%LanguageControl lang = (LanguageControl) session.getAttribute("LanguageControl");%>
@@ -36,9 +36,9 @@
                             <div class="element-search">
                                 <select class="select-search" name="location">
                                     <%
-                                        if(listRegionTO!=null){
-                                        for (int i = 0; i < listRegionTO.size(); i++) {
-                                            if (language.equals(LanguageControl.VN_LAN)) {
+                                        if (listRegionTO != null) {
+                                            for (int i = 0; i < listRegionTO.size(); i++) {
+                                                if (language.equals(LanguageControl.VN_LAN)) {
                                     %>
 
                                     <option value="<%=listRegionTO.get(i).getRegion_id()%>"><%=listRegionTO.get(i).getName_vi()%>
@@ -50,8 +50,8 @@
                                     </option>
                                     <%
 
+                                                }
                                             }
-                                        }
                                         }
                                     %>
 
@@ -59,7 +59,7 @@
                                 </select>
 
                             </div>
-<%--                            <input type="hidden" name="location" value="2" id="location">--%>
+
                         </li>
                         <li>
                             <!--check in-->
@@ -67,18 +67,13 @@
                                 <label><%=lang.readXMl("CHECK_IN_TITLE")%>
                                 </label>
                             </div>
-                            <div class="element-search">
+                            <div class="element-search div-check-in">
                                 <div class="div-text-check">
-                                    <span id="text-check-in"></span>
-                                    <span><i class="calendar alternate icon"></i></span>
+
+                                    <input type="text" name="checkIn" value="" class="item-input-check" id="checkIn">
+                                    <span class="span-check"><i class="calendar alternate icon"></i></span>
                                 </div>
-                                <div class="check-pos" id="pos-check-in">
-
-                                </div>
-
-
                             </div>
-                            <input type="hidden" name="checkIn" value="2" id="checkIn">
                         </li>
                         <li>
                             <!--check out-->
@@ -86,16 +81,14 @@
                                 <label><%=lang.readXMl("CHECK_OUT_TITLE")%>
                                 </label>
                             </div>
-                            <div class="element-search">
+                            <div class="element-search div-check-out">
                                 <div class="div-text-check">
-                                    <span id="text-check-out"></span>
-                                    <span><i class="calendar alternate icon"></i></span>
-                                </div>
-                                <div class="check-pos" id="pos-check-out">
-
+                                    <%--                                    <span id="text-check-out"></span>--%>
+                                    <input type="text" name="checkOut" class="item-input-check" value="" id="checkOut">
+                                    <span class="span-check"><i class="calendar alternate icon"></i></span>
                                 </div>
                             </div>
-                            <input type="hidden" name="checkOut" value="2" id="checkOut">
+
                         </li>
                         <li>
                             <!--so luong nguoi -->
@@ -115,10 +108,14 @@
                                 <div class="pos-show-num-people">
                                     <div>
                                         <label>Người lớn per room</label>
-                                        <div>
-                                            <div class="bg-num-people">-</div>
+                                        <div style="display: flex;justify-content: center;">
+                                            <div class="bg-num-people substract">
+                                                <button type="button" class="btn-peo">-</button>
+                                            </div>
                                             <div class="div-show-num-people bg-num-people">2</div>
-                                            <div class="bg-num-people">+</div>
+                                            <div class="bg-num-people plus">
+                                                <button type="button" class="btn-peo">+</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -329,48 +326,82 @@
         var d = new Date();
 
         var month = d.getMonth() + 1;
-        var month_check_out = d.getMonth() + 2;
+        var month_check_out = d.getMonth() + 1;
         var day = d.getDate();
-
+        var datTomorow = d.getDate() + 1;
         var checkIn = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + d.getFullYear();
-        var checkOut = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month_check_out).length < 2 ? '0' : '') + month_check_out + '/' + d.getFullYear();
+        var checkOut = (('' + datTomorow).length < 2 ? '0' : '') + datTomorow + '/' + (('' + month_check_out).length < 2 ? '0' : '') + month_check_out + '/' + d.getFullYear();
         $("#checkOut").val(checkOut);
         $("#checkIn").val(checkIn);
-        $("#text-check-in").text(checkIn);
-        $("#text-check-out").text(checkOut);
-        $("#text-check-in").click(function () {
-            $("#pos-check-in").toggle();
-            $("#pos-check-in").datepicker({
-                onSelect: function (datatext, inst) {
-                    datatext = formatDate(datatext);
-                    $("#text-check-in").text(datatext);
-                    $("#checkIn").val(datatext);
-                    $("#pos-check-in").hide();
-                }
+        // $("#text-check-in").text(checkIn);
+        // $("#text-check-out").text(checkOut);
+        $(function () {
+            $("#checkOut").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+            $("#checkIn").datepicker({
+                dateFormat: 'dd/mm/yy'
             });
         });
-        $("#text-check-out").click(function () {
-            $("#pos-check-out").toggle();
-            $("#pos-check-out").datepicker({
-                onSelect: function (datatext, inst) {
-                    datatext = formatDate(datatext);
-                    $("#text-check-out").text(datatext);
-                    $("#checkOut").val(datatext);
-                    $("#pos-check-out").hide();
-
-                }
-            });
-        });
+        // $(".div-check-in").click(function () {
+        //     $("#pos-check-out").hide();
+        //     $("#pos-check-in").toggle();
+        //     $("#pos-check-in").datepicker({
+        //         onSelect: function (datatext, inst) {
+        //             datatext = formatDate(datatext);
+        //             $("#text-check-in").text(datatext);
+        //             $("#checkIn").val(datatext);
+        //             $("#pos-check-in").hide();
+        //         }
+        //     });
+        // });
+        // $(".div-check-out").click(function () {
+        //     $("#pos-check-in").hide();
+        //     $("#pos-check-out").toggle();
+        //     $("#pos-check-out").datepicker({
+        //         onSelect: function (datatext, inst) {
+        //             datatext = formatDate(datatext);
+        //             $("#text-check-out").text(datatext);
+        //             $("#checkOut").val(datatext);
+        //             $("#pos-check-out").hide();
+        //
+        //         }
+        //     });
+        // });
         $(".select-customize").click(function () {
+            $("#text-check-out").hide();
+            $("#pos-check-in").hide();
             $(".pos-show-num-people").toggle();
         });
+        $(".plus").click(function () {
+            var numOfPeo = $(".div-show-num-people").text();
+            if (numOfPeo < 10) {
+                numOfPeo++;
+            }
+            $("#numOfPeople").val(numOfPeo);
+            $("#show-num-people #soluong").text(numOfPeo);
+            $(".div-show-num-people").text(numOfPeo);
+
+        });
+        $(".substract").click(function () {
+            var numOfPeo = $(".div-show-num-people").text();
+            if (numOfPeo > 1) {
+                numOfPeo--;
+            }
+            $("#numOfPeople").val(numOfPeo);
+            $("#show-num-people #soluong").text(numOfPeo);
+            $(".div-show-num-people").text(numOfPeo);
+        });
+
     });
+
 
     function formatDate(date) {
         var split = date.split("/");
         var reformat = split[1] + "/" + split[0] + "/" + split[2];
         return reformat;
     }
+
 
 </script>
 <jsp:include page="Footer.jsp"></jsp:include>

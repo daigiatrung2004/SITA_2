@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    //
-//      $(".btn-upload-img").click(function(){
-//          $("body.modal-backdrop").remove();
-//           $("#imgUpload").append("<div class='modal-backdrop fade show'></div>");
-//      });
-//      $(".modal-backdrop").click(function () {
-// alert("xinchao");
-//      })
-
-    // insert khu vuc cho từng khách sạn
     $("#btn-region").click(function () {
         var vi = $("#vi_name").val();
         var en = $("#en_name").val();
@@ -33,10 +23,10 @@ $(document).ready(function () {
 
         var filename_origin = input_img.split("\\").pop();
         var input_img_src = $("#myModal .dropify-render img").attr("src");
-        var count=0;
-        count=$(".div-array-img img").length;
+        var count = 0;
+        count = $(".div-array-img img").length;
 
-        if(count<=4) {
+        if (count <= 4) {
             $(".div-array-img").append("<img  style='height: 100px;width: 100px;margin:10px;background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>"
             );
         }
@@ -74,7 +64,7 @@ $(document).ready(function () {
 
         insertPromoteBefore();
     });
-    $("#btn-promote-price").click(function(){
+    $("#btn-promote-price").click(function () {
         insertPromotePrice();
     });
 });
@@ -91,12 +81,14 @@ function getXMLHTTP() {
     return null;
 
 }
-function insertPromotePrice(){
-    var promote_id=$("#promote_id").val();
-    var price_id=$("#price_id").val();
-    var url="promote_id="+promote_id+"&price_id="+price_id+"&type=promoteprice";
+
+function insertPromotePrice() {
+    var promote_id = $("#promote_id").val();
+    var price_id = $("#price_id").val();
+    var url = "promote_id=" + promote_id + "&price_id=" + price_id + "&type=promoteprice";
     insertPromote(url);
 }
+
 function insertPromoteBefore() {
     var pro_code = $("#code_promote").val();
     var pro_value = $("#value_promote").val();
@@ -105,26 +97,27 @@ function insertPromoteBefore() {
 
     expired_date = splitExprired[2] + "-" + splitExprired[0] + "-" + splitExprired[1];
     // alert("expired_date:" + expired_date + "pro_value:" + pro_value + "pro_code:" + pro_code);
-   var url = "pro_code=" + pro_code + "&pro_value=" + pro_value + "&expired_date=" + expired_date;
+    var url = "pro_code=" + pro_code + "&pro_value=" + pro_value + "&expired_date=" + expired_date;
     // alert("urlbefore"+url);
-   insertPromote(url);
+    insertPromote(url);
 
 }
-function insertPromote(url){
+
+function insertPromote(url) {
     alert(url);
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var data=xmlhttp.responseText;
-            var json=JSON.parse(data);
-            if(json['success']){
+            var data = xmlhttp.responseText;
+            var json = JSON.parse(data);
+            if (json['success']) {
                 alert("Thành công");
-            }else{
+            } else {
                 alert("Thất bại");
             }
         }
     }
-    xmlhttp.open('POST','AjaxPromoteCode?'+url,true);
+    xmlhttp.open('POST', 'AjaxPromoteCode?' + url, true);
     xmlhttp.send();
 }
 
@@ -247,7 +240,7 @@ function insert(vi, en, type) {
         var region = $("#select-region").val();
         var maxPeople = $("#max_peo").val();
         // alert(priceroom);
-        url_ = "name=" + name + "&kindroom=" + kindroom + "&region=" + region + "&type=" + type + "&max_peo=" + maxPeople+"&priceroom="+priceroom;
+        url_ = "name=" + name + "&kindroom=" + kindroom + "&region=" + region + "&type=" + type + "&max_peo=" + maxPeople + "&priceroom=" + priceroom;
     } else if (type === "price-room") {
         var type_vi = $("#type_vi").val();
         var type_en = $("#type_en").val();
@@ -267,25 +260,33 @@ function insert(vi, en, type) {
 
             if (json['success']) {
                 if (type === 'kindroom') {
-                    $("#result-insert-kind-room").text("Thành công");
+                    // $("#result-insert-kind-room").text("Thành công");
+                    alert("Thành công");
                 } else if (type === 'room') {
-                    $("#result-insert-room").text("Thành công");
+                    alert("Thành công");
+                    // $("#result-insert-room").text("Thành công");
                 } else if (type === 'price-room') {
-                    $("#result-price-room").text("Thành công");
+                    // $("#result-price-room").text("Thành công");
+                    alert("Thành công");
                 } else {
-                    $("#result-insert-region").text("Thành công");
+                    // $("#result-insert-region").text("Thành công");
+                    alert("Thành công");
                 }
 
 
             } else {
                 if (type === 'kindroom') {
-                    $("#result-insert-kind-room").text("Thất bại");
+                    // $("#result-insert-kind-room").text("Thất bại");
+                    alert("Thất bại");
                 } else if (type === 'room') {
-                    $("#result-insert-room").text("Thất bại");
+                    alert("Thất bại");
+                    // $("#result-insert-room").text("Thất bại");
                 } else if (type === 'price-room') {
-                    $("#result-price-room").text("Thất bại");
+                    // $("#result-price-room").text("Thất bại");
+                    alert("Thất bại");
                 } else {
-                    $("#result-insert-region").text("Thất bại");
+                    alert("Thất bại");
+                    // $("#result-insert-region").text("Thất bại");
                 }
 
 

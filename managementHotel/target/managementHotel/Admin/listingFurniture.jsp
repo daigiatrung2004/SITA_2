@@ -156,6 +156,9 @@
     var furniture_select = new SlimSelect({
         select: '#furniture_select'
     });
+    var kind_room = new SlimSelect({
+        select: '#kind_room'
+    });
     tinymce.init({
         selector: '#details',
         menu: {
