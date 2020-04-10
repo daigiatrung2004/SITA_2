@@ -47,3 +47,17 @@
 .img-service-div{
     margin-bottom: 14px;
 }
+.div-img-region-insert{
+    border: 5px dashed grey;
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+    font-size: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+.div-img-region-insert:hover{
+    cursor: pointer;
+}

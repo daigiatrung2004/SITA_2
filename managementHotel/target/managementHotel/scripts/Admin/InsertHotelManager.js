@@ -1,19 +1,26 @@
 $(document).ready(function () {
     $("#btn-region").click(function () {
-        var vi = $("#vi_name").val();
-        var en = $("#en_name").val();
+       insertRegion();
+        // insert(vi, en, "region");
+    });
+    // insert ảnh cho region
+    $("#insert-img-region").click(function () {
+        var input_img = $("#input-file-service").val();
+        var filename_origin = input_img.split("\\").pop();
+        var input_img_src = $("#regionModal .dropify-render img").attr("src");
+        $(".array-img-region-insert img").remove();
 
-        insert(vi, en, "region");
+        $(".array-img-region-insert").append("<img  style='height: 100px;width: 100px;margin:10px;background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>");
     });
     //insert ảnh cho bang service
     $("#insert-img-service").click(function () {
-        $(".modal-backdrop.show").hide();
+
         var input_img = $("#input-file-service").val();
         var filename_origin = input_img.split("\\").pop();
         var input_img_src = $("#myModal_service .dropify-render img").attr("src");
         $(".img-service-div img").remove();
 
-        $(".img-service-div").append("<img  style='background-size: cover;background-position: center' src='" + input_img_src + "' name='" + filename_origin + "'>");
+        $(".img-service-div").append("<img  style='background-size: cover;background-position: center;' src='" + input_img_src + "' name='" + filename_origin + "'>");
     });
 
     //them anh cho bang upload resouce
@@ -104,7 +111,7 @@ function insertPromoteBefore() {
 }
 
 function insertPromote(url) {
-    alert(url);
+    // alert(url);
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -151,8 +158,8 @@ function insertService() {
     var count = 0;
     var name_service_vi = $("#name_service_vi").val();
     var name_service_en = $("#name_service_en").val();
-    var content_service_vi = $("#content_service_vi").val();
-    var content_service_en = $("#content_service_en").val();
+    var content_service_vi = tinymce.get('content_service_vi').getContent();
+    var content_service_en = tinymce.get('content_service_en').getContent();
 
     // alert("name:"+name_service_vi+"content:"+content_service_vi);
     var count = 0;
@@ -250,6 +257,7 @@ function insert(vi, en, type) {
         url_ = "type_vi=" + type_vi + "&type_en=" + type_en + "&kindroom=" + kindroom + "&price=" + price + "&type=price_room";
 
     } else {
+        var input_img_src = $("#regionModal .dropify-render img").attr("src");
         url_ = "vi_region=" + vi + "&en_region=" + en + "&type=" + type;
     }
     xmlhttp.onreadystatechange = function () {
@@ -295,4 +303,43 @@ function insert(vi, en, type) {
     };
     xmlhttp.open("POST", "SettingManagerHotel?" + url_, true);
     xmlhttp.send();
+}
+function insertRegion(){
+    var vi = $("#vi_name").val();
+    var en = $("#en_name").val();
+    var listSrc = "";
+    var listImgOrgin = "";
+    var count = 0;
+    $(".array-img-region-insert img").each(function () {
+        if (count > 0) {
+            listSrc += "." + $(this).attr("src");
+            listImgOrgin += "," + $(this).attr("name");
+        } else {
+            listSrc += $(this).attr("src");
+            listImgOrgin += $(this).attr("name");
+        }
+        count++;
+
+    });
+    var url = "listSrc=" + listSrc + "&listImgOrgin=" + listImgOrgin;
+    alert(url);
+    $.ajax({
+        url: 'SettingManagerHotel',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+            listSrcData: JSON.stringify(listSrc),
+            listImgOrginData: JSON.stringify(listImgOrgin),
+            vi_region:vi,
+            en_region:en
+        },
+        success: function (data) {
+            if (data['success']) {
+                alert("Thành công");
+            } else {
+                alert("Thất bại");
+            }
+        }
+    });
+
 }

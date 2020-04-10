@@ -144,7 +144,7 @@
     <button class="btn btn-primary" id="furniture_room">Thêm</button>
 </div>
 <jsp:include page="SideBar.jsp"></jsp:include>
-<script src="./scripts/Admin/listingFurniture.js"></script>
+
 <script>
 
     $(document).ready(function () {
@@ -175,5 +175,6 @@
         }
     });
 </script>
+<script src="./scripts/Admin/listingFurniture.js"></script>
 </body>
 </html>

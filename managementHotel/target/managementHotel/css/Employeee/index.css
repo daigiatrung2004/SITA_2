@@ -1,0 +1,66 @@
+.footer-tiem-img {
+
+    color: white;
+    text-align: center;
+    padding: 15px;
+
+
+}
+
+.func-item-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.func-item-employee {
+    padding: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -webkit-box-shadow: 1px 0px 5px #888888;
+    box-shadow: 1px 0px 5px #888888;
+    margin: 10px;
+}
+
+.a-func-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .2);
+    display: none;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -webkit-box-shadow: 1px 0px 5px #888888;
+    box-shadow: 1px 0px 5px #888888;
+}
+
+.func-item-employee:hover .a-func-item {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -webkit-box-shadow: 1px 0px 5px #888888;
+    box-shadow: 1px 0px 5px #888888;
+    display: block;
+}
+

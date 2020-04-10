@@ -35,6 +35,7 @@
                             </div>
                             <div class="element-search">
                                 <select class="select-search" name="location">
+                                    <option value="0">Tất cả</option>
                                     <%
                                         if (listRegionTO != null) {
                                             for (int i = 0; i < listRegionTO.size(); i++) {
@@ -343,31 +344,6 @@
                 dateFormat: 'dd/mm/yy'
             });
         });
-        // $(".div-check-in").click(function () {
-        //     $("#pos-check-out").hide();
-        //     $("#pos-check-in").toggle();
-        //     $("#pos-check-in").datepicker({
-        //         onSelect: function (datatext, inst) {
-        //             datatext = formatDate(datatext);
-        //             $("#text-check-in").text(datatext);
-        //             $("#checkIn").val(datatext);
-        //             $("#pos-check-in").hide();
-        //         }
-        //     });
-        // });
-        // $(".div-check-out").click(function () {
-        //     $("#pos-check-in").hide();
-        //     $("#pos-check-out").toggle();
-        //     $("#pos-check-out").datepicker({
-        //         onSelect: function (datatext, inst) {
-        //             datatext = formatDate(datatext);
-        //             $("#text-check-out").text(datatext);
-        //             $("#checkOut").val(datatext);
-        //             $("#pos-check-out").hide();
-        //
-        //         }
-        //     });
-        // });
         $(".select-customize").click(function () {
             $("#text-check-out").hide();
             $("#pos-check-in").hide();

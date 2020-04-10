@@ -28,374 +28,412 @@
 <div class="insertData">
     <jsp:include page="HeaderAdmin.jsp"></jsp:include>
     <div>
-    <div class="ui top attached tabular menu menu_insertData">
-        <a class="item active" data-tab="region">Thêm khu vực</a>
-        <a class="item" data-tab="kindroom">Thêm loại phòng</a>
-        <a class="item" data-tab="price-room">Giá phòng</a>
-        <a class="item" data-tab="room">Thêm phòng</a>
-        <a class="item" data-tab="upload_img">Thêm ảnh phòng </a>
-        <a class="item" data-tab="service_data">Thêm dữ liệu dịch vụ</a>
-        <a class="item" data-tab="service_room">Thêm dịch vụ cho từng loại phòng̣</a>
+        <div class="ui top attached tabular menu menu_insertData">
+            <a class="item active" data-tab="region">Thêm khu vực</a>
+            <a class="item" data-tab="kindroom">Thêm loại phòng</a>
+            <a class="item" data-tab="price-room">Giá phòng</a>
+            <a class="item" data-tab="room">Thêm phòng</a>
+            <a class="item" data-tab="upload_img">Thêm ảnh phòng </a>
+            <a class="item" data-tab="service_data">Thêm dữ liệu dịch vụ</a>
+            <a class="item" data-tab="service_room">Thêm dịch vụ cho từng loại phòng̣</a>
 
 
-    </div>
-
-    <!--them khu vuc-->
-    <div class="ui bottom attached tab segment active" data-tab="region">
-        <div class="form-group">
-            <label for="vi_name">Vietnamese Name:</label>
-            <input type="text" class="form-control" placeholder="Enter Vietnamese" id="vi_name" name="vi_name">
-        </div>
-        <div class="form-group">
-            <label for="en_name">EngLish Name:</label>
-            <input type="text" class="form-control" placeholder="Enter English" id="en_name" name="en_name">
-        </div>
-        <button type="submit" class="btn btn-primary" id="btn-region">Insert</button>
-        <div class="error" id="result-insert-region"></div>
-    </div>
-
-
-    <!--them loai phong -->
-    <div class="ui bottom attached tab segment" data-tab="kindroom">
-        <div class="form-group">
-            <label for="vi_name">Vietnamese Name:</label>
-            <input type="text" class="form-control" placeholder="Enter Vietnamese" id="vi_name_kind" name="vi_name">
-        </div>
-        <div class="form-group">
-            <label for="en_name">EngLish Name:</label>
-            <input type="text" class="form-control" placeholder="Enter English" id="en_name_kind" name="en_name">
-        </div>
-        <button type="submit" class="btn btn-primary" id="btn-kind-room">Insert</button>
-        <div class="error" id="result-insert-kind-room"></div>
-    </div>
-
-    <!--them gia phong-->
-    <div class="ui bottom attached tab segment" data-tab="price-room">
-        <div class="form-group">
-            <label for="en_name"> Type Price Room VietNam :</label>
-            <input type="text" class="form-control" placeholder="Enter Name Room" id="type_vi" name="type_vi">
-        </div>
-        <div class="form-group">
-            <label for="en_name">Type Price Room EngLish:</label>
-            <input type="text" class="form-control" placeholder="Enter Name Room" id="type_en" name="type_en">
-        </div>
-        <div class="form-group">
-            <label for="en_name"> Price / 1 night:</label>
-            <input type="text" class="form-control" placeholder="Enter Name Room" id="price" name="price">
         </div>
 
-        <div class="form-group">
-            <label for="en_name">Select kind room:</label>
-            <select id="select-kind-room-id">
-                <%
-                    if (listRegion != null) {
-                        for (int i = 0; i < listKindRoom.size(); i++) {
+        <!--them khu vuc-->
+        <div class="ui bottom attached tab segment active" data-tab="region">
+            <div class="form-group">
+                <label for="vi_name">Tên(tiếng việt):</label>
+                <input type="text" class="form-control" placeholder="Enter Vietnamese" id="vi_name" name="vi_name">
+            </div>
+            <div class="form-group">
+                <label for="en_name">Tên(tiếng anh):</label>
+                <input type="text" class="form-control" placeholder="Enter English" id="en_name" name="en_name">
+            </div>
+            <div class="form-group">
+                <label for="en_name">Thêm hình ảnh:</label>
+                <div class="img-region-insert" style="display:flex;">
+                    <div class="array-img-region-insert">
+
+                    </div>
+                    <div class="div-img-region-insert">
+                        <span><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="ui modal" id="regionModal">
 
 
-                %>
-                <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
-                </option>
-                <%
-                        }
-                    }%>
+                        <!-- Modal Header -->
+                        <div class="header">
+                            <h4 class="modal-title">Thêm ảnh</h4>
+                            <button type="button" class="close ui ok">&times;</button>
+                        </div>
 
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary" id="btn-price-room">Insert</button>
-        <div class="error" id="result-price-room"></div>
-    </div>
-    <!---->
+                        <!-- Modal body -->
+                        <div class="content">
 
+                            <input type="file" id="input-file-region" class="dropify"/>
+                        </div>
 
-    <!--them phong moi-->
-    <div class="ui bottom attached tab segment" data-tab="room">
-        <div class="form-group">
-            <label for="en_name"> Name Room :</label>
-            <input type="text" class="form-control" placeholder="Enter Name Room" id="name_room" name="en_name">
-        </div>
-
-        <div class="form-group">
-            <label for="en_name"> Max people :</label>
-            <input type="number" class="form-control" placeholder="Enter Max People" id="max_peo" name="max_peo">
-        </div>
-        <div class="form-group">
-            <label for="en_name">Select kind room:</label>
-            <select id="select-kind-room">
-                <%
-                    if (listRegion != null) {
-                        for (int i = 0; i < listKindRoom.size(); i++) {
+                        <!-- Modal footer -->
+                        <div class="actions">
+                            <button type="button" class="btn btn-primary" id="insert-img-region">Insert</button>
+                            <button type="button" class="btn btn-primary ui ok">Close</button>
+                        </div>
 
 
-                %>
-                <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
-                </option>
-                <%
-                        }
-                    }%>
-
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="select-price-room-id-2">Select type price:</label>
-            <select id="select-price-room-id-2">
-                <%
-                    if (listPriceRoom != null) {
-                        for (int i = 0; i < listPriceRoom.size(); i++) {
-
-
-                %>
-                <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
-                </option>
-                <%
-                        }
-                    }%>
-
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="en_name">Select region:</label>
-            <select id="select-region">
-                <%
-                    if (listRegion != null) {
-                        for (int i = 0; i < listRegion.size(); i++) {
-
-
-                %>
-                <option value="<%=listRegion.get(i).getRegion_id()%>">
-                    <%=listRegion.get(i).getName_vi()%>
-                </option>
-                <%
-                        }
-                    }
-                %>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary" id="btn-room">Insert</button>
-        <div class="error" id="result-insert-room"></div>
-    </div>
-
-    <!---->
-
-    <!--upload img-->
-    <div class="ui bottom attached tab segment" data-tab="upload_img" id="imgUpload">
-
-        <div class="form-group">
-            <label for="kindroom"> Select kind room :</label>
-            <select id="kindroom">
-                <%
-                    if (listRegion != null) {
-                        for (int i = 0; i < listKindRoom.size(); i++) {
-
-
-                %>
-                <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
-                </option>
-                <%
-                        }
-                    }%>
-
-            </select>
-        </div>
-        <div class="content-img">
-            <div class="array-img">
-                <div class="div-array-img">
-
-                </div>
-                <div class="btn-upload-img">
-                    <span><i class="fas fa-plus"></i></span>
+                    </div>
                 </div>
             </div>
-            <div class="ui modal" id="myModal">
+            <button type="submit" class="btn btn-primary" id="btn-region">Insert</button>
+            <div class="error" id="result-insert-region"></div>
+        </div>
+
+
+        <!--them loai phong -->
+        <div class="ui bottom attached tab segment" data-tab="kindroom">
+            <div class="form-group">
+                <label for="vi_name">Vietnamese Name:</label>
+                <input type="text" class="form-control" placeholder="Enter Vietnamese" id="vi_name_kind" name="vi_name">
+            </div>
+            <div class="form-group">
+                <label for="en_name">EngLish Name:</label>
+                <input type="text" class="form-control" placeholder="Enter English" id="en_name_kind" name="en_name">
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-kind-room">Insert</button>
+            <div class="error" id="result-insert-kind-room"></div>
+        </div>
+
+        <!--them gia phong-->
+        <div class="ui bottom attached tab segment" data-tab="price-room">
+            <div class="form-group">
+                <label for="en_name"> Type Price Room VietNam :</label>
+                <input type="text" class="form-control" placeholder="Enter Name Room" id="type_vi" name="type_vi">
+            </div>
+            <div class="form-group">
+                <label for="en_name">Type Price Room EngLish:</label>
+                <input type="text" class="form-control" placeholder="Enter Name Room" id="type_en" name="type_en">
+            </div>
+            <div class="form-group">
+                <label for="en_name"> Price / 1 night:</label>
+                <input type="text" class="form-control" placeholder="Enter Name Room" id="price" name="price">
+            </div>
+
+            <div class="form-group">
+                <label for="en_name">Select kind room:</label>
+                <select id="select-kind-room-id">
+                    <%
+                        if (listRegion != null) {
+                            for (int i = 0; i < listKindRoom.size(); i++) {
+
+
+                    %>
+                    <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
+                    </option>
+                    <%
+                            }
+                        }%>
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-price-room">Insert</button>
+            <div class="error" id="result-price-room"></div>
+        </div>
+        <!---->
+
+
+        <!--them phong moi-->
+        <div class="ui bottom attached tab segment" data-tab="room">
+            <div class="form-group">
+                <label for="en_name"> Name Room :</label>
+                <input type="text" class="form-control" placeholder="Enter Name Room" id="name_room" name="en_name">
+            </div>
+
+            <div class="form-group">
+                <label for="en_name"> Max people :</label>
+                <input type="number" class="form-control" placeholder="Enter Max People" id="max_peo" name="max_peo">
+            </div>
+            <div class="form-group">
+                <label for="en_name">Select kind room:</label>
+                <select id="select-kind-room">
+                    <%
+                        if (listRegion != null) {
+                            for (int i = 0; i < listKindRoom.size(); i++) {
+
+
+                    %>
+                    <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
+                    </option>
+                    <%
+                            }
+                        }%>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="select-price-room-id-2">Select type price:</label>
+                <select id="select-price-room-id-2">
+                    <%
+                        if (listPriceRoom != null) {
+                            for (int i = 0; i < listPriceRoom.size(); i++) {
+
+
+                    %>
+                    <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
+                    </option>
+                    <%
+                            }
+                        }%>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="en_name">Select region:</label>
+                <select id="select-region">
+                    <%
+                        if (listRegion != null) {
+                            for (int i = 0; i < listRegion.size(); i++) {
+
+
+                    %>
+                    <option value="<%=listRegion.get(i).getRegion_id()%>">
+                        <%=listRegion.get(i).getName_vi()%>
+                    </option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-room">Insert</button>
+            <div class="error" id="result-insert-room"></div>
+        </div>
+
+        <!---->
+
+        <!--upload img-->
+        <div class="ui bottom attached tab segment" data-tab="upload_img" id="imgUpload">
+
+            <div class="form-group">
+                <label for="kindroom"> Select kind room :</label>
+                <select id="kindroom">
+                    <%
+                        if (listRegion != null) {
+                            for (int i = 0; i < listKindRoom.size(); i++) {
+
+
+                    %>
+                    <option value="<%=listKindRoom.get(i).getKindroom_id()%>"><%=listKindRoom.get(i).getName_vi()%>
+                    </option>
+                    <%
+                            }
+                        }%>
+
+                </select>
+            </div>
+            <div class="content-img">
+                <div class="array-img">
+                    <div class="div-array-img">
+
+                    </div>
+                    <div class="btn-upload-img">
+                        <span><i class="fas fa-plus"></i></span>
+                    </div>
+                </div>
+                <div class="ui modal" id="myModal">
+
+
+                    <!-- Modal Header -->
+                    <div class="header">
+                        <h4 class="modal-title">Thêm ảnh</h4>
+                        <button type="button" class="close ui ok">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="content">
+
+                        <input type="file" id="input-file-now" class="dropify"/>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" id="insert-img-resource">Insert</button>
+                        <button type="button" class="btn btn-primary ui ok">Close</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary" id="btn-img-room">Cập nhật</button>
+            <div class="error" id="result-img-room"></div>
+        </div>
+
+        <!--Thêm dữ liệu dịch vụ -->
+        <div class="ui bottom attached tab segment" data-tab="service_data" id="serviceModal">
+            <div class="form-group">
+                <label for="name_service_vi"> Thêm tên dịch vụ tiếng việt :</label>
+                <input type="text" class="form-control" placeholder="Nhập tên dịch vụ tiếng việt"
+                       id="name_service_vi"
+                       name="name_service">
+            </div>
+            <div class="form-group">
+                <label for="name_service_en"> Thêm tên dịch vụ tiếng anh :</label>
+                <input type="text" class="form-control" placeholder="Nhập tên dịch vụ tiếng anh"
+                       id="name_service_en"
+                       name="name_service">
+            </div>
+            <div class="form-group">
+                <label for="content_service_vi"> Thêm nội dung dịch vụ tiếng việt:</label>
+                <textarea id="content_service_vi">
+
+        </textarea>
+            </div>
+            <div class="form-group">
+                <label for="content_service_en"> Thêm nội dung dịch vụ tiếng anh:</label>
+                <textarea id="content_service_en">
+
+        </textarea>
+            </div>
+            <div class="form-group">
+                <label for="en_name"> Thêm image dịch vụ:</label>
+                <div class="img-service-div" style="text-align:center">
+
+                </div>
+                <button class="btn btn-primary" id="insert-service">Insert</button>
+            </div>
+            <div class="ui modal" id="myModal_service">
 
 
                 <!-- Modal Header -->
                 <div class="header">
                     <h4 class="modal-title">Thêm ảnh</h4>
-                    <button type="button" class="close ui ok">&times;</button>
+                    <button type="button" class="close  ui ok">&times;</button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="content">
+                <div class="image content">
 
-                    <input type="file" id="input-file-now" class="dropify"/>
+                    <input type="file" id="input-file-service" class="dropify"/>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="actions">
-                    <button type="button" class="btn btn-primary" id="insert-img-resource">Insert</button>
-                    <button type="button" class="btn btn-primary ui ok">Close</button>
+                    <button type="button" class="btn btn-primary" id="insert-img-service">Insert</button>
+                    <button type="button" class="btn btn-primary ui ok ">Close</button>
                 </div>
 
 
             </div>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary" id="btn-img-room">Cập nhật</button>
-        <div class="error" id="result-img-room"></div>
-    </div>
-
-    <!--Thêm dữ liệu dịch vụ -->
-    <div class="ui bottom attached tab segment" data-tab="service_data" id="serviceModal">
-        <div class="form-group">
-            <label for="name_service_vi"> Thêm tên dịch vụ tiếng việt :</label>
-            <input type="text" class="form-control" placeholder="Nhập tên dịch vụ tiếng việt" id="name_service_vi"
-                   name="name_service">
-        </div>
-        <div class="form-group">
-            <label for="name_service_en"> Thêm tên dịch vụ tiếng anh :</label>
-            <input type="text" class="form-control" placeholder="Nhập tên dịch vụ tiếng anh" id="name_service_en"
-                   name="name_service">
-        </div>
-        <div class="form-group">
-            <label for="content_service_vi"> Thêm nội dung dịch vụ tiếng việt:</label>
-            <textarea id="content_service_vi">
-
-        </textarea>
-        </div>
-        <div class="form-group">
-            <label for="content_service_en"> Thêm nội dung dịch vụ tiếng anh:</label>
-            <textarea id="content_service_en">
-
-        </textarea>
-        </div>
-        <div class="form-group">
-            <label for="en_name"> Thêm image dịch vụ:</label>
-            <div class="img-service-div">
-
-            </div>
-            <button class="btn btn-primary" id="insert-service">Insert</button>
-        </div>
-        <div class="ui modal" id="myModal_service">
-
-
-            <!-- Modal Header -->
-            <div class="header">
-                <h4 class="modal-title">Thêm ảnh</h4>
-                <button type="button" class="close  ui ok">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="image content">
-
-                <input type="file" id="input-file-service" class="dropify"/>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="actions">
-                <button type="button" class="btn btn-primary" id="insert-img-service">Insert</button>
-                <button type="button" class="btn btn-primary ui ok ">Close</button>
-            </div>
 
 
         </div>
 
+        <!--Thêm dữ liệu dịch vụ cho từng loại phòng-->
+        <div class="ui bottom attached tab segment" data-tab="service_room">
+            <!--service-->
+            <div class="form-group">
 
-    </div>
-
-    <!--Thêm dữ liệu dịch vụ cho từng loại phòng-->
-    <div class="ui bottom attached tab segment" data-tab="service_room">
-        <!--service-->
-        <div class="form-group">
-
-            <label for="service"> Chọn dịch vụ:</label>
-            <select id="service" multiple>
-                <%
-                    if (listServiceTO != null && listServiceTO.size() > 0) {
-                        for (int i = 0; i < listServiceTO.size(); i++) {
+                <label for="service"> Chọn dịch vụ:</label>
+                <select id="service" multiple>
+                    <%
+                        if (listServiceTO != null && listServiceTO.size() > 0) {
+                            for (int i = 0; i < listServiceTO.size(); i++) {
 
 
-                %>
-                <option value="<%=listServiceTO.get(i).getId_service()%>"><%=listServiceTO.get(i).getService_name_vi()%>
-                </option>
-                <%
+                    %>
+                    <option value="<%=listServiceTO.get(i).getId_service()%>"><%=listServiceTO.get(i).getService_name_vi()%>
+                    </option>
+                    <%
+                            }
                         }
-                    }
-                %>
-            </select>
-        </div>
-        <!--type price-->
-        <div class="form-group">
+                    %>
+                </select>
+            </div>
+            <!--type price-->
+            <div class="form-group">
 
-            <label for="type_price"> Chọn của kiểu giá phòng nào:</label>
-            <select id="type_price">
-                <%
-                    if (listPriceRoom != null && listPriceRoom.size() > 0) {
-                        for (int i = 0; i < listPriceRoom.size(); i++) {
+                <label for="type_price"> Chọn của kiểu giá phòng nào:</label>
+                <select id="type_price">
+                    <%
+                        if (listPriceRoom != null && listPriceRoom.size() > 0) {
+                            for (int i = 0; i < listPriceRoom.size(); i++) {
 
 
-                %>
-                <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
-                </option>
-                <%
+                    %>
+                    <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
+                    </option>
+                    <%
+                            }
                         }
-                    }
-                %>
-            </select>
+                    %>
+                </select>
+            </div>
+            <button class="btn btn-primary" id="btn-service-room">Thêm</button>
         </div>
-        <button class="btn btn-primary" id="btn-service-room">Thêm</button>
-    </div>
-    <!---->
+        <!---->
 
-    <!--promotion-->
-    <div class="ui bottom attached tab segment" data-tab="promotion">
-        <div class="form-group">
-            <label for="en_name"> Code giảm giá:</label>
-            <input type="text" class="form-control" placeholder="Enter code promote" id="code_promote" name="type_vi">
+        <!--promotion-->
+        <div class="ui bottom attached tab segment" data-tab="promotion">
+            <div class="form-group">
+                <label for="en_name"> Code giảm giá:</label>
+                <input type="text" class="form-control" placeholder="Enter code promote" id="code_promote"
+                       name="type_vi">
+            </div>
+            <div class="form-group">
+                <label for="en_name"> Giá trị giảm giá:</label>
+                <input type="text" class="form-control" placeholder="Enter value promote" id="value_promote"
+                       name="type_vi">
+            </div>
+            <div class="form-group">
+                <label for="en_name"> Ngày hết hạn:</label>
+                <input type="text" class="form-control" placeholder="Enter expried_date" id="expried_date"
+                       name="expried_date">
+            </div>
+            <button class="btn btn-primary" id="btn-promotion">Thêm</button>
         </div>
-        <div class="form-group">
-            <label for="en_name"> Giá trị giảm giá:</label>
-            <input type="text" class="form-control" placeholder="Enter value promote" id="value_promote" name="type_vi">
-        </div>
-        <div class="form-group">
-            <label for="en_name"> Ngày hết hạn:</label>
-            <input type="text" class="form-control" placeholder="Enter expried_date" id="expried_date"
-                   name="expried_date">
-        </div>
-        <button class="btn btn-primary" id="btn-promotion">Thêm</button>
-    </div>
-    <!---->
+        <!---->
 
-    <!--promote price-->
-    <div class="ui bottom attached tab segment" data-tab="promote-price">
-        <div class="form-group">
-            <label for="en_name"> Code giảm giá:</label>
-            <select id="promote_id">
-                <%
-                    if (listPromote != null && listPromote.size() > 0) {
-                        for (int i = 0; i < listPromote.size(); i++) {
+        <!--promote price-->
+        <div class="ui bottom attached tab segment" data-tab="promote-price">
+            <div class="form-group">
+                <label for="en_name"> Code giảm giá:</label>
+                <select id="promote_id">
+                    <%
+                        if (listPromote != null && listPromote.size() > 0) {
+                            for (int i = 0; i < listPromote.size(); i++) {
 
 
-                %>
-                <option value="<%=listPromote.get(i).getPromte_id()%>"><%=listPromote.get(i).getPro_code()%>
-                </option>
-                <%
+                    %>
+                    <option value="<%=listPromote.get(i).getPromte_id()%>"><%=listPromote.get(i).getPro_code()%>
+                    </option>
+                    <%
+                            }
                         }
-                    }
-                %>
+                    %>
 
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="en_name"> Kiểu giá phòng:</label>
-            <select id="price_id">
-                <%
-                    if (listPriceRoom != null && listPriceRoom.size() > 0) {
-                        for (int i = 0; i < listPriceRoom.size(); i++) {
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="en_name"> Kiểu giá phòng:</label>
+                <select id="price_id">
+                    <%
+                        if (listPriceRoom != null && listPriceRoom.size() > 0) {
+                            for (int i = 0; i < listPriceRoom.size(); i++) {
 
 
-                %>
-                <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
-                </option>
-                <%
+                    %>
+                    <option value="<%=listPriceRoom.get(i).getPrice_id()%>"><%=listPriceRoom.get(i).getType_price_room_vi()%>
+                    </option>
+                    <%
+                            }
                         }
-                    }
-                %>
+                    %>
 
-            </select>
-            <button class="btn btn-primary" id="btn-promote-price">Thêm</button>
+                </select>
+                <button class="btn btn-primary" id="btn-promote-price">Thêm</button>
+            </div>
         </div>
-    </div>
     </div>
     <!---->
 </div>
@@ -447,6 +485,7 @@
     $(document).ready(function () {
         $('#input-file-now').dropify();
         $('#input-file-service').dropify();
+        $('#input-file-region').dropify();
     });
 
 </script>
@@ -484,21 +523,22 @@
         $(".close").click(function () {
             $("#myModal_service").modal('hide');
             $("#myModal").modal('hide');
+            $("#regionModal").modal('hide');
         });
         $(".btn-upload-img").click(function () {
             $("#myModal").modal('show');
         });
+        $(".div-img-region-insert").click(function () {
+            $("#regionModal").modal('show');
+        });
 
 
-
-
-
-});
+    });
 </script>
 <script>
-$(function () {
-    $("#expried_date").datepicker();
-});
+    $(function () {
+        $("#expried_date").datepicker();
+    });
 </script>
 
 </body>

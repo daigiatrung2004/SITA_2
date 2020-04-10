@@ -163,6 +163,14 @@
         <servlet-name>PaypalAutoReturn</servlet-name>
         <servlet-class>servlet.PaypalAutoReturn</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListSearchAll</servlet-name>
+        <servlet-class>servlet.ListSearchAll</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListSearchAll</servlet-name>
+        <url-pattern>/ListSearchAll</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PaypalAutoReturn</servlet-name>
         <url-pattern>/PaypalAutoReturn</url-pattern>

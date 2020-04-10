@@ -3,6 +3,7 @@ package servlet.Admin;
 import DAO.RegionDA;
 import DAO.RoomOfALLDA;
 import DTO.*;
+import Utils.SaveImageInServer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -84,7 +85,17 @@ public class SettingManagerHotel extends WebServletAdmin {
 
                 } else {
                       // add du lieu khu vuc
-                    regionTO = new RegionTO(0, vi, en, StaticTO.ACTIVE_STATUS, "");
+                    String listImgOrgin = request.getParameter("listImgOrginData") != null ? (String) request.getParameter("listImgOrginData") : "";
+                    String listSrc = request.getParameter("listSrcData") != null ? (String) request.getParameter("listSrcData") : "";
+                    String[] listSrcSplit = listSrc.split("\\.");
+                    String base64="";
+                    String[] type_img = listImgOrgin.replaceAll("\"","").split(",");
+                    String filename="";
+                    for (int i = 0; i < listSrcSplit.length; i++) {
+                        base64= listSrcSplit[i].replaceAll("\"", "");
+                        filename = type_img[i].split("\\.")[0];
+                    }
+                    regionTO = new RegionTO(0, vi, en, StaticTO.ACTIVE_STATUS, "", SaveImageInServer.createImageFromBase64(base64,filename+"_img_region"));
                     checkSuccess = regionDA.addRegion(regionTO);
 
                 }

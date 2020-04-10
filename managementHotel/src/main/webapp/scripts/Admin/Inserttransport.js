@@ -39,8 +39,8 @@ function insertFeeOther() {
 function insertTrans() {
     var name_trans_vi = $("#name_trans_vi").val();
     var name_trans_en = $("#name_trans_en").val();
-    var detail_trans_en = $("#detail_trans_en").val();
-    var detail_trans_vi = $("#detail_trans_vi").val();
+    var detail_trans_en = tinymce.get('detail_trans_en').getContent();
+    var detail_trans_vi =tinymce.get('detail_trans_vi').getContent();
     var price_trans = $("#price_trans").val();
     var url = "name_trans_vi=" + name_trans_vi + "&name_trans_en=" + name_trans_en + "&detail_trans_en=" + detail_trans_en
         + "&detail_trans_vi=" + detail_trans_vi + "&price_trans="+price_trans;

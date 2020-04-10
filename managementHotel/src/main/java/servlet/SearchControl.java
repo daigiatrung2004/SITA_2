@@ -1,8 +1,10 @@
 package servlet;
 
 import DAO.BookingDA;
+import DAO.RegionDA;
 import DAO.SearchDA;
 import DAO.UploadResourceDA;
+import DTO.RegionTO;
 import DTO.SearchTO;
 import DTO.StaticTO;
 import DTO.UploadResourceTO;
@@ -26,6 +28,7 @@ public class SearchControl extends WebServlet {
             String checkOut = request.getParameter("checkOut") != null ? (String) request.getParameter("checkOut") : "";
             String numOfPeo = request.getParameter("numOfPeo") != null ? (String) request.getParameter("numOfPeo") : "0";
             String promote = request.getParameter("promote") != null ? (String) request.getParameter("promote") : "";
+            RegionDA regionDA = new RegionDA();
             SearchDA searchDA = new SearchDA();
             int locationInt, numOfPeoInt;
             try {
@@ -38,25 +41,42 @@ public class SearchControl extends WebServlet {
             } catch (NumberFormatException e) {
                 numOfPeoInt = 0;
             }
-            // tìm kiếm dữ liệu cho việc search ở trang index customer
-            ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt);
+            if (location.equals("0")) {
+                ArrayList<RegionTO> listRegion = regionDA.retrieveAllRegion();
+                ArrayList<Integer> listCheckRoom = new ArrayList<Integer>();
+                for (int i = 0; i < listRegion.size(); i++) {
+                    ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt);
+                    if (listSearchTO != null && listSearchTO.size() > 0) {
+                        listCheckRoom.add(1);
+                    } else {
+                        listCheckRoom.add(0);
+                    }
 
-            // lọc tìm kiếm và thêm dữ liệu ảnh(upload resource)  tránh đụng độ check in
-            ArrayList<SearchTO> listSearchNew = new ArrayList<SearchTO>();
-            UploadResourceDA uploadResourceDA = new UploadResourceDA();
-            BookingDA bookingDA = new BookingDA();
-            for (SearchTO searchTO : listSearchTO) {
-                if (!bookingDA.checkBooking(searchTO.getKindRoomTO().getKindroom_id(), searchTO.getRegionTO().getRegion_id(), checkOut)) {
-                    UploadResourceTO uploadResourceTO = uploadResourceDA.retrieveImgGalery(String.valueOf(StaticTO.DB_KIND_ROOM_NAME+"_"+searchTO.getKindRoomTO().getKindroom_id()));
-                    if (uploadResourceTO != null) {
-                        SearchTO searchTO1 = new SearchTO(uploadResourceTO, searchTO.getKindRoomTO(), searchTO.getRegionTO());
-                        listSearchNew.add(searchTO1);
+                }
+                request.setAttribute("listRegion",listRegion);
+                request.setAttribute("listCheckRoom",listCheckRoom);
+                forward("ListSearchAll",request,response);
+            } else {
+                // tìm kiếm dữ liệu cho việc search ở trang index customer
+                ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt);
+
+                // lọc tìm kiếm và thêm dữ liệu ảnh(upload resource)  tránh đụng độ check in
+                ArrayList<SearchTO> listSearchNew = new ArrayList<SearchTO>();
+                UploadResourceDA uploadResourceDA = new UploadResourceDA();
+                BookingDA bookingDA = new BookingDA();
+                for (SearchTO searchTO : listSearchTO) {
+                    if (!bookingDA.checkBooking(searchTO.getKindRoomTO().getKindroom_id(), searchTO.getRegionTO().getRegion_id(), checkOut)) {
+                        UploadResourceTO uploadResourceTO = uploadResourceDA.retrieveImgGalery(String.valueOf(StaticTO.DB_KIND_ROOM_NAME + "_" + searchTO.getKindRoomTO().getKindroom_id()));
+                        if (uploadResourceTO != null) {
+                            SearchTO searchTO1 = new SearchTO(uploadResourceTO, searchTO.getKindRoomTO(), searchTO.getRegionTO());
+                            listSearchNew.add(searchTO1);
+                        }
                     }
                 }
+                request.setAttribute("numOfPeo", numOfPeo);
+                request.setAttribute("listSearchNew", listSearchNew);
+                forward("/PaymentLoadView", request, response);
             }
-            request.setAttribute("numOfPeo",numOfPeo);
-            request.setAttribute("listSearchNew", listSearchNew);
-            forward("/PaymentLoadView", request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

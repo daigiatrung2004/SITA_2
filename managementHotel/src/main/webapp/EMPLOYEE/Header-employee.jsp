@@ -26,20 +26,7 @@
         </a>
     </div>
     <div class="col-md-7 menu-task" style="height: 100%">
-        <ul>
-            <li>
-                <div class="main-menu" id="booking-menu" name="pos-booking">
-                    <span>Đặt phòng</span>
-                    <span class="caret-down"><i class="fas fa-caret-down"></i></span>
-                </div>
-               <div class="pos-booking">
-                   <ul>
-                       <li><a href="ListingBooking" style="color: black;">Danh sách booking</a></li>
-                       <li><a href="ListingRoom" style="color: black;">Danh sách các phòng</a></li>
-                   </ul>
-               </div>
-            </li>
-        </ul>
+    <h2 style="color: #6078EA;">Hệ thống dành cho nhân viên</h2>
     </div>
     <div class="col-md-2 user">
         <div class="content-user">

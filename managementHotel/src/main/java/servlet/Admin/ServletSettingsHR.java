@@ -58,6 +58,7 @@ public class ServletSettingsHR extends WebServletAdmin {
 
             }
             if (checkAddSuccessful) {
+
                 response.getWriter().print("{\"success\":true}");
             } else {
                 response.getWriter().print("{\"success\":false}");
