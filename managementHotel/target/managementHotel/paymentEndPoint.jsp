@@ -102,17 +102,7 @@
                                   data-placeholders="[]">Địa chỉ</span>
                         </dt>
                         <dd>
-                            <span class="fb-translate" data-key="vnpha30475:hoteladdress" data-mode="-1"
-                                  data-fallback="Km 9, Phu Hai, Mui Ne, Phan Thiet City, Vietnam"
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[]">Km số 9, Phú Hải</span>,
-                            <span class="fb-translate" data-key="vnpha30475:hotelzip" data-mode="-1" data-fallback=""
-                                  data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[]"></span>,
-                            <span class="fb-translate" data-key="vnpha30475:hotelcity" data-mode="-1"
-                                  data-fallback="Phan Thiet" data-disablehtmlclean="false"
-                                  data-nodefaultlanguagefallback="false"
-                                  data-placeholders="[]">Thành Phố Phan Thiết</span>, Việt Nam
+                           <span><%=regionTO.getAddress()%></span>
                         </dd>
                         <dt class="fb-dark-gray">
                             <span class="fb-translate" data-key="property-reception-hours" data-mode="-1"
@@ -151,7 +141,7 @@
                                   data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
                                   data-placeholders="[]">Liên hệ</span>
                         </dt>
-                        <dd>+84 252 3 813 000</dd>
+                        <dd><%=regionTO.getContact_phone()%></dd>
                         <dt class="fb-dark-gray">
                             <span class="fb-translate" data-key="property-url" data-mode="-1" data-fallback=""
                                   data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"

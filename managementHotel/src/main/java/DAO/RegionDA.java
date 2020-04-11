@@ -15,7 +15,7 @@ public class RegionDA extends DAOOject {
     public boolean addRegion(RegionTO regionTO) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String sql = "INSERT INTO " + StaticTO.DB_REGION_NAME + " VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO " + StaticTO.DB_REGION_NAME + " VALUES(?,?,?,?,?,?,?,?)";
         conn = getConnection();
         int rs = 0;
         try {
@@ -27,6 +27,8 @@ public class RegionDA extends DAOOject {
             pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
             pstmt.setString(index++, regionTO.getRemark());
             pstmt.setString(index++,regionTO.getFile_url_img());
+            pstmt.setString(index++,regionTO.getAddress());
+            pstmt.setString(index++,regionTO.getContact_phone());
             rs = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,7 +57,9 @@ public class RegionDA extends DAOOject {
                         rs.getString("name_en"),
                         rs.getString("status"),
                         rs.getString("remark"),
-                        rs.getString("file_url_img")
+                        rs.getString("file_url_img"),
+                        rs.getString("Address"),
+                        rs.getString("contact_phone")
                 );
 
             }
@@ -84,7 +88,9 @@ public class RegionDA extends DAOOject {
                         rs.getString("name_en"),
                         rs.getString("status"),
                         rs.getString("remark"),
-                        rs.getString("file_url_img")
+                        rs.getString("file_url_img"),
+                        rs.getString("Address"),
+                        rs.getString("contact_phone")
 
                 );
                 listRegion.add(regionTO);

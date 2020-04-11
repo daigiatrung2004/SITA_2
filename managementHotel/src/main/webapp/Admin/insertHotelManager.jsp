@@ -44,11 +44,19 @@
         <div class="ui bottom attached tab segment active" data-tab="region">
             <div class="form-group">
                 <label for="vi_name">Tên(tiếng việt):</label>
-                <input type="text" class="form-control" placeholder="Enter Vietnamese" id="vi_name" name="vi_name">
+                <input type="text" class="form-control" placeholder="Nhập tên tiếng việt" id="vi_name" name="vi_name">
             </div>
             <div class="form-group">
                 <label for="en_name">Tên(tiếng anh):</label>
-                <input type="text" class="form-control" placeholder="Enter English" id="en_name" name="en_name">
+                <input type="text" class="form-control" placeholder="Nhập tên tiếng anh" id="en_name" name="en_name">
+            </div>
+            <div class="form-group">
+                <label for="address_region">Địa chỉ:</label>
+                <input type="text" class="form-control" placeholder="Nhập địa chỉ" id="address_region" name="address_region">
+            </div>
+            <div class="form-group">
+                <label for="phone_region">Số điện thoại liên hệ:</label>
+                <input type="text" class="form-control" placeholder="Nhập số điện thoại" id="phone_region" name="phone_region">
             </div>
             <div class="form-group">
                 <label for="en_name">Thêm hình ảnh:</label>

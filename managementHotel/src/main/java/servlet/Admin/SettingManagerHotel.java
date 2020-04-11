@@ -87,6 +87,8 @@ public class SettingManagerHotel extends WebServletAdmin {
                       // add du lieu khu vuc
                     String listImgOrgin = request.getParameter("listImgOrginData") != null ? (String) request.getParameter("listImgOrginData") : "";
                     String listSrc = request.getParameter("listSrcData") != null ? (String) request.getParameter("listSrcData") : "";
+                    String contact = request.getParameter("contact") != null ? (String) request.getParameter("contact") : "";
+                    String address = request.getParameter("address") != null ? (String) request.getParameter("address") : "";
                     String[] listSrcSplit = listSrc.split("\\.");
                     String base64="";
                     String[] type_img = listImgOrgin.replaceAll("\"","").split(",");
@@ -95,7 +97,8 @@ public class SettingManagerHotel extends WebServletAdmin {
                         base64= listSrcSplit[i].replaceAll("\"", "");
                         filename = type_img[i].split("\\.")[0];
                     }
-                    regionTO = new RegionTO(0, vi, en, StaticTO.ACTIVE_STATUS, "", SaveImageInServer.createImageFromBase64(base64,filename+"_img_region"));
+
+                    regionTO = new RegionTO(0, vi, en, StaticTO.ACTIVE_STATUS, "", SaveImageInServer.createImageFromBase64(base64,filename+"_img_region"),address,contact);
                     checkSuccess = regionDA.addRegion(regionTO);
 
                 }

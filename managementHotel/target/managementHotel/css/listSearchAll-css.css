@@ -1,0 +1,35 @@
+.div-list-search-all{
+    padding: 50px;
+
+}
+.div-item-search{
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin-top: 25px;
+}
+.div-img-region{
+    min-height: 150px;
+    position: relative;
+}
+.div-name-region{
+    background-color: #242424;
+    color: white;
+    padding: 20px;
+}
+.div-footer-item{
+    padding: 20px;
+    display: flex;
+    font-size: 18px;
+}
+.NotEmptyRoom{
+    border: 1px solid white;
+    border-radius: 5px;
+    max-width: 160px;
+    padding: 10px;
+    font-size: 18px;
+    color: #eee;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    background-color: rgba(0,0,0,0.5);
+}

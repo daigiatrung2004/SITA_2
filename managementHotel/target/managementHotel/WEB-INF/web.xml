@@ -21,6 +21,7 @@
         <param-name>FOLDER_SERVICE</param-name>
         <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\img\zoom\service\</param-value>
     </context-param>
+
     <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>servlet.Home</servlet-class>
@@ -167,6 +168,31 @@
         <servlet-name>ListSearchAll</servlet-name>
         <servlet-class>servlet.ListSearchAll</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ErrorHandle</servlet-name>
+        <servlet-class>servlet.ErrorHandle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NotProduct</servlet-name>
+        <servlet-class>servlet.NotProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InfoAdmin</servlet-name>
+        <servlet-class>servlet.Admin.InfoAdmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InfoAdmin</servlet-name>
+        <url-pattern>/InfoAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotProduct</servlet-name>
+        <url-pattern>/NotProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorHandle</servlet-name>
+        <url-pattern>/ErrorHandle</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ListSearchAll</servlet-name>
         <url-pattern>/ListSearchAll</url-pattern>
@@ -311,6 +337,21 @@
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <exception-type>java.lang.ArithmeticException</exception-type>
+        <location>/ErrorHandle</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/ErrorHandle</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/ErrorHandle</location>
+    </error-page>
+    <error-page>
+        <location>/ErrorHandle</location>
+    </error-page>
     <filter>
         <filter-name>UrlRewriteFilter</filter-name>
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -323,6 +364,7 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
+
     <filter-mapping>
         <filter-name>UrlRewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>

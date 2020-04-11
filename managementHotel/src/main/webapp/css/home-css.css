@@ -16,6 +16,11 @@
     background-color: #e6e8e7;
     padding: 30px 20px;
 }
+.home{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
 
 .experiences {
     display: flex;

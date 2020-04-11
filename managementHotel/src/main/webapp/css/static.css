@@ -59,4 +59,15 @@ fieldset {
     padding: 5px 10px;
     margin: 20px auto;
 }
+.btn-static-2{
+    color: rgb(255, 255, 255) !important;
+    background: rgb(176, 160, 108) !important;
+    font-family: mplus-1p-bold, 'Segoe UI', Roboto, Arial, Helvetica, 'Helvetica Neue';
+}
+.p{
+    word-break: break-word;
+}
+.cursor:hover{
+   cursor: pointer;
+}
 

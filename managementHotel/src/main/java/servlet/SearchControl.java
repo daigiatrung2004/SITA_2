@@ -45,6 +45,11 @@ public class SearchControl extends WebServlet {
                 ArrayList<RegionTO> listRegion = regionDA.retrieveAllRegion();
                 ArrayList<Integer> listCheckRoom = new ArrayList<Integer>();
                 for (int i = 0; i < listRegion.size(); i++) {
+                    try {
+                        locationInt=listRegion.get(i).getRegion_id();
+                    } catch (Exception e) {
+                        locationInt=0;
+                    }
                     ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt);
                     if (listSearchTO != null && listSearchTO.size() > 0) {
                         listCheckRoom.add(1);
@@ -55,7 +60,7 @@ public class SearchControl extends WebServlet {
                 }
                 request.setAttribute("listRegion",listRegion);
                 request.setAttribute("listCheckRoom",listCheckRoom);
-                forward("ListSearchAll",request,response);
+                forward("listSearchAll.jsp",request,response);
             } else {
                 // tìm kiếm dữ liệu cho việc search ở trang index customer
                 ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt);

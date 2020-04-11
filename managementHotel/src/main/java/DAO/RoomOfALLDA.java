@@ -41,7 +41,7 @@ public class RoomOfALLDA extends DAOOject {
         PreparedStatement pstmt = null;
         int rs = 0;
         String sql = "UPDATE " + StaticTO.DB_ROOM_NAME + " SET "
-                + "  name=? , kind_room_id=? , region_id=? , price_id=? , status=? , remark=? , max_peopel=?";
+                + "  name=? , kind_room_id=? , region_id=? , price_id=? , status=? , remark=? , max_peopel=? WHERE ROOM_ID=?";
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
@@ -53,6 +53,7 @@ public class RoomOfALLDA extends DAOOject {
             pstmt.setString(index++, roomTO.getStatus());
             pstmt.setString(index++, roomTO.getRemark());
             pstmt.setInt(index, roomTO.getMax_people());
+            pstmt.setInt(index,roomTO.getRoom_id());
             rs = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("updateRoom+++" + pstmt.toString());

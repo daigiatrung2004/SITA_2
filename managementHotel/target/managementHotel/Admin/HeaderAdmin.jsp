@@ -36,7 +36,7 @@
         </span>
             <span><i class="fas fa-caret-down"></i></span>
             <div class="menu">
-                <div class="item" data-value="drop">Thông tin cá nhân</div>
+                <div class="item" data-value="drop"><a href="InfoAdmin"  style="color: black;">Thông tin cá nhân</a></div>
                 <div class="item"  data-value="drop"  ><a href="LogOut" id="LogOut" style="color: black;">Đăng xuất</a></div>
 
             </div>

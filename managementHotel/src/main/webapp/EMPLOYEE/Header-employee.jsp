@@ -25,10 +25,15 @@
         <img src="./img/viclogo_black.png" style="height: 80px;">
         </a>
     </div>
-    <div class="col-md-7 menu-task" style="height: 100%">
+    <div class="col-md-6 menu-task" style="height: 100%">
     <h2 style="color: #6078EA;">Hệ thống dành cho nhân viên</h2>
+
+    </div>
+    <div class="col-md-1 home">
+        <A href="HomeEmployee" style="color: #46a2e4!important;" class="a-home"><span><i class="fas fa-home"></i></span></A>
     </div>
     <div class="col-md-2 user">
+
         <div class="content-user">
             <div class="avatar"><%=firstword%>
             </div>

@@ -321,8 +321,10 @@ function insertRegion(){
         count++;
 
     });
+    var address=$("#address_region").val();
+    var contact=$("#phone_region").val();
     var url = "listSrc=" + listSrc + "&listImgOrgin=" + listImgOrgin;
-    alert(url);
+    // alert(url);
     $.ajax({
         url: 'SettingManagerHotel',
         type: 'POST',
@@ -330,6 +332,8 @@ function insertRegion(){
         data: {
             listSrcData: JSON.stringify(listSrc),
             listImgOrginData: JSON.stringify(listImgOrgin),
+            address:address,
+            contact:contact,
             vi_region:vi,
             en_region:en
         },
