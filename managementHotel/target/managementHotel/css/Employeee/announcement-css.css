@@ -1,0 +1,9 @@
+.item-announcement{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 20px;
+}
+.footer-item-announcement{
+    display: flex;
+    justify-content: flex-end;
+}

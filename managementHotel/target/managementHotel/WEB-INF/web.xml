@@ -180,6 +180,39 @@
         <servlet-name>InfoAdmin</servlet-name>
         <servlet-class>servlet.Admin.InfoAdmin</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>Announcement</servlet-name>
+        <servlet-class>servlet.Employee.Announcement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostAnnouncement</servlet-name>
+        <servlet-class>servlet.Admin.PostAnnouncement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Warehouse</servlet-name>
+        <servlet-class>servlet.Employee.Warehouse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListProduct</servlet-name>
+        <servlet-class>servlet.Employee.ListProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProduct</servlet-name>
+        <url-pattern>/ListProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Warehouse</servlet-name>
+        <url-pattern>/Warehouse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostAnnouncement</servlet-name>
+        <url-pattern>/PostAnnouncement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Announcement</servlet-name>
+        <url-pattern>/Announcement</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InfoAdmin</servlet-name>
         <url-pattern>/InfoAdmin</url-pattern>

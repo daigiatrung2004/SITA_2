@@ -22,6 +22,10 @@ public class StaticTO {
     public static final String  DB_FURNITURE_NAME="furniture";
     public static final String  DB_FURNITURE_ROOM_NAME="furniture_kind_room";
     public static final String  DB_PAYMENT_NAME="paypment_order";
+    public static final String  DB_ANNOUCE_NAME="announcement";
+    public static final String  DB_ANNOUCE_EMPLOYEE_NAME="announcement_employee";
+    public static final String  DB_PRODUCT_NAME="product";
+    public static final String  DB_CATEGORY_NAME="categoryproduct";
 
 
     // status name static
@@ -31,6 +35,11 @@ public class StaticTO {
     public static final String  DELETE_STATUS="Delete";
     public static final String  BOOKED_STATUS="Booked";
     public static final String  COMPLETE_STATUS="Completed";
+    public static final String  UNREAD_STATUS="unread";
+    public static final String  READ_STATUS="read";
+
+
+
     // seed random
     public static final int  numOfRandom=1999999999;
     public static final long  ADMINID=1;

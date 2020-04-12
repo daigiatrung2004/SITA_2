@@ -67,6 +67,7 @@
                 <li><a href="InsertEmployee">Thêm nhân viên</a></li>
                 <li><a href="ListingHR">Danh sách quản lí nhân viên</a></li>
                 <li><a href="ListingHR?position=true">Danh sách vị trí làm việc</a></li>
+                <li><a href="PostAnnouncement">Thông báo nhân viên</a></li>
 
             </ul>
         </div>

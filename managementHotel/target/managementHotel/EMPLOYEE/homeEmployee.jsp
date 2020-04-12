@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+String countAnnounce=request.getAttribute("countAnnounce")!=null?(String)request.getAttribute("countAnnounce"):"";
+
+%>
 <html>
 <head>
     <title>Home-Nhân Viên Sales</title>
@@ -31,6 +35,18 @@
             </div>
         </div>
         <div class="func-item-employee col-lg-3">
+        <a href="ListingRoom" class="a-func-item"></a>
+        <div class="func-item-img"
+             style="background:url('./img/employee/20-512.webp') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
+            <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
+        </div>
+        <div class="footer-tiem-img" style="background-color: #C38E5E;">
+            <h3 style="text-transform: uppercase;margin: 0px">Danh sách các phòng</h3>
+            <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Listing room</small>
+            </h5>
+        </div>
+    </div>
+        <div class="func-item-employee col-lg-3">
             <a href="ListingRoom" class="a-func-item"></a>
             <div class="func-item-img"
                  style="background:url('./img/employee/20-512.webp') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
@@ -39,6 +55,35 @@
             <div class="footer-tiem-img" style="background-color: #C38E5E;">
                 <h3 style="text-transform: uppercase;margin: 0px">Danh sách các phòng</h3>
                 <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Listing room</small>
+                </h5>
+            </div>
+        </div>
+        <div class="func-item-employee col-lg-3">
+        <a href="Announcement" class="a-func-item"></a>
+        <div class="func-item-img"
+             style="background:url('./img/employee/announcement.jpg') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
+            <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
+        </div>
+        <div class="footer-tiem-img" style="background-color: red;">
+            <h3 style="text-transform: uppercase;margin: 0px">Thông báo</h3>
+            <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Notification</small>
+            </h5>
+        </div>
+            <%if(!countAnnounce.equals("0")){%>
+            <div class="pos-count" >
+                <%=countAnnounce%>
+            </div>
+            <%}%>
+    </div>
+        <div class="func-item-employee col-lg-3">
+            <a href="Warehouse" class="a-func-item"></a>
+            <div class="func-item-img"
+                 style="background:url('./img/employee/warhouse-daidien.png') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
+                <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
+            </div>
+            <div class="footer-tiem-img" style="background-color: #3682B5;">
+                <h3 style="text-transform: uppercase;margin: 0px">Kho</h3>
+                <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Warehouse</small>
                 </h5>
             </div>
         </div>

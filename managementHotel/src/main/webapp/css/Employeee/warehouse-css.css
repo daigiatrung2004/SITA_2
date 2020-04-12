@@ -1,0 +1,27 @@
+.activeWarhouse{
+    border-bottom: 3px solid deepskyblue;
+    color: black!important;
+}
+.taskbar ul li{
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 20px;
+}
+.taskbar ul{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.taskbar{
+    border: 1px solid #d8d8d8;
+    border-top: 0px;
+    border-right: 0px;
+    margin-bottom: 20px;
+}
+.div-main-warehouse{
+    margin: 50px;
+}
