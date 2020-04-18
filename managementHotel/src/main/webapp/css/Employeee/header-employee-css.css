@@ -69,6 +69,9 @@
     background: linear-gradient(-30deg,#17EAD9,#6078EA) no-repeat center;
     cursor: pointer;
 }
+.li-item-menu-user:hover a{
+    color: white!important;
+}
 #a-logout:hover{
     color: white!important;
 }

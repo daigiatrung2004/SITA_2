@@ -14,6 +14,17 @@ public class BookingTO {
     private String code_booking;
     private long transport_id;
     private long id_trans_booking;
+    private int ID;
+    private int amount;
+    private long pay;
+     // dành cho booking product
+    public BookingTO(long booking_id, String status, int ID, int amount, long pay) {
+        this.booking_id = booking_id;
+        this.status = status;
+        this.ID = ID;
+        this.amount = amount;
+        this.pay = pay;
+    }
 
     //dành cho booking
     public BookingTO(long booking_id, long customer_id, String start_booking_date, String check_in_date, String check_out_date, int kind_room_id, int region_id, int room_id, String status, String remark, String code_booking) {
@@ -139,5 +150,29 @@ public class BookingTO {
 
     public void setCode_booking(String code_booking) {
         this.code_booking = code_booking;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public long getPay() {
+        return pay;
+    }
+
+    public void setPay(long pay) {
+        this.pay = pay;
     }
 }

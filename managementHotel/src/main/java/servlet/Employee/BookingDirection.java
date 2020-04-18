@@ -32,7 +32,7 @@ public class BookingDirection extends WebServletEmployee {
             String checkout = request.getParameter("checkout") != null ? (String) request.getParameter("checkout") : "";
             if (!checkout.equals("")) {
                 String[] splitCheckOut = checkout.split("/");
-                checkout = splitCheckOut[2] + "-" + splitCheckOut[0] + "-" + splitCheckOut[1] + " 14:00:00";
+                checkout = splitCheckOut[2] + "-" + splitCheckOut[1] + "-" + splitCheckOut[0] + " 14:00:00";
             }
             Date date=new Date();
             DateFormat dateformat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -60,7 +60,7 @@ public class BookingDirection extends WebServletEmployee {
                         BookingTO bookingTO = new BookingTO(0, customerTO.getCustomer_id(), now, now, checkout, roomTO.getKind_room_id(), roomTO.getRegion_id(), roomTO.getRoom_id(), StaticTO.ACTIVE_STATUS, "", pass);
                         checkCustomer = bookingDA.addBooking(bookingTO);
                         if (checkCustomer) {
-                            roomTO.setStatus(StaticTO.BOOKED_STATUS);
+                            roomTO.setStatus(StaticTO.COMPLETE_STATUS);
                             checkCustomer = roomOfALLDA.updateRoom(roomTO);
                             if (checkCustomer) {
 

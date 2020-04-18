@@ -74,6 +74,7 @@ public class PromoteDA extends  DAOOject{
         return promoteTO;
 
     }
+
     public ArrayList<PromoteTO> retreiveAllPromote(){
         ArrayList<PromoteTO> listPromote=new ArrayList<PromoteTO>();
         Connection conn=null;

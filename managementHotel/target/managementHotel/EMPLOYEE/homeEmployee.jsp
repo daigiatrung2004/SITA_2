@@ -41,20 +41,21 @@ String countAnnounce=request.getAttribute("countAnnounce")!=null?(String)request
             <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
         </div>
         <div class="footer-tiem-img" style="background-color: #C38E5E;">
-            <h3 style="text-transform: uppercase;margin: 0px">Danh sách các phòng</h3>
-            <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Listing room</small>
+            <h3 style="text-transform: uppercase;margin: 0px">Quản lí phòng</h3>
+            <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Manager Room</small>
             </h5>
         </div>
     </div>
         <div class="func-item-employee col-lg-3">
-            <a href="ListingRoom" class="a-func-item"></a>
+            <a href="StatisAnalyzt" class="a-func-item"></a>
             <div class="func-item-img"
-                 style="background:url('./img/employee/20-512.webp') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
+                 style="background:url('./img/employee/statistics.jpg') no-repeat;min-height: 200px;background-size: 100% 90%;background-position: center;">
                 <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
             </div>
             <div class="footer-tiem-img" style="background-color: #C38E5E;">
-                <h3 style="text-transform: uppercase;margin: 0px">Danh sách các phòng</h3>
-                <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Listing room</small>
+                <h3 style="text-transform: uppercase;margin: 0px">Thông kê </h3>
+                <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">
+                    Statistical</small>
                 </h5>
             </div>
         </div>

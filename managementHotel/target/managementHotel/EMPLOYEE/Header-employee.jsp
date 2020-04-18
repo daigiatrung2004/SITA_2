@@ -32,7 +32,7 @@
     <div class="col-md-1 home">
         <A href="HomeEmployee" style="color: #46a2e4!important;" class="a-home"><span><i class="fas fa-home"></i></span></A>
     </div>
-    <div class="col-md-2 user">
+    <div class="col-md-2 user" id="user-main">
 
         <div class="content-user">
             <div class="avatar"><%=firstword%>
@@ -41,8 +41,9 @@
             </div>
 
         </div>
-        <div class="menu-user-pos">
-            <ul class="ul-menu-user-pos">
+        <div class="menu-user-pos" id="menu-pos" style="background: white;">
+
+            <ul class="ul-menu-user-pos" style="z-index: 10">
                 <li  style="min-height: 80px;display: flex;align-items: center;justify-content: center;border-bottom:1px dashed black">
                     <div class="content-user">
                         <div class="avatar user-pos"><%=firstword%>

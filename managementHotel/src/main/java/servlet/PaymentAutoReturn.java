@@ -36,9 +36,17 @@ public class PaymentAutoReturn extends WebServlet {
             String lastname = request.getParameter("buyer-given-name") != null ? (String) request.getParameter("buyer-given-name") : "";
             String total = request.getParameter("total") != null ? (String) request.getParameter("total") : "";
             String price_id = request.getParameter("price_id") != null ? (String) request.getParameter("price_id") : "";
+            String codeValue = request.getParameter("codeValue") != null ? (String) request.getParameter("codeValue") : "0";
+
             String[] checkoutSplit = checkout.split("/");
             String[] listTransSplit = listTrans.split(",");
             String[] checkinSplit = checkin.split("/");
+            int codeValueInt;
+            try {
+                codeValueInt=Integer.parseInt(codeValue);
+            } catch (NumberFormatException e) {
+                codeValueInt=0;
+            }
             long totalLong;
             try {
                 totalLong=Long.parseLong(total);
@@ -64,7 +72,7 @@ public class PaymentAutoReturn extends WebServlet {
             bookingDA.addCustomer(customerTO);
             CustomerTO customer = bookingDA.retreiveCustomerLatest();
 
-            BookingTO bookingTO = new BookingTO(0, customer.getCustomer_id(), nowStr, checkin, checkout, Integer.parseInt(kind_room_id), Integer.parseInt(region_id), Integer.parseInt(room_id), StaticTO.ACTIVE_STATUS, "", pass);
+            BookingTO bookingTO = new BookingTO(0, customer.getCustomer_id(), nowStr, checkin, checkout, Integer.parseInt(kind_room_id), Integer.parseInt(region_id), Integer.parseInt(room_id), StaticTO.ACTIVE_STATUS,codeValueInt>0?"codeValue:"+codeValueInt:"", pass);
             bookingDA.addBooking(bookingTO);
             BookingTO bookingTO1 = bookingDA.retrieveBookingLatest();
             if (!listTrans.equals("") && listTransSplit.length > 0) {
@@ -85,6 +93,7 @@ public class PaymentAutoReturn extends WebServlet {
             request.setAttribute("name", firstname + " " + lastname);
             request.setAttribute("contact_person", buyer_phone);
             request.setAttribute("verify_person", verify_person);
+
             // get info room
             RoomOfALLDA roomOfALLDA = new RoomOfALLDA();
             RoomTO roomTO = roomOfALLDA.searchRoomById(Integer.parseInt(room_id));

@@ -1,0 +1,133 @@
+.div-check-out-main {
+    background-color: #DEE1E6;
+}
+
+.invoice {
+    border: 1px solid #ccc;
+
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    min-height: 600px;
+
+    padding: 0px;
+}
+
+.h2-check-out {
+    text-align: center;
+    background: white;
+    border-top: 1px solid #ccc;
+    padding: 20px;
+}
+
+.body-check-out {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.addItem {
+    background-color: white;
+    margin-left: 25px;
+    padding: 0px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height: 400px;
+}
+
+.sum-invoice {
+    color: white;
+    background-color: #EE5432;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.sum-invoice table {
+    color: white;
+
+}
+
+.invoice h4 {
+    margin: 10px;
+}
+
+.div-invoice-table {
+    overflow: auto;
+    height: 415px;
+    background-color: #c1c1c1;
+}
+
+.item-service-checkout {
+    width: 75px;
+
+    background: linear-gradient(-30deg, #17EAD9, #6078EA) no-repeat center;
+    height: 75px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-item-service-check-out {
+    width: 75px;
+    margin: 0px 20px;
+    transition: transform .2s;
+
+}
+.main-item-service-check-out:hover{
+    cursor:pointer;
+    transform:scale(1.05);
+}
+
+.content-food, .content-service {
+    display: flex;
+}
+.SL{
+    width: 30px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.item-action:hover{
+    cursor: pointer;
+}
+.item-action button:hover{
+    cursor:pointer
+}
+.item-action button{
+    border: none;
+    color: white;
+    background-color: #0d71bb;
+    min-height: 22px;
+    min-width: 22px;
+}
+.itembtn{
+    margin: 10px;
+}
+#viewDetail:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+/*.loader {*/
+/*    border: 16px solid #f3f3f3;*/
+/*    border-radius: 50%;*/
+/*    border-top: 16px solid #3498db;*/
+/*    width: 120px;*/
+/*    height: 120px;*/
+/*    -webkit-animation: spin 2s linear infinite; !* Safari *!*/
+/*    animation: spin 2s linear infinite;*/
+/*}*/
+
+/*!* Safari *!*/
+/*@-webkit-keyframes spin {*/
+/*    0% { -webkit-transform: rotate(0deg); }*/
+/*    100% { -webkit-transform: rotate(360deg); }*/
+/*}*/
+
+/*@keyframes spin {*/
+/*    0% { transform: rotate(0deg); }*/
+/*    100% { transform: rotate(360deg); }*/
+/*}*/

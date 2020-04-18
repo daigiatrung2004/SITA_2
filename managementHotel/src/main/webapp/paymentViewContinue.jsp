@@ -22,11 +22,20 @@
     ArrayList<TransportTO> listFeeOther = (ArrayList<TransportTO>) request.getAttribute("listFeeOther");
     ArrayList<TransportTO> listTrans = (ArrayList<TransportTO>) request.getAttribute("listTrans");
     PriceRoomTO priceRoomTO = (PriceRoomTO) request.getAttribute("priceRoomTO");
-    String totalTemp=request.getAttribute("totalTemp")!=null?(String)request.getAttribute("totalTemp"):"0";
+    String totalTemp = request.getAttribute("totalTemp") != null ? (String) request.getAttribute("totalTemp") : "0";
     String price_type = request.getParameter("price_type") != null ? (String) request.getParameter("price_type") : "OFFLINE";
+    String codeValue = request.getParameter("codeValue") != null ? (String) request.getParameter("codeValue") : "0";
+    int codeValueInt=0;
+    if(!codeValue.equals("")){
+        try {
+            codeValueInt=Integer.parseInt(codeValue);
+        } catch (NumberFormatException e) {
+            codeValueInt=0;
+        }
+    }
 
-    String totalTempStr=request.getAttribute("totalTempLong")!=null?(String)request.getAttribute("totalTempLong"):"0";
-      long totalTempLong=Long.parseLong(totalTempStr);
+    String totalTempStr = request.getAttribute("totalTempLong") != null ? (String) request.getAttribute("totalTempLong") : "0";
+    long totalTempLong = Long.parseLong(totalTempStr);
 
 
 %>
@@ -111,7 +120,9 @@
                         <div class="col-xs-5 col-sm-4 fb-container">
                             <div id="fb-extras-select" class="col-xs-12 col-sm-12" align="right" style="height: 29px;">
                                 <div class="ui checkbox">
-                                    <input type="checkbox" class="checkbox-trans" data-price="<%=listTrans.get(i).getPrice()%>" data-transport="<%=listTrans.get(i).getTransport_id()%>">
+                                    <input type="checkbox" class="checkbox-trans"
+                                           data-price="<%=listTrans.get(i).getPrice()%>"
+                                           data-transport="<%=listTrans.get(i).getTransport_id()%>">
                                     <label>Lựa chọn</label>
                                 </div>
                             </div>
@@ -143,7 +154,7 @@
                                           placeholder="Vui lòng cung cấp thêm thông tin: thời gian đến, dị ứng đồ ăn...">Vui lòng cung cấp thêm thông tin: thời gian đến, dị ứng đồ ăn...</span>
                             </label>
                             <textarea class="form-control" id="comment-block" rows="6" name="fb-comment-block"
-                                      maxlength="500"  style="margin: 20px;"></textarea>
+                                      maxlength="500" style="margin: 20px;"></textarea>
                             <span class="fb-dark-gray">0/500</span>
                         </div>
                     </form>
@@ -189,17 +200,22 @@
                     <div class="Additional">
                         <h5>Chi tiết thanh toán</h5>
                         <p>
-                         Tiền phòng:<%=price%><br/>
-                         Loại thanh toán:<%=priceRoomTO.getType_price_room_vi()%><br/>
-                         <%
-                             if(listFeeOther!=null){
-                             for (int i = 0; i <listFeeOther.size(); i++) {
-                                 %>
-                                <%=listFeeOther.get(i).getName_vi()%>:<%=TextCustomizeFormat.currency_format(listFeeOther.get(i).getPrice())%><br/>
+                            Tiền phòng:<%=price%><br/>
+                            <%if(codeValueInt>0){%>
+                            Bạn có mã giảm giá:<%=codeValueInt%> %<br/>
+                            <%}%>
+
+                            Loại thanh toán:<%=priceRoomTO.getType_price_room_vi()%><br/>
                             <%
-                             }
+                                if (listFeeOther != null) {
+                                    for (int i = 0; i < listFeeOther.size(); i++) {
+                            %>
+                            <%=listFeeOther.get(i).getName_vi()%>
+                            :<%=TextCustomizeFormat.currency_format(listFeeOther.get(i).getPrice())%><br/>
+                            <%
+                                    }
                                 }
-                         %>
+                            %>
                         </p>
                     </div>
                     <div class="Additional">
@@ -216,43 +232,13 @@
                             data-checkin="<%=checkin%>" data-checkout="<%=checkout%>"
                             data-room="<%=roomTO.getRoom_id()%>"
                             data-price-type="<%=price_type%>"
+                            data-codeValue="<%=codeValueInt%>"
                     >
                         <span class="fb-translate">TIẾP</span>
                     </button>
                     <div id="fb-widget-container"
                          class="col-xs-12 col-sm-12 col-md-12 fb-container fb-light-bg"></div>
                 </div>
-<%--                <div id="fb-basket-sticky" class="container fb-dark-bg hidden-md hidden-lg">--%>
-<%--                    <div class="col-xs-6 col-sm-7 hidden-md hidden-lg">--%>
-<%--                        <div class="visible-sm col-sm-6">--%>
-<%--                            <span class="fb-translate">Tổng</span>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-xs-12 col-sm-6 hidden-md hidden-lg fb-price-amount">--%>
-<%--				<span class="fb-price" data-price="0" data-symbol="true">--%>
-<%--					<span>0&nbsp;--%>
-<%--						<span class="fb-price-currency">₫</span>--%>
-<%--					</span>--%>
-<%--				</span>--%>
-<%--                        </div>--%>
-<%--                        <div class="visible-sm col-sm-6">--%>
-<%--                            <a href="#" onclick="return false;">Details--%>
-<%--                                <span class="fb-basket-sticky-toggle">--%>
-<%--						<i class="fa fa-caret-down"></i>--%>
-<%--					</span>--%>
-<%--                            </a>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-xs-12 col-sm-6 hidden-md hidden-lg fb-price-params"></div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-xs-2 visible-xs fb-basket-sticky-toggle">--%>
-<%--                        <i class="fa fa-caret-down"></i>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-xs-4 col-sm-5 hidden-md hidden-lg fb-basket-sticky-checkout">--%>
-<%--                        <button class="btn btn-block fb-action fb-action-flat fb-font-bold theme-btn">--%>
-<%--                            <span class="fb-translate">Thanh toán</span>--%>
-<%--                        </button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                s--%>
             </div>
         </div>
     </div>
@@ -264,26 +250,26 @@
 </div>
 <script src="scripts/payment.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             minimumFractionDigits: 0
         });
-        $(".checkbox-trans").click(function(){
+        $(".checkbox-trans").click(function () {
 
-            var data=$(".span-price").data('price');
+            var data = $(".span-price").data('price');
 
-            if($(this).prop("checked")){
+            if ($(this).prop("checked")) {
 
-               data=data+$(this).data('price');
-            }else{
+                data = data + $(this).data('price');
+            } else {
 
-                data=data-$(this).data('price');
+                data = data - $(this).data('price');
             }
-           ;
-            $(".span-price").text(formatter.format(data).replace("$",""));
-            $(".span-price").data('price',data);
+            ;
+            $(".span-price").text(formatter.format(data).replace("$", ""));
+            $(".span-price").data('price', data);
         });
     });
 

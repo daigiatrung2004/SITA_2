@@ -26,6 +26,9 @@ public class StaticTO {
     public static final String  DB_ANNOUCE_EMPLOYEE_NAME="announcement_employee";
     public static final String  DB_PRODUCT_NAME="product";
     public static final String  DB_CATEGORY_NAME="categoryproduct";
+    public static final String  DB_BOOKING_PRODUCT_NAME="booking_product";
+    public static final String  DB_INVOICE_NAME="invoice";
+    public static final String  DB_SYSTEM_NAME="sys_meta";
 
 
     // status name static
@@ -61,6 +64,10 @@ public class StaticTO {
     //payment
     public static final String PAYPAL_METHOD="paypal";
     public static final String CASH_METHOD="cash";
+
+    // type statis ,system,anlyzt
+    public static final String KEY_VIEW="customer_view";
+    public static final String TYPE_VIEWS="views";
 
 
 }

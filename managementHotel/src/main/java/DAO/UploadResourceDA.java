@@ -61,7 +61,7 @@ public class UploadResourceDA extends DAOOject {
             while (rs.next()) {
                 java.util.Date create_date = null;
                 String createDateStr="";
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 if (rs.getDate("Created_date") != null) {
                     create_date = new java.util.Date(rs.getTimestamp("Created_date").getTime());
                     createDateStr = dateFormat.format(create_date);
@@ -107,7 +107,7 @@ public class UploadResourceDA extends DAOOject {
             if (rs.next()) {
                 java.util.Date create_date = null;
                 String createDateStr="";
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 if (rs.getDate("Created_date") != null) {
                     create_date = new java.util.Date(rs.getTimestamp("Created_date").getTime());
                     createDateStr = dateFormat.format(create_date);

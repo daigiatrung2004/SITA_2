@@ -164,7 +164,7 @@ public class EmployeeDA extends DAOOject {
                 String encryptpass = rs.getString("encryptpass");
                 java.util.Date start_date = null, last_login = null;
                 String start_dateStr = "", last_login_str = "";
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 if (rs.getDate("start_date") != null) {
                     start_date = new java.util.Date(rs.getTimestamp("start_date").getTime());
                     start_dateStr = dateFormat.format(start_date);
@@ -250,7 +250,7 @@ public class EmployeeDA extends DAOOject {
                 String encryptpass = rs.getString("encryptpass");
                 java.util.Date start_date = null, last_login = null;
                 String start_dateStr = "", last_login_str = "";
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 if (rs.getDate("start_date") != null) {
                     start_date = new java.util.Date(rs.getTimestamp("start_date").getTime());
                     start_dateStr = dateFormat.format(start_date);

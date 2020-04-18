@@ -37,6 +37,15 @@
     PriceRoomTO priceRoomTO = (PriceRoomTO) request.getAttribute("priceRoomTO");
     RoomTO roomTO = (RoomTO) request.getAttribute("roomTO");
     RegionTO regionTO = (RegionTO) request.getAttribute("regionTO");
+    String codeValue = request.getParameter("codeValue") != null ? (String) request.getParameter("codeValue") : "0";
+    int codeValueInt=0;
+    if(!codeValue.equals("")){
+        try {
+            codeValueInt=Integer.parseInt(codeValue);
+        } catch (NumberFormatException e) {
+            codeValueInt=0;
+        }
+    }
 
 %>
 <div class="col-md-12" style="padding-bottom: 15px!important;">
@@ -223,7 +232,7 @@
 						</span>
                                 </p>
                                 <div class="mtm">
-                                    <a href="#" class="theme-link">
+                                    <a href="javascript:window.location.reload()" class="theme-link">
                                         <span class="fb-translate fb-font-bold" data-key="basket-room-remove"
                                               data-mode="-1" data-fallback="" data-disablehtmlclean="false"
                                               data-nodefaultlanguagefallback="false" data-placeholders="[]">Bỏ</span>
@@ -233,7 +242,8 @@
                             <div class="col-xs-6 col-sm-3">
                                 <p class="fb-price-amount">
 						<span class="fb-price campaign-price-barred" data-price="101.16137027145" data-symbol="true">
-                            <%if(!price_type.equals("OFFLINE")) {%>
+                            <!--dành cho giảm giá-->
+                            <%if(!price_type.equals("OFFLINE")||codeValueInt>0) {%>
 							<span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
 								<span class="fb-price-currency">₫</span>
                                 <%}%>
@@ -251,7 +261,7 @@
                             </div>
 
                         </div>
-                        <%if(!price_type.equals("OFFLINE")) {%>
+                        <%if(!price_type.equals("OFFLINE")||codeValueInt>0) {%>
                         <div id="fb-total-discount"
                              class="fb-total-recap-discount container fb-container fb-light-bg row" style="margin: 0px;display: flex;align-items: center;">
                             <div class="col-xs-6 fb-container mcm-discount-total" >
@@ -372,6 +382,7 @@
                 <input type="hidden" name="room_id" value="<%=roomTO.getRoom_id()%>">
                 <input type="hidden" name="price_id" value="<%=price_id%>">
                 <input type="hidden" name="listTrans" value="<%=arraySelectAddition%>">
+                <input type="hidden" name="codeValue" value="<%=codeValueInt%>">
                 <%}else{%>
                 <input type="hidden" name="cmd" value="_xclick">
                 <input type="hidden" name="business" value="<%=StaticTO.PAYPAL_ID%>">
@@ -737,8 +748,8 @@
                  var phone=$("#buyer-phone").val();
                  var CMND=$("#verify_person").val();
                 var url='<%=StaticTO.PAYPAL_AUTORETURN+"?checkin="+checkin+"&total="+total+"&checkout="+checkout+"&kind_room_id="+kindRoomTO.getKindroom_id()+"&region_id="+regionTO.getRegion_id()+"&room_id="+roomTO.getRoom_id()+"&price_id="+price_id+"&listTrans="+arraySelectAddition%>'
-                url+='&email='+email+'&buyer-given-name='+firtname+'&buyer-family-name='+lastname+'&buyeraddress='+address+'&buyerzipcode='+zip+'&buyercity='+city+'&buyer-country='+buyercountry+'&buyer-phone='+phone+'&verify_person='+CMND+'&type_payment=paypal';
-                alert(url);
+                url+='&email='+email+'&buyer-given-name='+firtname+'&buyer-family-name='+lastname+'&buyeraddress='+address+'&buyerzipcode='+zip+'&buyercity='+city+'&buyer-country='+buyercountry+'&buyer-phone='+phone+'&verify_person='+CMND+'&type_payment=paypal&codeValue=<%=codeValueInt%>';
+                // alert(url);
                 $("#return").val(url);
                 $("#form_payment").submit();
 

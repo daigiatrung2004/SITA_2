@@ -1,5 +1,6 @@
 <%@ page import="DTO.RoomTO" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="DTO.StaticTO" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 4/3/2020
@@ -8,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArrayList<RoomTO> listRoomTO=(ArrayList<RoomTO>)request.getAttribute("listRoomTO");
+    ArrayList<RoomTO> listRoomTO = (ArrayList<RoomTO>) request.getAttribute("listRoomTO");
 %>
 <html>
 <head>
@@ -19,29 +20,40 @@
 <body>
 <jsp:include page="Header-employee.jsp"></jsp:include>
 <div>
-<div class="main-room row" >
-    <%
-        for (int i = 0; i <listRoomTO.size() ; i++) {
+    <div class="main-room row">
+        <%
+            for (int i = 0; i < listRoomTO.size(); i++) {
 
 
-    %>
-    <div class="item-room">
-        <a href="DetailsRoom?roomId=<%=listRoomTO.get(i).getRoom_id()%>" style="color: black;">
-        <div class="img-item">
-            <img src="./img/employee/img-daidien-room.jpg" style="height: 150px;width: 100%">
+        %>
+        <div class="item-room">
+            <%
+                if (listRoomTO.get(i).getStatus().equals(StaticTO.ACTIVE_STATUS)) {
+            %>
+            <a href="DetailsRoom?roomId=<%=listRoomTO.get(i).getRoom_id()%>" style="color: black;">
+                <%
+                    }else{
+                %>
+                <a href="CheckOut?roomId=<%=listRoomTO.get(i).getRoom_id()%>" style="color: black;">
+                <%
+                    }
+                %>
+                <div class="img-item">
+                    <img src="./img/employee/img-daidien-room.jpg" style="height: 150px;width: 100%">
+                </div>
+                <div class="footer-item">
+                    <div class="footer-div">Số giường:2</div>
+                    <div class="footer-div">Số người tối đa:<%=listRoomTO.get(i).getMax_people()%>
+                    </div>
+                    <div class="footer-div">Status:<span class="error"><%=listRoomTO.get(i).getStatus()%></span></div>
+
+                </div>
+            </a>
         </div>
-        <div class="footer-item">
-            <div class="footer-div">Số giường:2</div>
-            <div class="footer-div">Số người tối đa:<%=listRoomTO.get(i).getMax_people()%></div>
-            <div class="footer-div">Status:<span class="error"><%=listRoomTO.get(i).getStatus()%></span></div>
-
-        </div>
-        </a>
+        <%
+            }
+        %>
     </div>
-    <%
-        }
-    %>
-</div>
 </div>
 <jsp:include page="../Footer.jsp"></jsp:include>
 </body>

@@ -18,14 +18,23 @@
     String checkIn = request.getParameter("checkIn") != null ? (String) request.getParameter("checkIn") : "";
     String checkOut = request.getParameter("checkOut") != null ? (String) request.getParameter("checkOut") : "";
     String numOfPeo = request.getParameter("numOfPeo") != null ? (String) request.getParameter("numOfPeo") : "0";
-
+    // tính cho việc giảm giá cá nhân
+    String codeValue = request.getAttribute("codeValue") != null ? (String) request.getAttribute("codeValue") : "0";
+    int codeValueInt = 0;
+    if (!codeValue.equals("")) {
+        try {
+            codeValueInt = Integer.parseInt(codeValue);
+        } catch (NumberFormatException e) {
+            codeValueInt = 0;
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="css/home-css.css"/>
     <link rel="stylesheet" href="css/payment-view.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <jsp:include page="Library.jsp"></jsp:include>
     <style>
         .header-div-main {
@@ -73,7 +82,7 @@
                             if (listSearchNew != null) {
                                 for (int i = 0; i < listSearchNew.size(); i++) {
                                     KindRoomTO kindRoomTO = listSearchNew.get(i).getKindRoomTO();
-                                    RegionTO regionTO=listSearchNew.get(i).getRegionTO();
+                                    RegionTO regionTO = listSearchNew.get(i).getRegionTO();
 
                                     if (listUploadResouce != null) {
                                         ArrayList<UploadResourceTO> listUploadResourceTO = (ArrayList<UploadResourceTO>) listUploadResouce.get(i);
@@ -140,20 +149,21 @@
                                 ArrayList<PriceRoomTO> listPriceRoomTO = (ArrayList<PriceRoomTO>) listPriceRoom.get(i);
                                 ArrayList<PromoteTO> listpromoteTO = (ArrayList<PromoteTO>) listPromote.get(i);
                                 ArrayList listServiceTO = (ArrayList) listServiceAll.get(i);
-                               int listNumOfRoom=(Integer)listAllRoom.get(i);
-                                if(listNumOfRoom>0){
-                                if (listPriceRoomTO != null) {
-                                    for (int j = 0; j < listPriceRoomTO.size(); j++) {
-                                        PromoteTO promoteTO = (PromoteTO) listpromoteTO.get(j);
-                                        ArrayList<ServiceTO> listService=(ArrayList<ServiceTO> )listServiceTO.get(j);
+                                int listNumOfRoom = (Integer) listAllRoom.get(i);
+                                if (listNumOfRoom > 0) {
+                                    if (listPriceRoomTO != null) {
+                                        for (int j = 0; j < listPriceRoomTO.size(); j++) {
+                                            PromoteTO promoteTO = (PromoteTO) listpromoteTO.get(j);
+                                            ArrayList<ServiceTO> listService = (ArrayList<ServiceTO>) listServiceTO.get(j);
 
-                                        PriceRoomTO priceRoomTO=listPriceRoomTO.get(j);
-                                        long price=priceRoomTO.getPrice_1_night();
-                                        long discount=0;
-                                        if(promoteTO!=null){
-                                            discount= Long.parseLong(promoteTO.getPro_value());
-                                        }
-                                        long priceDiscount=price-((price*discount)/100);
+                                            PriceRoomTO priceRoomTO = listPriceRoomTO.get(j);
+                                            long price = priceRoomTO.getPrice_1_night();
+                                            long discount = 0;
+                                            if (promoteTO != null) {
+                                                discount = Long.parseLong(promoteTO.getPro_value());
+                                            }
+                                            // giá phòng sau khi dược giảm giá
+                                            long priceDiscount = price - ((price * discount) / 100) - ((price * codeValueInt) / 100);
 
 
                             %>
@@ -176,11 +186,12 @@
 					<span class="fb-translate" data-key="Only-x-accommodations-left" data-mode="-1" data-fallback=""
                           data-disablehtmlclean="false" data-nodefaultlanguagefallback="false" data-placeholders="[3]"
                           placeholder="Chỉ còn 3 phòng nghỉ!">Chỉ còn <%=listNumOfRoom%> phòng nghỉ!</span>
+
 				</span>
                                         </div>
                                     </div>
                                     <!--check promote nếu có -->
-                                    <%if (promoteTO!= null) {%>
+                                    <%if (promoteTO != null) {%>
                                     <div class="fb-results-rate-labels-container">
 			<span class="fb-discount-tag rate-badge-container" title="Chỉ cung cấp tại phòng">
 				<span class="fb-discount-tag-price">
@@ -193,14 +204,15 @@
                                     <%}%>
                                     <div style="margin-top: auto;display: flex">
                                         <%
-                                            for (int k = 0; k <listService.size() ; k++) {
+                                            for (int k = 0; k < listService.size(); k++) {
 
 
                                         %>
                                         <div class="fb-results-ratekeys fb-container" style="display: flex;">
                                             <div class="col-xs-4 fb-dark-gray fb-container">
                                             <span class="col-xs-12 col-sm-2 fb-container">
-                                                 <img src="<%=listService.get(k).getFile_img_url().replace(StaticTO.STATIC_PATH,".\\")%>" border="0"/>
+                                                 <img src="<%=listService.get(k).getFile_img_url().replace(StaticTO.STATIC_PATH,".\\")%>"
+                                                      border="0"/>
                                             </span>
                                             </div>
                                             <div class="col-xs-12 col-sm-10 fb-results-ratekey">
@@ -222,28 +234,42 @@
 						</span>
                                     </div>
                                     <div style="padding-right: 5px; padding-bottom: 5px;">
-                                        <%if(promoteTO!=null){%>
+                                        <%if (promoteTO != null) {%>
                                         <div>
 
-							<span class="fb-price barred-price last-barred-price" data-price="<%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>"
+							<span class="fb-price barred-price last-barred-price"
+                                  data-price="<%=priceRoomTO.getPrice_1_night()%>"
                                   data-symbol="true">
-								<span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
+                                <span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%></span>
 									<span class="fb-price-currency">₫</span>
-								</span>
+
 							</span>
                                         </div>
                                         <%}%>
                                         <div class="new-price campaign-text-color">
 							<span class="fb-price" data-price="98.276617732135" data-symbol="true">
-								<span><%=TextCustomizeFormat.currency_format(priceDiscount)%>
+                                <!--giá sản phẩm-->
+                                <span><%=TextCustomizeFormat.currency_format(priceDiscount)%></span>
 									<span class="fb-price-currency">₫</span>
+
 								</span>
-							</span>
+
                                         </div>
                                     </div>
-
-                                    <button class="btn btn-static fb-font-bold btn--price-select" data-price="<%if(promoteTO!=null){%><%=TextCustomizeFormat.currency_format(priceDiscount)%><%}else{%><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%><%}%>" data-kindroom="<%=kindRoomTO.getKindroom_id()%>" data-region="<%=regionTO.getRegion_id()%>"
-                                       data-typeprice="<%=listPriceRoomTO.get(j).getPrice_id()%>" data-numberofpeople="<%=numOfPeo%>" data-checkin="<%=checkIn%>" data-checkout="<%=checkOut%>" <%if(listPriceRoomTO.get(j).getPrice_id()==3){%>data-price-type="ONLINE"<%}else{%>data-price-type="OFFLINE"<%}%>
+                                    <div><!--khuyến mãi-->
+                                        <%if (codeValueInt > 0) {%>
+                                        <span style="color:red;">Bạn có mã khuyến mãi :<%=codeValueInt%> %</span>
+                                        <%}%>
+                                    </div>
+                                    <button class="btn btn-static fb-font-bold btn--price-select"
+                                            data-price="<%=TextCustomizeFormat.currency_format(priceDiscount)%>"
+                                            data-kindroom="<%=kindRoomTO.getKindroom_id()%>"
+                                            data-region="<%=regionTO.getRegion_id()%>"
+                                            data-typeprice="<%=listPriceRoomTO.get(j).getPrice_id()%>"
+                                            data-numberofpeople="<%=numOfPeo%>" data-checkin="<%=checkIn%>"
+                                            data-checkout="<%=checkOut%>"
+                                            <%if(listPriceRoomTO.get(j).getPrice_id()==3){%>data-price-type="ONLINE"
+                                            <%}else{%>data-price-type="OFFLINE"<%}%> data-codevalue="<%=codeValueInt%>"
                                     >
                                     <span class="fb-translate "
                                           placeholder="Chọn" style="text-transform: uppercase;">Chọn</span>
@@ -344,7 +370,8 @@
 <jsp:include page="./Footer.jsp"></jsp:include>
 <!--loader-->
 
-<div class="ui dimmer" id="dimmer" style="display:none;position: fixed;top:0;left:0;right:0px;bottom:0px;width: 100%;height: 100%;background-color: rgba(224, 214, 214, 0.5);">
+<div class="ui dimmer" id="dimmer"
+     style="display:none;position: fixed;top:0;left:0;right:0px;bottom:0px;width: 100%;height: 100%;background-color: rgba(224, 214, 214, 0.5);">
     <div class="ui massive text loader">
         <h3 style="color: rgba(124, 37, 41,1)">Loading</h3>
     </div>

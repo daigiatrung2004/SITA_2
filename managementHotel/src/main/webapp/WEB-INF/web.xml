@@ -197,6 +197,46 @@
         <servlet-name>ListProduct</servlet-name>
         <servlet-class>servlet.Employee.ListProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RoomQuick</servlet-name>
+        <servlet-class>servlet.Admin.RoomQuick</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOut</servlet-name>
+        <servlet-class>servlet.Employee.CheckOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxServiceCheckOut</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxServiceCheckOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxCheckOut</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxCheckOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatisAnalyzt</servlet-name>
+        <servlet-class>servlet.Employee.StatisAnalyzt</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatisAnalyzt</servlet-name>
+        <url-pattern>/StatisAnalyzt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxCheckOut</servlet-name>
+        <url-pattern>/AjaxCheckOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxServiceCheckOut</servlet-name>
+        <url-pattern>/AjaxServiceCheckOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOut</servlet-name>
+        <url-pattern>/CheckOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomQuick</servlet-name>
+        <url-pattern>/RoomQuick</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListProduct</servlet-name>
         <url-pattern>/ListProduct</url-pattern>

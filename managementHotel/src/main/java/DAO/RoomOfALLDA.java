@@ -52,8 +52,8 @@ public class RoomOfALLDA extends DAOOject {
             pstmt.setInt(index++, roomTO.getPrice_id());
             pstmt.setString(index++, roomTO.getStatus());
             pstmt.setString(index++, roomTO.getRemark());
-            pstmt.setInt(index, roomTO.getMax_people());
-            pstmt.setInt(index,roomTO.getRoom_id());
+            pstmt.setInt(index++, roomTO.getMax_people());
+            pstmt.setInt(index++,roomTO.getRoom_id());
             rs = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("updateRoom+++" + pstmt.toString());
@@ -325,6 +325,55 @@ public class RoomOfALLDA extends DAOOject {
 
         return count;
     }
+    //tìm tất cà các phòng theo khu vuc và loại phòng
+    public ArrayList<RoomTO> retrieveRoomByRegionKindRoom(int location, int numOfPeo,int kind_room_id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<RoomTO> listSearchTO = new ArrayList<RoomTO>();
+
+
+        String sql = " SELECT R.* FROM " + StaticTO.DB_REGION_NAME + " RG  "
+                + " INNER JOIN " + StaticTO.DB_ROOM_NAME + " R ON RG.REGION_ID=R.REGION_ID "
+                + " INNER JOIN " + StaticTO.DB_KIND_ROOM_NAME + " KR ON KR.KIND_ROOM_ID=R.KIND_ROOM_ID  "
+                + " WHERE RG.REGION_ID=? AND R.STATUS=?  AND R.MAX_PEOPEL>=? AND KR.KIND_ROOM_ID=?  GROUP BY R.ROOM_ID ";
+        conn = getConnection();
+        try {
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date date1 = df.parse(checkOut);
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setInt(index++, location);
+            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+//            pstmt.setString(index++,date1.toString());
+            pstmt.setInt(index++, numOfPeo);
+            pstmt.setInt(index++, kind_room_id);
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                RoomTO roomTO = new RoomTO(rs.getInt("room_id"),
+                        rs.getString("name"),
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("price_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getInt("max_peopel")
+                );
+
+                listSearchTO.add(roomTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return listSearchTO;
+
+    }
+     // tim danh sach phong theo khu vuc
 
     public ArrayList<RoomTO> searchRoom(int location, int numOfPeo) {
         Connection conn = null;
@@ -422,7 +471,7 @@ public class RoomOfALLDA extends DAOOject {
         RoomTO roomTO = null;
 
         ArrayList<RoomTO> listRoomTO=new ArrayList<RoomTO>();
-        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " WHERE REGION_ID=?";
+        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " R WHERE R.REGION_ID=? AND R.STATUS!=? ";
         conn = getConnection();
         try {
 //            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -430,6 +479,7 @@ public class RoomOfALLDA extends DAOOject {
             pstmt = conn.prepareStatement(sql);
             int index = 1;
             pstmt.setInt(index++, region_id);
+            pstmt.setString(index++,StaticTO.REMOVE_STATUS);
 //            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
 //            pstmt.setString(index++,date1.toString());
 

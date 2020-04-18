@@ -70,12 +70,12 @@ public class SearchControl extends WebServlet {
                 UploadResourceDA uploadResourceDA = new UploadResourceDA();
                 BookingDA bookingDA = new BookingDA();
                 for (SearchTO searchTO : listSearchTO) {
-                    if (!bookingDA.checkBooking(searchTO.getKindRoomTO().getKindroom_id(), searchTO.getRegionTO().getRegion_id(), checkOut)) {
+//                    if (!bookingDA.checkBooking(searchTO.getKindRoomTO().getKindroom_id(), searchTO.getRegionTO().getRegion_id(), checkOut)) {
                         UploadResourceTO uploadResourceTO = uploadResourceDA.retrieveImgGalery(String.valueOf(StaticTO.DB_KIND_ROOM_NAME + "_" + searchTO.getKindRoomTO().getKindroom_id()));
                         if (uploadResourceTO != null) {
                             SearchTO searchTO1 = new SearchTO(uploadResourceTO, searchTO.getKindRoomTO(), searchTO.getRegionTO());
                             listSearchNew.add(searchTO1);
-                        }
+//                        }
                     }
                 }
                 request.setAttribute("numOfPeo", numOfPeo);

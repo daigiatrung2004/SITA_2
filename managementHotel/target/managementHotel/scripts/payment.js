@@ -30,8 +30,9 @@ function goPageContinue(case_condition, data) {
     var checkin = data.data('checkin');
     var checkout = data.data('checkout');
     var price_type=data.data('price-type');
+    var codeValue=data.data('codevalue');
     $('#dimmer').dimmer('show');
-    var url = "price=" + price + "&kind_room_id=" + kind_room_id + "&region_id=" + region_id + "&price_id=" + price_id + "&numberOfPeo=" + numberOfPeo + "&checkin=" + checkin + "&checkout=" + checkout+"&price_type="+price_type;
+    var url = "price=" + price + "&kind_room_id=" + kind_room_id + "&region_id=" + region_id + "&price_id=" + price_id + "&numberOfPeo=" + numberOfPeo + "&checkin=" + checkin + "&checkout=" + checkout+"&price_type="+price_type+"&codeValue="+codeValue;
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

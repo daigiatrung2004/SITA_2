@@ -24,7 +24,7 @@ public class SearchDA extends DAOOject {
         String sql = " SELECT RG.*,KR.* FROM " + StaticTO.DB_REGION_NAME + " RG  "
                 + " INNER JOIN " + StaticTO.DB_ROOM_NAME + " R ON RG.REGION_ID=R.REGION_ID "
                 + " INNER JOIN " + StaticTO.DB_KIND_ROOM_NAME + " KR ON KR.KIND_ROOM_ID=R.KIND_ROOM_ID  "
-                + " WHERE RG.REGION_ID=? AND R.STATUS=?  AND R.MAX_PEOPEL>=? GROUP BY R.KIND_ROOM_ID ";
+                + " WHERE RG.REGION_ID=? AND (R.STATUS=? OR R.STATUS=?)  AND R.MAX_PEOPEL>=? GROUP BY R.KIND_ROOM_ID ";
         conn = getConnection();
         try {
 //            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -33,6 +33,7 @@ public class SearchDA extends DAOOject {
             int index = 1;
             pstmt.setInt(index++, location);
             pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+            pstmt.setString(index++, StaticTO.BOOKED_STATUS);
 //            pstmt.setString(index++,date1.toString());
             pstmt.setInt(index++, numOfPeo);
             rs = pstmt.executeQuery();

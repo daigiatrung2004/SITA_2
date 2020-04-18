@@ -12,6 +12,26 @@ public class ProductTO {
     private int AMOUNT;
     private int cate_id;
     private int region_id;
+    private long booking_id;
+    private int amount;
+    private long pay;
+
+    public ProductTO(int ID, String NAME, String DESCRIPTION, String FILE_IMG_URL, String STATUS, String REMARK, long PRICE, String UNIT, int AMOUNT, int cate_id, int region_id, long booking_id, int amount, long pay) {
+        this.ID = ID;
+        this.NAME = NAME;
+        this.DESCRIPTION = DESCRIPTION;
+        this.FILE_IMG_URL = FILE_IMG_URL;
+        this.STATUS = STATUS;
+        this.REMARK = REMARK;
+        this.PRICE = PRICE;
+        this.UNIT = UNIT;
+        this.AMOUNT = AMOUNT;
+        this.cate_id = cate_id;
+        this.region_id = region_id;
+        this.booking_id = booking_id;
+        this.amount = amount;
+        this.pay = pay;
+    }
 
     public ProductTO(int ID, String NAME, String DESCRIPTION, String FILE_IMG_URL, String STATUS, String REMARK, long PRICE, String UNIT, int AMOUNT, int cate_id, int region_id) {
         this.ID = ID;
@@ -113,5 +133,29 @@ public class ProductTO {
 
     public void setCate_id(int cate_id) {
         this.cate_id = cate_id;
+    }
+
+    public long getBooking_id() {
+        return booking_id;
+    }
+
+    public void setBooking_id(long booking_id) {
+        this.booking_id = booking_id;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public long getPay() {
+        return pay;
+    }
+
+    public void setPay(long pay) {
+        this.pay = pay;
     }
 }
