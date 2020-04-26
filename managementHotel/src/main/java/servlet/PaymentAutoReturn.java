@@ -2,16 +2,21 @@ package servlet;
 
 import DAO.BookingDA;
 import DAO.PaymentOrderDA;
+import DAO.RegionDA;
 import DAO.RoomOfALLDA;
 import DTO.*;
 import Utils.EncryptDecryptPassword;
+import Utils.SendMail;
+import Utils.TextCustomizeFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -43,15 +48,15 @@ public class PaymentAutoReturn extends WebServlet {
             String[] checkinSplit = checkin.split("/");
             int codeValueInt;
             try {
-                codeValueInt=Integer.parseInt(codeValue);
+                codeValueInt = Integer.parseInt(codeValue);
             } catch (NumberFormatException e) {
-                codeValueInt=0;
+                codeValueInt = 0;
             }
             long totalLong;
             try {
-                totalLong=Long.parseLong(total);
+                totalLong = Long.parseLong(total);
             } catch (NumberFormatException e) {
-                totalLong=0;
+                totalLong = 0;
             }
             if (!checkin.equals("") && !checkout.equals("")) {
                 checkin = checkinSplit[2] + "-" + checkinSplit[1] + "-" + checkinSplit[0] + " 14:00:00";
@@ -63,7 +68,7 @@ public class PaymentAutoReturn extends WebServlet {
             int password = rnd.nextInt(StaticTO.numOfRandom);
             int sankey = rnd.nextInt(StaticTO.numOfRandom);
             Date now = new Date();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String nowStr = dateFormat.format(now);
             EncryptDecryptPassword encryptDecryptPassword = new EncryptDecryptPassword(String.valueOf(sankey));
             String pass = encryptDecryptPassword.encrypt(String.valueOf(password));
@@ -72,7 +77,7 @@ public class PaymentAutoReturn extends WebServlet {
             bookingDA.addCustomer(customerTO);
             CustomerTO customer = bookingDA.retreiveCustomerLatest();
 
-            BookingTO bookingTO = new BookingTO(0, customer.getCustomer_id(), nowStr, checkin, checkout, Integer.parseInt(kind_room_id), Integer.parseInt(region_id), Integer.parseInt(room_id), StaticTO.ACTIVE_STATUS,codeValueInt>0?"codeValue:"+codeValueInt:"", pass);
+            BookingTO bookingTO = new BookingTO(0, customer.getCustomer_id(), nowStr, checkin, checkout, Integer.parseInt(kind_room_id), Integer.parseInt(region_id), Integer.parseInt(room_id), StaticTO.ACTIVE_STATUS, codeValueInt > 0 ? "codeValue:" + codeValueInt : "", pass);
             bookingDA.addBooking(bookingTO);
             BookingTO bookingTO1 = bookingDA.retrieveBookingLatest();
             if (!listTrans.equals("") && listTransSplit.length > 0) {
@@ -81,14 +86,14 @@ public class PaymentAutoReturn extends WebServlet {
                     bookingDA.addBookingTrans(bookingTO2);
                 }
             }
-            PaymentOrderDA paymentOrderDA=new PaymentOrderDA();
-            Date date=new Date();
-            DateFormat dateFormat1=new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-            String dateStr=dateFormat1.format(date);
+            PaymentOrderDA paymentOrderDA = new PaymentOrderDA();
+            Date date = new Date();
+            DateFormat dateFormat1 = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+            String dateStr = dateFormat1.format(date);
             System.out.println(dateStr);
             if (type_payment.equals("paypal")) {
-               PaymentOrderTO paymentOrderTO=new PaymentOrderTO(0,customerTO.getCustomer_id(),"","","",dateStr,0,totalLong,"VNĐ","","","","","","","","","",StaticTO.PAYPAL_METHOD);
-               paymentOrderDA.addPaymentOrder(paymentOrderTO);
+                PaymentOrderTO paymentOrderTO = new PaymentOrderTO(0, customerTO.getCustomer_id(), "", "", "", dateStr, 0, totalLong, "VNĐ", "", "", "", "", "", "", "", "", "", StaticTO.PAYPAL_METHOD);
+                paymentOrderDA.addPaymentOrder(paymentOrderTO);
             }
             request.setAttribute("name", firstname + " " + lastname);
             request.setAttribute("contact_person", buyer_phone);
@@ -115,6 +120,44 @@ public class PaymentAutoReturn extends WebServlet {
             //code nhận phong
             request.setAttribute("code_receive", pass);
             request.setAttribute("total", total);
+            // gủi mail thông báo chưa làm en chỉ cái vi
+            RegionDA regionDA = new RegionDA();
+            int region_idInt;
+            try {
+                region_idInt = Integer.parseInt(region_id);
+            } catch (NumberFormatException e) {
+                region_idInt = 0;
+            }
+            RegionTO regionTO = regionDA.retrieveAllRegion(region_idInt);
+            ArrayList<String> infolist = new ArrayList<String>();
+            infolist.add(regionTO.getName_en());
+            infolist.add(total);
+            infolist.add(firstname + " " + lastname);
+            infolist.add(verify_person);
+            infolist.add(buyer_phone);
+            infolist.add(roomTO.getName());
+
+            DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date checkInDate, checkOutDate;
+            try {
+                checkInDate = dateFormat2.parse(checkin);
+                checkOutDate = dateFormat2.parse(checkout);
+            } catch (ParseException e) {
+                checkInDate = null;
+                checkOutDate = null;
+            }
+
+            String timeStr = "";
+            if (checkInDate != null && checkOutDate != null) {
+                long time = (checkOutDate.getTime() - checkInDate.getTime()) / (24 * 60 * 60 * 1000);
+                timeStr = String.valueOf(time);
+
+            }
+            infolist.add(timeStr);
+            infolist.add(TextCustomizeFormat.currency_format(priceRoomTO.getPrice_id()));
+            infolist.add(pass);
+            infolist.add(email);
+            SendMail.sendmail(infolist);
             forward("ReceiptPayment.jsp", request, response);
         } catch (ServletException e) {
             e.printStackTrace();

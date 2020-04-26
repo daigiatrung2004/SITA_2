@@ -45,8 +45,10 @@ public class AnnoucementDA extends DAOOject {
                 }
             }
         } catch (SQLException e) {
+            System.out.println("++++addAnnoucement:" + pstmt.toString());
             e.printStackTrace();
         } finally {
+            System.out.println("++++addAnnoucement:" + pstmt.toString());
             DbUtils.closeQuietly(conn, pstmt);
         }
         return (rs > 0);
@@ -158,7 +160,7 @@ public class AnnoucementDA extends DAOOject {
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1,employee_id);
+            pstmt.setLong(1, employee_id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Date date_post = null;
@@ -213,5 +215,66 @@ public class AnnoucementDA extends DAOOject {
         }
 
         return count;
+    }
+
+    //
+    public AnnoucementTO retrieveAnnounceById(long announceId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "SELECT * FROM  " + StaticTO.DB_ANNOUCE_NAME + "  WHERE ANNOUNCE_ID=?";
+        AnnoucementTO annoucementTO1 = null;
+        ResultSet rs = null;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, announceId);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Date date_post = null;
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String datepostStr = "";
+                if (rs.getDate("DATE_POST") != null) {
+                    date_post = new Date(rs.getTimestamp("DATE_POST").getTime());
+                    datepostStr = dateFormat.format(date_post);
+                }
+                annoucementTO1 = new AnnoucementTO(rs.getLong("ANNOUNCE_ID"), rs.getString("TITLE"),
+                        rs.getString("CONTENT"), rs.getLong("employee_id"), rs.getString("STATUS"), rs.getString("REMARK"), rs.getString("DATE_POST")
+                );
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("retrieveAnnounceById+++" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("retrieveAnnounceById+++" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+
+        return annoucementTO1;
+    }
+
+    // update nhân viên đã đọc thông báo
+    public boolean updateAnnounceByEmployee(AnnoucementTO annoucementTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE  " + StaticTO.DB_ANNOUCE_EMPLOYEE_NAME + " SET STATUS_READ_UNREAD=? WHERE employee_id=? AND ANNOUNCE_ID=?";
+        conn = getConnection();
+        int rs = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, annoucementTO.getSTATUS_READ_UNREAD());
+            pstmt.setLong(2, annoucementTO.getEmployee_id());
+            pstmt.setLong(3, annoucementTO.getANNOUNCE_ID());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("++++updateAnnounceByEmployee" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("++++updateAnnounceByEmployee" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
     }
 }

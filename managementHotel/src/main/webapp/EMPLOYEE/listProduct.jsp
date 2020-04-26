@@ -34,7 +34,7 @@
 </div>
 <div class="div-main-warehouse">
     <div class="div-insert-product"></div>
-    <form action="ListProduct">
+    <form action="ListProduct" method="post">
         <fieldset>
             <legend>Thêm dữ liệu sản phẩm:</legend>
             <div class="form-group">

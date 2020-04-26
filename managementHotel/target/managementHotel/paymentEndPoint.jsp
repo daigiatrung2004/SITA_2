@@ -388,10 +388,10 @@
                 <input type="hidden" name="business" value="<%=StaticTO.PAYPAL_ID%>">
                 <input type="hidden" name="item_name" value="Booking online">
                 <input type="hidden" name="item_number" value="<%=countBooking%>">
-                <input type="hidden" name="amount" value="5.00">
+                <input type="hidden" name="amount" value="<%=Long.parseLong(total)/StaticTO.USD%>">
                 <%--    <input type="hidden" name="custom" value="c1120510110300101280-coins">--%>
                 <input type="hidden" name="invoice" value="IDABC<%=countPayment%>-EMP1120510110300101223">
-                <input type="hidden" name="currency_code" value="SGD">
+                <input type="hidden" name="currency_code" value="USD">
                 <input type="hidden" name="test_ipn" value="1">
                 <input type="hidden" name="txn_type" value="express_checkout">
                 <input type="hidden" name="no_shipping" value="1">

@@ -29,6 +29,7 @@ public class StaticTO {
     public static final String  DB_BOOKING_PRODUCT_NAME="booking_product";
     public static final String  DB_INVOICE_NAME="invoice";
     public static final String  DB_SYSTEM_NAME="sys_meta";
+    public static final String  DB_REPORT_USER_NAME="reportuser";
 
 
     // status name static
@@ -40,6 +41,10 @@ public class StaticTO {
     public static final String  COMPLETE_STATUS="Completed";
     public static final String  UNREAD_STATUS="unread";
     public static final String  READ_STATUS="read";
+    public static final String  REPORT_SEND="report_send";
+    public static final String  REPORT_REPLY="report_reply";
+    public static final String  REPORT_CAREER_SEND="career_customer";
+    public static final String  CONFIRM_BOOKING_HTML="C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\webapp\\email\\confirm_booking.html";
 
 
 
@@ -59,7 +64,7 @@ public class StaticTO {
     public static final String APP_PASSWORD="Daoanhvu1";
     public static final String PAYPAL_CURRENCY="USD";
     public static final String PAYPAL_AUTORETURN="http://127.0.0.1:8080/managementHotel_war_exploded/PaymentAutoReturn";
-
+    public static final long   USD=24000;
 
     //payment
     public static final String PAYPAL_METHOD="paypal";
@@ -68,6 +73,16 @@ public class StaticTO {
     // type statis ,system,anlyzt
     public static final String KEY_VIEW="customer_view";
     public static final String TYPE_VIEWS="views";
+    public static final int PRODUCT_ID_MEAL=11;
+    public static final int PRODUCT_ID_SERVICE=12;
+    public static final long INVESTER=1000000000;
+    public static final long ONE_DAY=24*60*60*1000;
+    // typ static categoryproduct
+    public static final int FOOD_CATE_STATIC=11;
+    public static final int FURNITURE_CATE_STATIC=12;
 
+
+    //stati year
+    public static final int YEAR_STATIC=1900;
 
 }

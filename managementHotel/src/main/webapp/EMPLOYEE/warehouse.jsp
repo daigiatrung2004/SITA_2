@@ -28,7 +28,7 @@
 </div>
 <div class="div-main-warehouse">
     <div class="div-insert-product"></div>
-    <form action="Warehouse">
+    <form action="Warehouse" method="post">
     <fieldset>
         <legend>Thêm dữ liệu danh mục:</legend>
         <div class="form-group">

@@ -20,6 +20,13 @@
     CustomerTO customer = (CustomerTO) request.getAttribute("customer");
     PriceRoomTO priceRoomTO = (PriceRoomTO) request.getAttribute("priceRoomTO");
     String success=request.getAttribute("checkOutSuccess")!=null?(String)request.getAttribute("checkOutSuccess"):"false";
+    String songay=request.getAttribute("songay")!=null?(String)request.getAttribute("songay"):"1";
+    int songayInt;
+    try {
+        songayInt=Integer.parseInt(songay);
+    } catch (NumberFormatException e) {
+        songayInt=1;
+    }
 
 
 %>
@@ -49,12 +56,13 @@
                     <div class="container">
                         <div class="spinner-border"></div>
                     </div>
-                    <button class="btn btn-primary" id="saveCheckOut">Lưu Hóa đơn</button>
+                    <button class="btn btn-primary" id="saveCheckOut" style="display: flex;align-items: center;"><span class="loading-saveOrder lds-dual-ring" style="margin-right: 5px;align-items: center;"></span><span style="margin-left: 5px;">Lưu Hóa đơn</span></button>
                 </div>
             </div>
             <div class="div-invoice-table">
                 <table class="table table-invoice" style="background-color:white;">
                     <thead>
+
 
                     <th>Sản phẩm</th>
                     <th>Giá</th>
@@ -126,12 +134,20 @@
                                 style="text-decoration: underline"> đ</span></td>
                     </tr>
                     <tr>
+                        <td>Số ngày ở:</td>
+                        <td><%=songayInt%></td>
+                    </tr>
+                    <tr>
+                        <td>Giá phòng:</td>
+                        <td><%=priceRoomTO.getPrice_1_night()%></td>
+                    </tr>
+                    <tr>
                         <td>Tổng tiền phòng:</td>
                         <td>
                             <span>
                                  <%
                                      if (priceRoomTO != null) {
-                                         tong += priceRoomTO.getPrice_1_night();
+                                         tong += priceRoomTO.getPrice_1_night()*songayInt;
                                  %>
                             <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
                             <%
@@ -193,10 +209,10 @@
                 <div class="content-food">
 
                 </div>
-                <div class="ui dimmer" id="spinerfood">
-                    <div class="ui massive text loader">
-                        <h3>Loading</h3>
-                    </div>
+                <div class="div-load" id="div-food">
+                <div class="load-service item-1" id="spinerfood" >
+
+                </div>
                 </div>
 
             </div>
@@ -210,10 +226,10 @@
                 <div class="content-service">
 
                 </div>
-                <div class="ui dimmer" id="spiner">
-                    <div class="ui massive text loader">
-                        <h3>Loading</h3>
-                    </div>
+                <div class="div-load" id="div-services" >
+                <div class="load-service item-2" id="spiner">
+
+                </div>
                 </div>
 
             </div>
@@ -223,7 +239,14 @@
     </div>
     <!---->
     <div class="ui modal small" id="invoiceModal">
-        <div class="header">Hóa đơn thanh toán</div>
+        <div class="header">
+            <div>
+            Hóa đơn thanh toán
+            </div>
+            <span class="close-invoice" style="position: absolute;top: 10px;right: 10px;">
+                <i class="close icon"></i>
+            </span>
+        </div>
         <div class="content">
             <table>
                 <tbody>
@@ -265,7 +288,7 @@
                         <%
                             if (priceRoomTO != null) {
                         %>
-                        <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
+                        <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night()*songayInt)%>
                         <%
                             }
                         %>
@@ -296,9 +319,9 @@
 
                 <%}%>
             </form>
-            <button type="submit" class="ui button" id="checkOutNow">Trả phòng ngay</button>
-            <button class="ui button" id="inHoaDon red">Xuất hóa đơn và trả phòng</button>
-            <button class="ui cancel button" id="cancel">Hủy</button>
+            <button type="submit" class="ui button green" id="checkOutNow" style="color: white;">Trả phòng ngay</button>
+            <button class="ui button  primary" id="inHoaDon" style="color: white;">Xuất hóa đơn và trả phòng</button>
+            <button class="ui cancel red button" id="cancel" style="color: white">Hủy</button>
         </div>
     </div>
      <!--announce check out-->
@@ -318,6 +341,9 @@
            // alert("xin chao");
            $('#invoiceModal').modal('show');
        });
+       $(".close-invoice").click(function(){
+           $('#invoiceModal').modal('hide');
+       });
        <%if(success.equals("true")){%>
        $('#announceSuccess').modal('show');
        <%
@@ -330,8 +356,7 @@
     </script>
     <script>
         $('.menuAdd .item').tab();
-        $('#spinerfood').dimmer('hide');
-        $('#spiner').dimmer('hide');
+
     </script>
     <script src="./scripts/Employee/checkOut-js.js"></script>
 </body>

@@ -21,6 +21,10 @@
         <param-name>FOLDER_SERVICE</param-name>
         <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\img\zoom\service\</param-value>
     </context-param>
+    <context-param>
+        <param-name>CONFIRM_BOOKING_HTML</param-name>
+        <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\email\confirm_booking.html</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>Home</servlet-name>
@@ -217,6 +221,30 @@
         <servlet-name>StatisAnalyzt</servlet-name>
         <servlet-class>servlet.Employee.StatisAnalyzt</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThongKeThuChi</servlet-name>
+        <servlet-class>servlet.Employee.ThongKeThuChi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FooterControl</servlet-name>
+        <servlet-class>servlet.FooterControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitCareer</servlet-name>
+        <servlet-class>servlet.SubmitCareer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubmitCareer</servlet-name>
+        <url-pattern>/SubmitCareer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FooterControl</servlet-name>
+        <url-pattern>/FooterControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThongKeThuChi</servlet-name>
+        <url-pattern>/ThongKeThuChi</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StatisAnalyzt</servlet-name>
         <url-pattern>/StatisAnalyzt</url-pattern>
@@ -445,4 +473,5 @@
         <dispatcher>FORWARD</dispatcher>
 
     </filter-mapping>
+
 </web-app>

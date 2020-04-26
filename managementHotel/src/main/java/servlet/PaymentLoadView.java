@@ -7,7 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PaymentLoadView extends WebServlet {
     @Override
@@ -77,21 +81,25 @@ public class PaymentLoadView extends WebServlet {
                         // dem so phong
                         int NumOfRoom = roomOfALLDA.countRoom(regionTO.getRegion_id(), kindRoomTO.getKindroom_id(), Integer.parseInt(numOfPeo));
 //                      listNumOfRoom.add(NumOfRoom);
-                        ArrayList<Integer> listNumOfRoom = new ArrayList<Integer>();
-                        for (int j = 0; j < listPriceRoomTO.size(); j++) {
-                            PromoteTO promoteTO = promoteDA.retreivePromoteByPrice(listPriceRoomTO.get(j).getPrice_id());
-                            ArrayList<ServiceTO> listServiceTO = serviceDA.retrieveServiceByPrice(listPriceRoomTO.get(j).getPrice_id());
-                            listPromoteTO.add(promoteTO);
-                            listService.add(listServiceTO);
+                        if(NumOfRoom>0) {
+                            ArrayList<Integer> listNumOfRoom = new ArrayList<Integer>();
+                            for (int j = 0; j < listPriceRoomTO.size(); j++) {
+                                PromoteTO promoteTO = promoteDA.retreivePromoteByPrice(listPriceRoomTO.get(j).getPrice_id());
+                                ArrayList<ServiceTO> listServiceTO = serviceDA.retrieveServiceByPrice(listPriceRoomTO.get(j).getPrice_id());
+                                listPromoteTO.add(promoteTO);
+                                listService.add(listServiceTO);
 
 
+                            }
+                            // chon phong vs set dieu kien ngay tai cho nay check in
+
+                            listAllRoom.add(NumOfRoom);
+                            listServiceAll.add(listService);
+                            listPromote.add(listPromoteTO);
+                            listPriceRoom.add(listPriceRoomTO);
+                        }else{
+                            forward("notProduct.jsp", request, response);
                         }
-                        // chon phong vs set dieu kien ngay tai cho nay check in
-
-                        listAllRoom.add(NumOfRoom);
-                        listServiceAll.add(listService);
-                        listPromote.add(listPromoteTO);
-                        listPriceRoom.add(listPriceRoomTO);
 
                     }
                     //tính toán promote code khi khách hàng nhập vào
@@ -122,7 +130,30 @@ public class PaymentLoadView extends WebServlet {
                 }
 
             }
+            // tính số ngày ở
+            int songaythue=1;
+            DateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            Date checkinDate=null,checkOutDate=null;
 
+            if(!checkIn.equals("")){
+                try {
+                    checkinDate=dateFormat.parse(checkIn);
+                    checkOutDate=dateFormat.parse(checkOut);
+                } catch (ParseException e) {
+                    checkinDate=null;
+                    checkOutDate=null;
+                }
+                int songay=1;
+                if(checkinDate!=null&&checkOutDate!=null){
+                    long timeLong=checkOutDate.getTime()-checkinDate.getTime();
+                    timeLong=timeLong/(24*60*60*1000);
+                    String timeStr=String.valueOf(timeLong);
+                    songay=Integer.parseInt(timeStr);
+//                    System.out.println("songay:"+songay);
+                    request.setAttribute("songay",String.valueOf(songay));
+                }
+
+            }
             request.setAttribute("listUploadResouce", listUploadResouce);
             request.setAttribute("listPriceRoom", listPriceRoom);
             request.setAttribute("listPromote", listPromote);

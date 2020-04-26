@@ -70,4 +70,14 @@ fieldset {
 .cursor:hover{
    cursor: pointer;
 }
+.span-static{
+    margin: 10px;
+    font-size: 20px;
+
+}
+.title-footer{
+    padding: 100px;
+    margin-bottom: 100px;
+    background: white;
+}
 

@@ -20,6 +20,13 @@
     String numOfPeo = request.getParameter("numOfPeo") != null ? (String) request.getParameter("numOfPeo") : "0";
     // tính cho việc giảm giá cá nhân
     String codeValue = request.getAttribute("codeValue") != null ? (String) request.getAttribute("codeValue") : "0";
+    String songay = request.getAttribute("songay") != null ? (String) request.getAttribute("songay") : "0";
+    int songayInt=0;
+    try {
+        songayInt=Integer.parseInt(songay);
+    } catch (NumberFormatException e) {
+        songayInt=1;
+    }
     int codeValueInt = 0;
     if (!codeValue.equals("")) {
         try {
@@ -157,7 +164,7 @@
                                             ArrayList<ServiceTO> listService = (ArrayList<ServiceTO>) listServiceTO.get(j);
 
                                             PriceRoomTO priceRoomTO = listPriceRoomTO.get(j);
-                                            long price = priceRoomTO.getPrice_1_night();
+                                            long price = priceRoomTO.getPrice_1_night()*songayInt;
                                             long discount = 0;
                                             if (promoteTO != null) {
                                                 discount = Long.parseLong(promoteTO.getPro_value());
@@ -228,10 +235,18 @@
                                 <div class="fb-results-rate--right">
                                     <div>
 						<span class="fb-dark-gray fb-price-small-text">
-							<span class="fb-translate" placeholder="1 đêm">1 đêm</span>
+							<span class="fb-translate" placeholder="1 đêm"><%=songayInt%> đêm</span>
 							<span class="fb-price-params-separator">, </span>
 							<span placeholder="2 người">2 người</span>
 						</span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            Giá phòng:
+                                        </span>
+                                        <span>
+                                           <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
+                                        </span>
                                     </div>
                                     <div style="padding-right: 5px; padding-bottom: 5px;">
                                         <%if (promoteTO != null) {%>
@@ -240,7 +255,7 @@
 							<span class="fb-price barred-price last-barred-price"
                                   data-price="<%=priceRoomTO.getPrice_1_night()%>"
                                   data-symbol="true">
-                                <span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%></span>
+                                <span><%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night()*songayInt)%></span>
 									<span class="fb-price-currency">₫</span>
 
 							</span>
@@ -366,7 +381,7 @@
     </div>
 </div>
 
-
+<jsp:include page="loading.jsp"></jsp:include>
 <jsp:include page="./Footer.jsp"></jsp:include>
 <!--loader-->
 

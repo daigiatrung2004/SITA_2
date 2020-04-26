@@ -37,19 +37,16 @@
                     <h3 class="h3-footer"><%=lang.readXMl("more_contact")%></h3>
                     <ul>
                         <li>
-                            <a href="/en/contact-us.html"><%=lang.readXMl("contact_us")%></a>
+                            <a href="./en/contact-us.html"><%=lang.readXMl("contact_us")%></a>
                         </li>
                         <li>
-                            <a href="/en/legal-information.html"><%=lang.readXMl("info_legal")%></a>
+                            <a href="./en/legal-information.html"><%=lang.readXMl("info_legal")%></a>
                         </li>
                         <li>
-                            <a href="/en/career.html"><%=lang.readXMl("career")%></a>
+                            <a href="./en/career.html"><%=lang.readXMl("career")%></a>
                         </li>
                         <li>
-                            <a href="/en/gds-codes.html"><%=lang.readXMl("codeGDS")%></a>
-                        </li>
-                        <li>
-                            <a href="/en/our-partners.html"><%=lang.readXMl("coordinator")%></a>
+                            <a href="./en/our-partners.html"><%=lang.readXMl("coordinator")%></a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +54,7 @@
                     <h3 class="h3-footer"><%=lang.readXMl("transportation_media")%></h3>
                     <ul>
                         <li>
-                            <a href="/en/brochures.html"><%=lang.readXMl("brochures")%></a>
+                            <a href="./en/brochures.html"><%=lang.readXMl("brochures")%></a>
                         </li>
                         <li>
                             <a href="https://www.victoriahotels.asia/blog/"><%=lang.readXMl("Blog")%></a>
@@ -97,28 +94,28 @@
                     <h3 class="h3-footer"><%=lang.readXMl("go_aboad")%></h3>
                     <ul>
                         <li>
-                            <a href="/en/hotels-resorts/sapa.html"><%=lang.readXMl("resort_1")%> </a>
+                            <a href="./en/hotels-resorts/sapa.html"><%=lang.readXMl("resort_1")%> </a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/hoian.html"><%=lang.readXMl("resort_2")%> </a>
+                            <a href="./en/hotels-resorts/hoian.html"><%=lang.readXMl("resort_2")%> </a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/phanthiet.html"><%=lang.readXMl("resort_3")%> </a>
+                            <a href="./en/hotels-resorts/phanthiet.html"><%=lang.readXMl("resort_3")%> </a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/cantho.html"><%=lang.readXMl("resort_4")%></a>
+                            <a href="./en/hotels-resorts/cantho.html"><%=lang.readXMl("resort_4")%></a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/chaudoc.html"><%=lang.readXMl("resort_5")%> </a>
+                            <a href="./en/hotels-resorts/chaudoc.html"><%=lang.readXMl("resort_5")%> </a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/nuisam.html"><%=lang.readXMl("resort_6")%>  </a>
+                            <a href="./en/hotels-resorts/nuisam.html"><%=lang.readXMl("resort_6")%>  </a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/xiengthong.html"><%=lang.readXMl("resort_7")%></a>
+                            <a href="./en/hotels-resorts/xiengthong.html"><%=lang.readXMl("resort_7")%></a>
                         </li>
                         <li>
-                            <a href="/en/hotels-resorts/victoria-cruises.html"><%=lang.readXMl("resort_8")%></a>
+                            <a href="./en/hotels-resorts/victoria-cruises.html"><%=lang.readXMl("resort_8")%></a>
                         </li>
                     </ul>
                 </div>
@@ -130,10 +127,10 @@
                     <ul>
 
                         <li>
-                            <a href="/en/victoria-train.html"><%=lang.readXMl("experience")%></a>
+                            <a href="./en/victoria-train.html"><%=lang.readXMl("experience")%></a>
                         </li>
                         <li>
-                            <a href="/en/victoria-speedboat.html"><%=lang.readXMl("train_1")%></a>
+                            <a href="./en/victoria-speedboat.html"><%=lang.readXMl("train_1")%></a>
                         </li>
                         <li>
                             <a href="https://victoriavoyages.com/" target="_blank"><%=lang.readXMl("train_2")%></a>

@@ -47,6 +47,7 @@
     border: 1px solid #ccc;
     box-shadow: 0px 2px 4px 0px #ccc;
     display: none;
+    z-index: 100;
 
 
 }
@@ -115,3 +116,4 @@
     font-size: 20px;
 
 }
+

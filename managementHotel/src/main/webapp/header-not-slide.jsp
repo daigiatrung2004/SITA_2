@@ -29,7 +29,10 @@
                 </li>
                 <li><%=lang.readXMl("about_header")%>
                 </li>
-                <li><%=lang.readXMl("contact_header")%>
+                <li>
+                    <a href="<%="./"+language+"/contact-us.html"%>">
+                    <%=lang.readXMl("contact_header")%>
+                    </a>
                 </li>
             </ul>
         </div>

@@ -71,9 +71,9 @@
             </div>
            <div class="col-lg-4">
                <%if(checkExistRoom==0){%>
-               <button class="btn btn-static">Chọn ngày khả dụng</button>
+               <button class="btn btn-static select-region" data-region="<%=listRegion.get(i).getRegion_id()%>">Chọn ngày khả dụng</button>
                <%}else{%>
-               <button class="btn btn-static" id="search" data-region="<%=listRegion.get(i).getRegion_id()%>" data-enable="<%=checkExistRoom%>">Xem tất cả các phòng</button>
+               <button class="btn btn-static search"  data-region="<%=listRegion.get(i).getRegion_id()%>" data-enable="<%=checkExistRoom%>">Xem tất cả các phòng</button>
                <%}%>
            </div>
 
@@ -91,9 +91,22 @@
     <input type="hidden" name="promote" value="<%=promote%>">
     <input type="hidden" name="checkIn" value="<%=checkIn%>">
 </form>
+<form id="frm-select-region" action="SearchControl">
+    <input type="hidden" name="location" id="location_select" value="">
+    <input type="hidden" name="checkOut" value="<%=checkOut%>">
+    <input type="hidden" name="numOfPeo" value="<%=numOfPeo%>">
+    <input type="hidden" name="promote" value="<%=promote%>">
+    <input type="hidden" name="checkIn" value="<%=checkIn%>">
+    <input type="hidden" name="type" value="select_region_other">
+</form>
 <script>
     $(document).ready(function(){
-         $("#search").click(function(){
+        $(".select-region").click(function(){
+            var location=$(this).data('region');
+            $("#location_select").val(location);
+            $("#frm-select-region").submit();
+        });
+         $(".search").click(function(){
 
               var location=$(this).data('region');
               $("#location").val(location);
@@ -105,6 +118,7 @@
          });
     });
 </script>
+<jsp:include page="loading.jsp"></jsp:include>
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

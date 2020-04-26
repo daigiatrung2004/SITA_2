@@ -19,9 +19,19 @@
 
     %>
     <div class="div-main-home-customer">
+<%--        <div class="ui rail">--%>
+<%--            <div class="ui sticky ">--%>
+<%--                <!-- Any arbitrary content !-->--%>
+<%--                hello--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div id="context">--%>
+<%--            <!-- Long flowing text content !-->--%>
+<%--            <h2>xin choa</h2>--%>
+<%--        </div>--%>
         <!--danh cho booking-->
-        <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
-            <div class="search-booking">
+        <nav class="navbar navbar-inverse " id="nav-booking" >
+            <div class="search-booking  ">
                 <!--search booking-->
                 <form id="form-search-home" method="get" action="SearchControl">
 
@@ -322,6 +332,7 @@
         </div>
     </div>
 </main>
+<jsp:include page="loading.jsp"></jsp:include>
 <script>
     $(document).ready(function () {
         var d = new Date();
@@ -338,10 +349,14 @@
         // $("#text-check-out").text(checkOut);
         $(function () {
             $("#checkOut").datepicker({
-                dateFormat: 'dd/mm/yy'
+                format: 'dd/mm/yyyy',
+                changeMonth: true,
+                minDate: 0
             });
             $("#checkIn").datepicker({
-                dateFormat: 'dd/mm/yy'
+                format: 'dd/mm/yyyy',
+                changeMonth: true,
+                minDate: 0
             });
         });
         $(".select-customize").click(function () {
@@ -380,6 +395,10 @@
 
 
 </script>
+<script>
+    // $('.ui.sticky').sticky({context: '#form-search-home'});
+</script>
+
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

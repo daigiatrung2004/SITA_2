@@ -29,6 +29,8 @@ public class Warehouse extends WebServletEmployee {
                 boolean checkSuccess = false;
                 CategoriesTO categoriesTO = new CategoriesTO(0, nameCate, StaticTO.ACTIVE_STATUS, "");
                 checkSuccess = product.addCategory(categoriesTO);
+                ArrayList<CategoriesTO> listCategory = product.listCategory();
+                request.setAttribute("listCategory", listCategory);
                 forward("EMPLOYEE/warehouse.jsp?checkSuccess="+checkSuccess, request, response);
             }
         } catch (ServletException e) {

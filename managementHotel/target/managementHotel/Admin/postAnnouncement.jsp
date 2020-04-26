@@ -59,8 +59,6 @@
           });
           <%if(checkSuccess.equals("true")){%>
         alert("Thành công");
-        <%}else{%>
-        alert("Thất bại");
         <%}%>
     });
 </script>

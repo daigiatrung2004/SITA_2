@@ -44,6 +44,14 @@
         </div>
         <div class="col-md-3 info-booked">
        <span>Người đặt phòng:<%=customer.getFirstname() + customer.getLastname()%></span>
+       <span>
+           <form action="ListingBooking">
+               <input type="hidden" name="type" value="checkInOnline"/>
+               <input type="hidden" name="roomId" value="<%=roomTO1.getRoom_id()%>"/>
+                 <button class="btn btn-primary receiveRoom" >Nhận phòng</button>
+           </form>
+
+       </span>
         </div>
     </div>
     <%

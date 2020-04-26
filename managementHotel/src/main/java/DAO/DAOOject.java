@@ -12,7 +12,7 @@ import java.util.Properties;
 public abstract class DAOOject {
     static Properties properties;
 
-    protected static Connection getConnection() {
+    protected static Connection getConnection(){
         Connection conn = null;
         Properties pro = getInfoProperties();
         String host = pro.getProperty("host");

@@ -1,4 +1,5 @@
 .item-announcement{
+    position: relative;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 20px;
@@ -6,4 +7,9 @@
 .footer-item-announcement{
     display: flex;
     justify-content: flex-end;
+}
+.pos-news{
+    position: absolute;
+    top: 0;
+    right: 50px;
 }

@@ -1,12 +1,12 @@
 $(document).ready(function () {
     searchProductFood("");
     searchService("");
-    $("#searchFood").keydown(function () {
+    $("#searchFood").keyup(function () {
         var keyword = $("#searchFood").val();
         searchProductFood(keyword);
 
     });
-    $("#searchService").keydown(function () {
+    $("#searchService").keyup(function () {
         var keyword = $("#searchService").val();
         searchService();
     });
@@ -157,34 +157,37 @@ function getXMLHTTP() {
 }
 
 function searchProductFood(keyword) {
-    $('#spinerfood').dimmer('show');
+    $("#div-food").show();
+    $('#spinerfood').show();
 
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            $('#spinerfood').dimmer('hide');
+            $('#spinerfood').hide();
+            $("#div-food").hide();
             var data = xmlhttp.responseText;
             $(".content-food").html("");
             $(".content-food").html(data);
         }
     };
-    xmlhttp.open("POST", "AjaxServiceCheckOut?cate_id=2&keyword=" + keyword, true);
+    xmlhttp.open("POST", "AjaxServiceCheckOut?cate_id=11&keyword=" + keyword, true);
     xmlhttp.send();
 }
 
 function searchService(keyword) {
-    $('#spiner').dimmer('show');
-
+     $('#div-services').show();
+    $('#spiner').show();
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            $('#spiner').dimmer('hide');
+            $('#spiner').hide();
+            $('#div-services').hide();
             var data = xmlhttp.responseText;
             $(".content-service").html("");
             $(".content-service").html(data);
         }
     };
-    xmlhttp.open("POST", "AjaxServiceCheckOut?cate_id=1&keyword=" + keyword, true);
+    xmlhttp.open("POST", "AjaxServiceCheckOut?cate_id=12&keyword=" + keyword, true);
     xmlhttp.send();
 }
 
@@ -211,7 +214,7 @@ function tongProduct() {
 }
 
 function cancelBooking() {
-    alert("xin chao");
+
     var roomId = $("#roomId").val();
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
@@ -230,6 +233,7 @@ function cancelBooking() {
     xmlhttp.send();
 }
 function saveData(){
+    $(".loading-saveOrder").show();
    var bookindId=$("#bookingId").val();
    var listProduct=new Array();
    var listsoluong=new Array();
@@ -248,6 +252,7 @@ function saveData(){
                var data = xmlhttp.responseText;
                var json = JSON.parse(data);
                if (json['success']) {
+                   $(".loading-saveOrder").hide();
                    alert("Thành công");
                    location.href = "/managementHotel_war_exploded/ListingRoom";
                    location.reload();

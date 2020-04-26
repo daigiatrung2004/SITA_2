@@ -26,8 +26,30 @@
         <from>/$</from>
         <to type="redirect">%{context-path}/Home</to>
     </rule>
-
-
+    <rule enabled="true">
+        <from>^/vi/legal-information.html$</from>
+        <to type="redirect">%{context-path}/FooterControl?type=legalInfo</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/vi/(.*)\.(html|[^\.]*)$</from>
+        <to type="redirect">%{context-path}/FooterControl?type=$1</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/(.*)\.(html|[^\.]*)$</from>
+        <to type="redirect">%{context-path}/FooterControl?type=$1</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/legal-information.html$</from>
+        <to type="permanent-redirect">%{context-path}/FooterControl?type=legalInfo</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/contact-us.html$</from>
+        <to type="permanent-redirect">%{context-path}/FooterControl?type=contactus</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/vi/contact-us.html$</from>
+        <to type="permanent-redirect">%{context-path}/FooterControl?type=contactus</to>
+    </rule>
     <outbound-rule>
         <note>
             The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)

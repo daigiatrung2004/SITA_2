@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CheckOut extends WebServletEmployee {
 
@@ -40,11 +44,38 @@ public class CheckOut extends WebServletEmployee {
 
             }
             BookingTO bookingTO = bookingDA.retrieveBookingByRoomId(roomIdInt);
+            // tính số ngày
+            String checkIn=bookingTO.getCheck_in_date();
+            String checkOut=bookingTO.getCheck_out_date();
+            DateFormat dateformat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date checkInDate,checkOutDate;
+            try {
+                checkInDate=dateformat.parse(checkIn);
+                checkOutDate=dateformat.parse(checkOut);
+            } catch (ParseException e) {
+                checkInDate=null;
+                checkOutDate=null;
+            }
+            int songay=1;
+            if(checkInDate!=null&&checkOutDate!=null){
+                long timeLong=checkOutDate.getTime()-checkInDate.getTime();
+                timeLong=timeLong/(24*60*60*1000);
+               String timeStr=String.valueOf(timeLong);
+                songay=Integer.parseInt(timeStr);
+//                    System.out.println("songay:"+songay);
+                request.setAttribute("songay",String.valueOf(songay));
+            }
+            request.setAttribute("songay",String.valueOf(songay));
             request.setAttribute("bookingTO", bookingTO);
             // các sản phẩm  tồn tại trước đó
             if (bookingTO != null) {
                 Product product = new Product();
-                ArrayList<ProductTO> listProduct = product.retrieveBookingProduct(bookingTO.getBooking_id());
+                ArrayList<ProductTO> listProduct=new ArrayList<>();
+                if(type.equals("")) {
+                    listProduct= product.retrieveBookingProduct(bookingTO.getBooking_id());
+                }else{
+                    listProduct= product.retrieveBookingProductCheckOut(bookingTO.getBooking_id());
+                }
                 CustomerTO customer = bookingDA.retrieveCustomer(bookingTO.getCustomer_id());
                 request.setAttribute("customer", customer);
                 request.setAttribute("listProduct", listProduct);

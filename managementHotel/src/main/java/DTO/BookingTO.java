@@ -17,7 +17,30 @@ public class BookingTO {
     private int ID;
     private int amount;
     private long pay;
-     // dành cho booking product
+    private long tongtiendichvu;
+    private long tongtienservice;
+    private long tienphong;// dùng cho thông kê
+    // dành cho thông kê booking toàn thành phần
+
+
+    public BookingTO(long booking_id, long customer_id, String start_booking_date, String check_in_date, String check_out_date, int kind_room_id, int region_id, int room_id, String status, String remark, String code_booking, long tongtiendichvu, long tongtienservice, long tienphong) {
+        this.booking_id = booking_id;
+        this.customer_id = customer_id;
+        this.start_booking_date = start_booking_date;
+        this.check_in_date = check_in_date;
+        this.check_out_date = check_out_date;
+        this.kind_room_id = kind_room_id;
+        this.region_id = region_id;
+        this.room_id = room_id;
+        this.status = status;
+        this.remark = remark;
+        this.code_booking = code_booking;
+        this.tongtiendichvu = tongtiendichvu;
+        this.tongtienservice = tongtienservice;
+        this.tienphong = tienphong;
+    }
+
+    // dành cho booking product
     public BookingTO(long booking_id, String status, int ID, int amount, long pay) {
         this.booking_id = booking_id;
         this.status = status;
@@ -174,5 +197,29 @@ public class BookingTO {
 
     public void setPay(long pay) {
         this.pay = pay;
+    }
+
+    public long getTongtiendichvu() {
+        return tongtiendichvu;
+    }
+
+    public void setTongtiendichvu(long tongtiendichvu) {
+        this.tongtiendichvu = tongtiendichvu;
+    }
+
+    public long getTongtienservice() {
+        return tongtienservice;
+    }
+
+    public void setTongtienservice(long tongtienservice) {
+        this.tongtienservice = tongtienservice;
+    }
+
+    public long getTienphong() {
+        return tienphong;
+    }
+
+    public void setTienphong(long tienphong) {
+        this.tienphong = tienphong;
     }
 }

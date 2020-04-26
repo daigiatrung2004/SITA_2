@@ -32,6 +32,12 @@ public class AnnoucementTO {
         this.REMARK = REMARK;
         this.DATE_POST = DATE_POST;
     }
+     // sử dụng cho bảng announcement_employee
+    public AnnoucementTO(long ANNOUNCE_ID, long employee_id, String STATUS_READ_UNREAD) {
+        this.ANNOUNCE_ID = ANNOUNCE_ID;
+        this.employee_id = employee_id;
+        this.STATUS_READ_UNREAD = STATUS_READ_UNREAD;
+    }
 
     public long getANNOUNCE_ID() {
         return ANNOUNCE_ID;
@@ -87,5 +93,13 @@ public class AnnoucementTO {
 
     public void setDATE_POST(String DATE_POST) {
         this.DATE_POST = DATE_POST;
+    }
+
+    public String getSTATUS_READ_UNREAD() {
+        return STATUS_READ_UNREAD;
+    }
+
+    public void setSTATUS_READ_UNREAD(String STATUS_READ_UNREAD) {
+        this.STATUS_READ_UNREAD = STATUS_READ_UNREAD;
     }
 }

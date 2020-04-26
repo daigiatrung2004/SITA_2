@@ -55,6 +55,10 @@
         %>
     </div>
 </div>
+<script>
+    $(".main-room .item-room").transition("fade in");
+</script>
 <jsp:include page="../Footer.jsp"></jsp:include>
+
 </body>
 </html>

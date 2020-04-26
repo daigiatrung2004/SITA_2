@@ -21,7 +21,7 @@
 <jsp:include page="header-not-slide.jsp"></jsp:include>
 <div style="min-height: 700px;display: flex;align-items: center;justify-content: center;background: bisque;">
 <div style="max-width: 350px;padding: 25px;border: 1px solid #ccc;border-radius: 5px;background: white">
-    <h2>Không tìm thấy kết qua nào</h2>
+    <h2>Không tìm thấy kết qủa nào</h2>
     <p>
      Hiện tại khách sạn không còn phòng theo ngày của quý khách đã chọn.Vui lòng trở về trang chủ để tìm ngày check in khác hoặc khách sạn khác của chúng tôôi!!!
 

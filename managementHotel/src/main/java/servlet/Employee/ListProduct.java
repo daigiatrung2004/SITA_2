@@ -58,6 +58,10 @@ public class ListProduct extends WebServletEmployee {
                     }
                     ProductTO productTO = new ProductTO(0, NAME, DESCRIPTION, "", StaticTO.ACTIVE_STATUS, "", PRICElONG, UNIT, AMOUNTINT, CATEINT, employeeTO.getRegion_id());
                     boolean checkSuccess=product.addProduct(productTO);
+                    ArrayList<ProductTO> listProduct = product.listProduct();
+                    ArrayList<CategoriesTO> listCategory = product.listCategory();
+                    request.setAttribute("listProduct", listProduct);
+                    request.setAttribute("listCategory", listCategory);
                     forward("/EMPLOYEE/listProduct.jsp?checkSuccess="+checkSuccess, request, response);
                 }
             }
