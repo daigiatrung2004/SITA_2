@@ -54,7 +54,7 @@ public class StaticTO {
 
     // type file img
     public static final String  STATIC_PATH="C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\webapp\\";
-
+    public static final String IMAGE_HOTEL="img_hotel_";
     // settings paypal
     public static final String PAYPAL_URL="https://www.sandbox.paypal.com/cgi-bin/webscr";
     public static final boolean PAYPAL_SANDBOX=true;
@@ -65,6 +65,7 @@ public class StaticTO {
     public static final String PAYPAL_CURRENCY="USD";
     public static final String PAYPAL_AUTORETURN="http://127.0.0.1:8080/managementHotel_war_exploded/PaymentAutoReturn";
     public static final long   USD=24000;
+
 
     //payment
     public static final String PAYPAL_METHOD="paypal";

@@ -59,7 +59,12 @@ public class FooterControl extends WebServlet {
                  request.setAttribute("checkSuccess",String.valueOf(checkSuccess));
                 forward("career.jsp", request, response);
                 return;
-            } else {
+            }
+            else if(type.equals("about-victoria")){
+                forward("about-victoria.jsp",request,response);
+                return;
+            }
+            else {
                 forward("contact-us.jsp", request, response);
             }
         } catch (IOException e) {

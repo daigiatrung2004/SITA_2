@@ -33,7 +33,8 @@
                 <li><a href="ListingPromote">Danh sách mã giảm giá</a></li>
                 <li><a href="ListingFurniture">Danh sách các thiết bị</a></li>
                 <li><a href="RoomQuick">Tạo phòng nhanh </a></li>
-                <li>Danh sách dữ liệu hotel</li>
+                <li><a href="ImageManagerHotel">Danh sách hình ảnh khách sạn</a></li>
+                <li><a href="ListingHotelManager">Danh sách dữ liệu hotel</a></li>
 
 
             </ul>

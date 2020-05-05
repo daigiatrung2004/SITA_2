@@ -8,6 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%LanguageControl lang = (LanguageControl) session.getAttribute("LanguageControl");%>
 <% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;%>
+<style>
+    .ul-menu-header li:hover{
+         color: goldenrod!important;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .ul-menu-header li a:hover{
+        color: goldenrod!important;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
 <div class="header-div-main ">
     <div class="heaader-home col-md-10">
         <div class="header-div-home">
@@ -16,18 +28,19 @@
             </a>
         </div>
         <div class="menu-header">
-            <ul style="display: flex;color: white">
+            <ul class="ul-menu-header" style="display: flex;color: white">
                 <li><%=lang.readXMl("destination_header")%>
                 </li>
                 <li><%=lang.readXMl("experience_header")%>
                 </li>
-                <li><%=lang.readXMl("voyages_header")%>
+<%--                <li><%=lang.readXMl("voyages_header")%>--%>
                 </li>
                 <li><%=lang.readXMl("enow_header")%>
                 </li>
-                <li><%=lang.readXMl("image_header")%>
+                <li><a href="ListingImgRegion"><%=lang.readXMl("image_header")%>
+                </a>
                 </li>
-                <li><%=lang.readXMl("about_header")%>
+                <li><a href="<%="./"+language+"/about-victoria.html"%>"><%=lang.readXMl("about_header")%></a>
                 </li>
                 <li>
                     <a href="<%="./"+language+"/contact-us.html"%>">

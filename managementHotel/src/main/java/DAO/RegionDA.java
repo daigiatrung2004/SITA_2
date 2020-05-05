@@ -37,7 +37,33 @@ public class RegionDA extends DAOOject {
         }
         return (rs > 0);
     }
+    // update dữ liệu region
+    public boolean updateRegion(RegionTO regionTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE  " + StaticTO.DB_REGION_NAME + " SET name_vi=?,name_en=?,status=?,remark=?,file_url_img=?,Address=?,contact_phone=? WHERE region_id=?";
+        conn = getConnection();
+        int rs = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
 
+            pstmt.setString(index++, regionTO.getName_vi());
+            pstmt.setString(index++, regionTO.getName_en());
+            pstmt.setString(index++, regionTO.getStatus());
+            pstmt.setString(index++, regionTO.getRemark());
+            pstmt.setString(index++,regionTO.getFile_url_img());
+            pstmt.setString(index++,regionTO.getAddress());
+            pstmt.setString(index++,regionTO.getContact_phone());
+            pstmt.setInt(index++, regionTO.getRegion_id());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
     // lấy dữ liệu bằng region id
     public RegionTO retrieveAllRegion(int region_id) {
         RegionTO regionTO = null;
@@ -77,10 +103,12 @@ public class RegionDA extends DAOOject {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_REGION_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_REGION_NAME+" WHERE STATUS=?";
+
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 RegionTO regionTO = new RegionTO(rs.getInt("region_id"),

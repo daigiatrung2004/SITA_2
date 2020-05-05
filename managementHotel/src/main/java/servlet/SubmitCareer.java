@@ -53,7 +53,7 @@ public class SubmitCareer extends WebServlet {
                 while ((read = filecontent.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
                 }
-            writer.println("New file " + fileName + " created at " + StaticTO.STATIC_PATH);
+                writer.println("New file " + fileName + " created at " + StaticTO.STATIC_PATH);
                 System.out.println("New file " + fileName + " created at " + StaticTO.STATIC_PATH);
                 SystemDA systemDA=new SystemDA();
 

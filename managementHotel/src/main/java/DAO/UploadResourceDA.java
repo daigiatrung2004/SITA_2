@@ -43,6 +43,30 @@ public class UploadResourceDA extends DAOOject {
 
         return (rs > 0);
     }
+    // remove by id
+    public boolean remove(long id) {
+        int rs = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "DELETE FROM  " + StaticTO.DB_UPLOAD_RESOURCE + " WHERE ID=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setLong(index++,id);
+
+            rs = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("+++sql" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("+++sql" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+
+        return (rs > 0);
+    }
     public ArrayList<UploadResourceTO> retrieveUploadByKindRoomId(String kind_room_id){
 
         Connection conn = null;
@@ -89,7 +113,52 @@ public class UploadResourceDA extends DAOOject {
 
         return listUploadResoure;
     }
+    // tìm ảnh hotel
+    public ArrayList<UploadResourceTO> retrieveImgRegion(String parent_table){
+        Connection conn = null;
+        UploadResourceTO uploadResourceTO = null;
+        ArrayList<UploadResourceTO> listUploadResoure=new  ArrayList<UploadResourceTO>();
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_UPLOAD_RESOURCE + " WHERE PARENT_TABLE=? ";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, parent_table);
 
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                java.util.Date create_date = null;
+                String createDateStr="";
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                if (rs.getDate("Created_date") != null) {
+                    create_date = new java.util.Date(rs.getTimestamp("Created_date").getTime());
+                    createDateStr = dateFormat.format(create_date);
+                }
+                uploadResourceTO = new UploadResourceTO(rs.getLong("id"),
+                        rs.getString("Original_filename"),
+                        rs.getString("File_url"),
+                        rs.getString("Parent_table"),
+                        createDateStr,
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("File_type")
+
+                );
+                listUploadResoure.add(uploadResourceTO);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("+++sql" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("+++sql" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+
+        return listUploadResoure;
+    }
     public UploadResourceTO retrieveImgGalery(String kind_room_id) {
 
         Connection conn = null;

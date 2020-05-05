@@ -227,8 +227,10 @@ function insertImg() {
         success: function (data) {
             if (data['success']) {
                 alert("Thành công");
+
             } else {
                 alert("Thất bại");
+
             }
         }
     });

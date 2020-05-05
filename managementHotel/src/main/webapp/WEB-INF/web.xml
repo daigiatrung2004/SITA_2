@@ -66,7 +66,6 @@
         <servlet-name>LogOut</servlet-name>
         <servlet-class>servlet.Admin.LogOut</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>AjaxPaymentContinue</servlet-name>
         <servlet-class>servlet.Ajax.AjaxPaymentContinue</servlet-class>
@@ -233,6 +232,56 @@
         <servlet-name>SubmitCareer</servlet-name>
         <servlet-class>servlet.SubmitCareer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertImageHotel</servlet-name>
+        <servlet-class>servlet.Admin.InsertImageHotel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImageManagerHotel</servlet-name>
+        <servlet-class>servlet.Admin.ImageManagerHotel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxInsertImageHotel</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxInsertImageHotel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingImgRegion</servlet-name>
+        <servlet-class>servlet.ListingImgRegion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingHotelManager</servlet-name>
+        <servlet-class>servlet.Admin.ListingHotelManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateRegion</servlet-name>
+        <servlet-class>servlet.Admin.UpdateRegion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateRegion</servlet-name>
+        <url-pattern>/UpdateRegion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingHotelManager</servlet-name>
+        <url-pattern>/ListingHotelManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingImgRegion</servlet-name>
+        <url-pattern>/ListingImgRegion</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>AjaxInsertImageHotel</servlet-name>
+        <url-pattern>/AjaxInsertImageHotel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageManagerHotel</servlet-name>
+        <url-pattern>/ImageManagerHotel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertImageHotel</servlet-name>
+        <url-pattern>/InsertImageHotel</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SubmitCareer</servlet-name>
         <url-pattern>/SubmitCareer</url-pattern>
@@ -249,6 +298,7 @@
         <servlet-name>StatisAnalyzt</servlet-name>
         <url-pattern>/StatisAnalyzt</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>AjaxCheckOut</servlet-name>
         <url-pattern>/AjaxCheckOut</url-pattern>

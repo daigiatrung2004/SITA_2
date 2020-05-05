@@ -63,7 +63,7 @@ public class SearchControl extends WebServlet {
                         locationInList = 0;
                     }
 
-                    ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInList, numOfPeoInt, customCheckIn);
+                    ArrayList<SearchTO> listSearchTO = searchDA.searchBookingCount(locationInList, numOfPeoInt, customCheckIn);
                     if (listSearchTO != null && listSearchTO.size() > 0) {
                         listCheckRoom.add(1);
                     } else {
@@ -86,7 +86,7 @@ public class SearchControl extends WebServlet {
                             locationInt = 0;
                         }
 
-                        ArrayList<SearchTO> listSearchTO = searchDA.searchBooking(locationInt, numOfPeoInt, customCheckIn);
+                        ArrayList<SearchTO> listSearchTO = searchDA.searchBookingCount(locationInt, numOfPeoInt, customCheckIn);
                         if (listSearchTO != null && listSearchTO.size() > 0) {
                             listCheckRoom.add(1);
                         } else {
@@ -108,6 +108,7 @@ public class SearchControl extends WebServlet {
                     UploadResourceDA uploadResourceDA = new UploadResourceDA();
                     BookingDA bookingDA = new BookingDA();
                     if (listSearchTO != null && listSearchTO.size() > 0) {
+
                         for (SearchTO searchTO : listSearchTO) {
 //                    if (!bookingDA.checkBooking(searchTO.getKindRoomTO().getKindroom_id(), searchTO.getRegionTO().getRegion_id(), checkOut)) {
                             UploadResourceTO uploadResourceTO = uploadResourceDA.retrieveImgGalery(String.valueOf(StaticTO.DB_KIND_ROOM_NAME + "_" + searchTO.getKindRoomTO().getKindroom_id()));
@@ -115,6 +116,7 @@ public class SearchControl extends WebServlet {
                                 SearchTO searchTO1 = new SearchTO(uploadResourceTO, searchTO.getKindRoomTO(), searchTO.getRegionTO());
                                 listSearchNew.add(searchTO1);
 //                        }
+
                             }
                         }
                         request.setAttribute("numOfPeo", numOfPeo);
