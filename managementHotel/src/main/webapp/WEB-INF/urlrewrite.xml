@@ -9,7 +9,18 @@
 
 -->
 <urlrewrite>
-
+<!--    <rule>-->
+<!--        <from>/img/**</from>-->
+<!--        <to>/img/$1</to>-->
+<!--    </rule>-->
+<!--    <rule>-->
+<!--        <from>/scripts/**</from>-->
+<!--        <to>/scripts/$1</to>-->
+<!--    </rule>-->
+<!--    <rule>-->
+<!--        <from>/css/**</from>-->
+<!--        <to>/css/$1</to>-->
+<!--    </rule>-->
     <rule>
         <note>
             The rule means that requests to /test/status/ will be redirected to /rewrite-status
@@ -21,6 +32,10 @@
         <to type="redirect">%{context-path}/LoginEmployee</to>
 
     </rule>
+    <rule enabled="true">
+        <from>^$</from>
+        <to type="redirect">http://localhost:8080/managementHotel_war_exploded</to>
+    </rule>
     <rule>
         <condition name="host" operator="notequal">localhost:8084</condition>
         <from>/$</from>
@@ -28,40 +43,40 @@
     </rule>
     <rule enabled="true">
         <from>^/vi/legal-information.html$</from>
-        <to type="redirect">%{context-path}/FooterControl?type=legalInfo</to>
+        <to>/FooterControl?type=legalInfo</to>
+    </rule>
+
+    <rule enabled="true">
+        <from>^/vi/([a-zA-Z\-]+)\.html$</from>
+        <to >/FooterControl?type=$1</to>
     </rule>
     <rule enabled="true">
-        <from>^/vi/(.*)\.(html|[^\.]*)$</from>
-        <to type="redirect">%{context-path}/FooterControl?type=$1</to>
+        <from>^/en/([a-zA-Z\-]+)\.html$</from>
+        <to >/FooterControl?type=$1</to>
     </rule>
-    <rule enabled="true">
-        <from>^/en/(.*)\.(html|[^\.]*)$</from>
-        <to type="redirect">%{context-path}/FooterControl?type=$1</to>
+    <rule enabled="true" match-type="regex">
+        <condition type="request-url" operator="notequal">^.*\.jsp$</condition>
+
+        <condition type="request-url" operator="notequal">/css/.*</condition>
+        <condition type="request-url" operator="notequal">/img/.*</condition>
+        <condition type="request-url" operator="notequal">/scripts/.*</condition>
+
+        <from>^/([a-zA-Z]+)/([0-9]+)/(.*)\.html$</from>
+        <to >/DetailRegion?lang=$1&amp;regionid=$2&amp;name=$3</to>
     </rule>
     <rule enabled="true">
         <from>^/en/legal-information.html$</from>
-        <to type="permanent-redirect">%{context-path}/FooterControl?type=legalInfo</to>
+        <to type="permanent-redirect">/FooterControl?type=legalInfo</to>
     </rule>
     <rule enabled="true">
         <from>^/en/contact-us.html$</from>
-        <to type="permanent-redirect">%{context-path}/FooterControl?type=contactus</to>
+        <to type="permanent-redirect">/FooterControl?type=contactus</to>
     </rule>
     <rule enabled="true">
         <from>^/vi/contact-us.html$</from>
-        <to type="permanent-redirect">%{context-path}/FooterControl?type=contactus</to>
+        <to type="permanent-redirect">/FooterControl?type=contactus</to>
     </rule>
-    <outbound-rule>
-        <note>
-            The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)
-            the url /rewrite-status will be rewritten to /test/status/.
 
-            The above rule and this outbound-rule means that end users should never see the
-            url /rewrite-status only /test/status/ both in thier location bar and in hyperlinks
-            in your pages.
-        </note>
-        <from>/rewrite-status</from>
-        <to>/test/status/</to>
-    </outbound-rule>
 
 
     <!--

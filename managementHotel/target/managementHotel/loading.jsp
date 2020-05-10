@@ -49,7 +49,7 @@
 
     <div>
         <div>
-            <img style="height:350px;" src="./img/Victoria_1.png">
+            <img style="height:350px;" src="<%=request.getContextPath() %>/img/Victoria_1.png">
         </div>
         <div style="display: flex;justify-content: center;align-items: center">
             <div class="lds-facebook"><div></div><div></div><div></div>

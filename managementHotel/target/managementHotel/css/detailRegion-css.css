@@ -1,0 +1,135 @@
+.title-detail h2{
+    color: #7C2529;
+    margin: 0px auto;
+    text-transform: uppercase;
+    text-align: center;
+
+}
+.title-detail{
+    margin-bottom: 20px;
+}
+.div-main-detail{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.under-line{
+    width: 123px;
+    height: 2px;
+    background: #7C2529;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.action-item{
+    height: 100%;
+    /* font-size: 80px; */
+    color: white;
+
+    font-size: 80px;
+    /* height: auto; */
+    width: max-content;
+    display: flex;
+    box-sizing: content-box;
+    align-items: center;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+}
+.action-item button{
+    background: rgba(0,0,0,0);
+    border: 0px;
+    color: rgba(255,255,255,.5);
+
+}
+.action-item button:focus{
+    outline: none;
+}
+.action-item button:hover{
+    cursor: pointer;
+    color: rgba(255,255,255,1);
+}
+.next{
+    right: 30px;
+}
+.prev{
+left: 0px;
+}
+.pos-title{
+    background-color: rgba(255,255,255,0.5);
+    color: rgba(124, 37, 41, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0px;
+    min-height: 50px;
+    min-width: 370px;
+
+}
+.pos-title h2{
+    font-size: 22px;
+}
+.clients-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clients-list li:hover{
+    cursor: pointer;
+
+}
+.img-entertainment{
+    height: 350px;
+    background-position: center!important;
+    background-size: 100% 100%!important;
+}
+.carousel-item{
+    display: flex;
+    justify-content: center;
+}
+.content-detail{
+    background-color: white;
+    padding: 10px;
+}
+.parent{
+    height: 310px;
+    width: 360px;
+    overflow: hidden;
+    position: relative;
+}
+.child {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+.parent:hover .child,
+.parent:focus .child {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.parent:hover .child:before, .parent:focus .child:before {
+    display: block;
+}
+.child:before {
+    content: "";
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(52,73,94,0.75);
+}
+.parent:hover .child:before,
+.parent:focus .child:before {
+    display: block;
+}

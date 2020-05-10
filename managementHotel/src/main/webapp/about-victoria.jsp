@@ -15,8 +15,8 @@
 <head>
     <title>Về Victoria</title>
     <jsp:include page="Library.jsp"></jsp:include>
-    <link rel="stylesheet" href="css/home-css.css"/>
-    <link rel="stylesheet" href="css/about-victoria-css.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/home-css.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/about-victoria-css.css"/>
     <style>
         .header-div-main {
             position: relative !important;
@@ -49,7 +49,7 @@
 
         <div class="item-about div-item  active">
             <div class="col-md-12" style="display: flex;justify-content: center;">
-                <img src="./img/img_about_1.jpg" style="height:385px;width:100%;">
+                <img src="<%=request.getContextPath() %>/img/img_about_1.jpg" style="height:385px;width:100%;">
             </div>
             <div class="col-md-12 row" style="margin-top: 20px;">
                 <%
@@ -120,7 +120,7 @@
             </div>
             <div class="col-md-12 row" style="padding:20px;">
                 <div class="col-md-6" style="display: flex;justify-content: center;align-items: center;padding:20px;">
-                    <img src="./img/img_about_2.jpg" style="width: inherit;">
+                    <img src="<%=request.getContextPath() %>/img/img_about_2.jpg" style="width: inherit;">
                 </div>
                 <div class="col-md-6">
                     <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -166,7 +166,7 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-12" style="padding: 30px 0px;">
-                    <img src="./img/img_about_3.jpg" style="width: inherit;padding: 20px;">
+                    <img src="<%=request.getContextPath() %>/img/img_about_3.jpg" style="width: inherit;padding: 20px;">
                 </div>
                 <div class="col-md-12 row" style="padding: 20px!important;">
                     <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -249,14 +249,14 @@
                                 coastline</p>
                         </div>
                         <img class="img0" style="width: 100%"
-                             src="./img/history_1.jpg">
+                             src="<%=request.getContextPath() %>/img/history_1.jpg">
                     </div>
                     <div class="cd-timeline-content cd-right cd-t-60 cd-timeline-dot" style="margin-top: 110px">
                         <div class="text">
                             <p>3/1998</p>
                             <p>Victoria Sapa Resort &amp; Spa opening in the scenic hill station of northern Vietnam</p>
                         </div>
-                        <img style="width: 100%" src="./img/history_2.jpg">
+                        <img style="width: 100%" src="<%=request.getContextPath() %>/img/history_2.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
@@ -267,7 +267,7 @@
                             <p>Victoria Can Tho Resort openings in Vietnam’s Mekong Delta</p>
                         </div>
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_3.jpg">
+                             src="<%=request.getContextPath() %>/img/history_3.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
@@ -292,7 +292,7 @@
                             <p>Victoria Nui Sam Hotel opening near the Vietnam-Cambodia border</p>
                         </div>
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_5.jpg">
+                             src="<%=request.getContextPath() %>/img/history_5.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block cd-b-0">
@@ -307,13 +307,13 @@
                 <div class="cd-timeline-block cd-t-0 ">
                     <div class="cd-timeline-content cd-center" style="width: 100%">
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_6.jpg">
+                             src="<%=request.getContextPath() %>/img/history_6.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
                     <div class="cd-timeline-content cd-center cd-timeline-dot" style="width: 60%">
                         <img class="img-full" style="width: 100%"
-                             src="./img/history_7.jpg">
+                             src="<%=request.getContextPath() %>/img/history_7.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
@@ -323,7 +323,7 @@
                             <p>Xiengthong Hotel opening in Luang Prabang, Laos (now the Victoria Xiengthong Palace since
                                 2013)</p>
                         </div>
-                        <img style="width: 100%" src="./img/history_8.jpg">
+                        <img style="width: 100%" src="<%=request.getContextPath() %>/img/history_8.jpg">
                     </div>
                     <div class="cd-timeline-content cd-left t2013 cd-t-60 cd-timeline-dot">
                         <div class="text" style="text-align: right">
@@ -331,14 +331,14 @@
                             <p>Opening ceremony for newly renovated Victoria Nui Sam Lodge, near Chau Doc</p>
                         </div>
                         <img class="img-full" style="width: 100%"
-                             src="./img/history_9.jpg">
+                             src="<%=request.getContextPath() %>/img/history_9.jpg">
                     </div>
                     <div class="cd-timeline-content cd-right cd-t-60 cd-timeline-dot" style="margin-top: 35px">
                         <div class="text" style="text-align: left">
                             <p>11/2017</p>
                             <p>Victoria Hotels &amp; Resorts celebrating 20th anniversary</p>
                         </div>
-                        <img src="./img/history_10.png">
+                        <img src="<%=request.getContextPath() %>/img/history_10.png">
                     </div>
                 </div>
             </section>
@@ -354,14 +354,14 @@
                                 Nam</p>
                         </div>
                         <img class="img0" style="width: 100%"
-                             src="./img/history_1.jpg">
+                             src="<%=request.getContextPath() %>/img/history_1.jpg">
                     </div>
                     <div class="cd-timeline-content cd-right cd-t-60 cd-timeline-dot" style="margin-top: 110px">
                         <div class="text">
                             <p>3/1998</p>
                             <p>Khánh thành Khu nghỉ dưỡng Victoria Sapa tại vùng núi Tây Bắc Việt Nam</p>
                         </div>
-                        <img style="width: 100%" src="./img/history_2.jpg">
+                        <img style="width: 100%" src="<%=request.getContextPath() %>/img/history_2.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
@@ -372,12 +372,12 @@
                             <p>Khánh thành Khu nghỉ dưỡng Victoria Cần Thơ tại Đồng bằng Sông Cửu Long</p>
                         </div>
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_3.jpg">
+                             src="<%=request.getContextPath() %>/img/history_3.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
                     <div class="cd-timeline-content cd-center cd-timeline-dot" style="width: 60%">
-                        <img class="img-full" src="./img/history_4.jpg">
+                        <img class="img-full" src="<%=request.getContextPath() %>/img/history_4.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block cd-tb-2em">
@@ -397,7 +397,7 @@
                             <p>Khởi công xây dựng Khách sạn Victoria Núi Sam gần với biên giới Việt Nam – Campuchia</p>
                         </div>
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_5.jpg">
+                             src="<%=request.getContextPath() %>/img/history_5.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block cd-b-0">
@@ -412,13 +412,13 @@
                 <div class="cd-timeline-block cd-t-0 ">
                     <div class="cd-timeline-content cd-center" style="width: 100%">
                         <img class="img-full" style="width: 300px"
-                             src="./img/history_6.jpg">
+                             src="<%=request.getContextPath() %>/img/history_6.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
                     <div class="cd-timeline-content cd-center cd-timeline-dot" style="width: 60%">
                         <img class="img-full" style="width: 100%"
-                             src="./img/history_7.jpg">
+                             src="<%=request.getContextPath() %>/img/history_7.jpg">
                     </div>
                 </div>
                 <div class="cd-timeline-block">
@@ -428,7 +428,7 @@
                             <p>Khánh thành Khách sạn Xiengthong tại Luang Prabang, Lào (năm 2013 đổi tên thành khách sạn
                                 Victoria Xiengthong Palace)</p>
                         </div>
-                        <img style="width: 100%" src="./img/history_8.jpg">
+                        <img style="width: 100%" src="<%=request.getContextPath() %>/img/history_8.jpg">
                     </div>
                     <div class="cd-timeline-content cd-left t2013 cd-t-60 cd-timeline-dot">
                         <div class="text" style="text-align: right">
@@ -436,14 +436,14 @@
                             <p>Lễ khánh thành của Victoria Núi Sam, Châu Đốc</p>
                         </div>
                         <img class="img-full" style="width: 100%"
-                             src="./img/history_9.jpg">
+                             src="<%=request.getContextPath() %>/img/history_9.jpg">
                     </div>
                     <div class="cd-timeline-content cd-right cd-t-60 cd-timeline-dot" style="margin-top: 35px">
                         <div class="text" style="text-align: left">
                             <p>11/2017</p>
                             <p>Victoria Hotels &amp; Resorts kỉ niệm 20 năm thành lập</p>
                         </div>
-                        <img src="./img/history_10.png">
+                        <img src="<%=request.getContextPath() %>/img/history_10.png">
                     </div>
                 </div>
             </section>
@@ -462,7 +462,7 @@
                 </div>
                 <div class="col-md-12 row" style="margin-top: 30px;">
                     <div class="col-md-6">
-                        <img style="width: 100%; min-height: 250px;" src="img/CSR_IMG_1.jpg">
+                        <img style="width: 100%; min-height: 250px;" src="<%=request.getContextPath() %>/img/CSR_IMG_1.jpg">
                     </div>
                     <div class="col-md-6">
                         <div class="corporate-body">
@@ -486,7 +486,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img style="width: 100%; min-height: 250px;" src="img/CSR_IMG_2.jpg">
+                        <img style="width: 100%; min-height: 250px;" src="<%=request.getContextPath() %>/img/CSR_IMG_2.jpg">
                     </div>
                     <div class="col-md-6 mtransfers">
                         <div class="corporate-body">
@@ -501,7 +501,7 @@
                 </div>
                 <div class="col-md-12 row" style="margin-top: 30px;">
                     <div class="col-md-6">
-                        <img style="width: 100%; min-height: 250px;" src="img/CSR_IMG_4.jpg">
+                        <img style="width: 100%; min-height: 250px;" src="<%=request.getContextPath() %>/img/CSR_IMG_4.jpg">
                     </div>
                     <div class="col-md-6">
                         <div class="corporate-body">
@@ -526,7 +526,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img style="width: 100%; min-height: 250px;" src="img/CSR_IMG_3.jpg">
+                        <img style="width: 100%; min-height: 250px;" src="<%=request.getContextPath() %>/img/CSR_IMG_3.jpg">
                     </div>
                 </div>
             </div>
@@ -535,7 +535,7 @@
         <div class="item-TMG div-item hidden">
             <div class="col-md-12 row" style="margin-bottom: 50px;">
                 <div class="col-md-3" style="position: relative;">
-                    <img class="tmg-logo" src="img/TMG_IMG_1.png">
+                    <img class="tmg-logo" src="<%=request.getContextPath() %>/img/TMG_IMG_1.png">
                 </div>
                 <div class="col-md-9">
 
@@ -572,7 +572,7 @@
                         <div class="col-md-6 tmg-item">
                             <div class="tmg-item-wrapper">
                                 <div>
-                                    <img src="./img/TMG_IMG_2.jpg" style="width: inherit;height: 380px;">
+                                    <img src="<%=request.getContextPath() %>/img/TMG_IMG_2.jpg" style="width: inherit;height: 380px;">
                                 </div>
                                 <div class="tmg-body ">
                                     <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -594,21 +594,21 @@
                                     <%}%>
                                 </div>
                                 <div class="logo-foundy">
-                                    <img class="tmg-item-logo" src="./img/TMG_FOUNDY.png">
+                                    <img class="tmg-item-logo" src="<%=request.getContextPath() %>/img/TMG_FOUNDY.png">
                                     <a href="https://www.victoriahotels.asia/" target="_blank">
-                                        <img class="tmg-item-logo logo-mh-65" src="./img/victoria_foundy.png">
+                                        <img class="tmg-item-logo logo-mh-65" src="<%=request.getContextPath() %>/img/victoria_foundy.png">
                                     </a>
                                     <a href="http://www.emmhotels.com/" target="_blank">
-                                        <img class="tmg-item-logo logo-mh-55" src="./img/Emm-foundy.png">
+                                        <img class="tmg-item-logo logo-mh-55" src="<%=request.getContextPath() %>/img/Emm-foundy.png">
                                     </a>
                                     <a href="http://maichaulodge.com/en/">
-                                        <img class="tmg-item-logo" src="./img/MCl-foundy.png">
+                                        <img class="tmg-item-logo" src="<%=request.getContextPath() %>/img/MCl-foundy.png">
                                     </a>
                                     <a href="http://emeraude-cruises.com/" target="_blank">
-                                        <img class="tmg-item-logo" src="./img/Emeraude_foundy.png">
+                                        <img class="tmg-item-logo" src="<%=request.getContextPath() %>/img/Emeraude_foundy.png">
                                     </a>
                                     <a href="http://lazaleecruises.vn/" target="_blank">
-                                        <img class="tmg-item-logo" src="./img/Lazale-foundy.png">
+                                        <img class="tmg-item-logo" src="<%=request.getContextPath() %>/img/Lazale-foundy.png">
                                     </a>
                                 </div>
                             </div>
@@ -616,7 +616,7 @@
                         <div class="col-md-6 tmg-item">
                             <div class="tmg-item-wrapper ">
                                 <div>
-                                    <img src="./img/TMG_IMG_3.jpg" style="width: inherit;height: 380px;">
+                                    <img src="<%=request.getContextPath() %>/img/TMG_IMG_3.jpg" style="width: inherit;height: 380px;">
                                 </div>
                                 <div class="tmg-body ">
                                     <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -651,7 +651,7 @@
                             <div class="col-md-6 tmg-item">
                                 <div class="tmg-item-wrapper col-md-12">
                                     <div class="col-md-12">
-                                        <img src="./img/TMG_IMG_4.jpg" style="width: inherit;">
+                                        <img src="<%=request.getContextPath() %>/img/TMG_IMG_4.jpg" style="width: inherit;">
                                     </div>
                                     <div class="tmg-body">
                                         <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -680,7 +680,7 @@
                                     </div>
                                     <div class="logo-foundy">
                                         <a href="https://www.ivivu.com/" target="_blank">
-                                            <img class="tmg-item-logo logo-mh-55" src="./img/TMG_IMG_6.png">
+                                            <img class="tmg-item-logo logo-mh-55" src="<%=request.getContextPath() %>/img/TMG_IMG_6.png">
                                         </a>
                                     </div>
                                 </div>
@@ -688,7 +688,7 @@
                             <div class="col-md-6 tmg-item ">
                                 <div class="tmg-item-wrapper col-md-12">
                                     <div class="col-md-12">
-                                        <img src="./img/TMG_IMG_5.jpg" style="width: inherit;">
+                                        <img src="<%=request.getContextPath() %>/img/TMG_IMG_5.jpg" style="width: inherit;">
                                     </div>
                                     <div class="tmg-body">
                                         <%if (language.equals(LanguageControl.VN_LAN)) {%>
@@ -719,7 +719,7 @@
                                     </div>
                                     <div class="logo-foundy">
                                         <a href="https://www.seaplanes.vn/en/" target="_blank">
-                                            <img class="tmg-item-logo logo-mh-65" src="./img/HaiAu_TMG_7.png">
+                                            <img class="tmg-item-logo logo-mh-65" src="<%=request.getContextPath() %>/img/HaiAu_TMG_7.png">
                                         </a>
                                     </div>
                                 </div>

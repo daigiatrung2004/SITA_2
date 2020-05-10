@@ -1,4 +1,9 @@
-<%@ page import="Language.LanguageControl" %><%--
+<%@ page import="Language.LanguageControl" %>
+<%@ page import="DAO.RegionDA" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="DTO.RegionTO" %>
+<%@ page import="DTO.StaticTO" %>
+<%@ page import="Utils.TextCustomizeFormat" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 3/11/2020
@@ -7,7 +12,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%LanguageControl lang = (LanguageControl) session.getAttribute("LanguageControl");%>
-<% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;%>
+<% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;
+    RegionDA regionDA=new RegionDA();
+    ArrayList<RegionTO> listRegionTO=regionDA.retrieveAllRegion();
+%>
 <style>
     .ul-menu-header li:hover{
          color: goldenrod!important;
@@ -19,17 +27,53 @@
         cursor: pointer;
         text-decoration: underline;
     }
+    .listregion{
+        position: absolute;
+        background: white;
+        top: 125px;
+        max-width: 750px;
+        line-height: 3em;
+    }
+    .listregion{
+        display: none;
+    }
+    .li-region:hover .listregion{
+         display: flex!important;
+    }
+
+
 </style>
 <div class="header-div-main ">
     <div class="heaader-home col-md-10">
         <div class="header-div-home">
-            <a href="Home">
-                <img src="./img/viclogo.png" style="height: 80px">
+            <a href="<%=request.getContextPath() %>/Home">
+                <img src="<%=request.getContextPath() %>/img/viclogo.png" style="height: 80px">
             </a>
         </div>
         <div class="menu-header">
-            <ul class="ul-menu-header" style="display: flex;color: white">
-                <li><%=lang.readXMl("destination_header")%>
+            <ul class="ul-menu-header" style="display: flex;color: white;margin: 0;height: 46px;">
+                <li class="li-region">
+                    <div>
+                        <%=lang.readXMl("destination_header")%>
+                    </div>
+
+                    <div class="col-md-12 listregion row">
+                        <%
+                            if(listRegionTO!=null){
+                                for (int i = 0; i <listRegionTO.size() ; i++) {
+
+
+
+                        %>
+                            <div class="col-md-6 item-region">
+                                <a href="<%=StaticTO.WEB_STATIC%>/vi/<%=listRegionTO.get(i).getRegion_id()%>/<%=TextCustomizeFormat.convertTextToString(listRegionTO.get(i).getName_en())%>.html" style="color:black;font-size: 18px;"><%=listRegionTO.get(i).getName_vi()%></a>
+                            </div>
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+
                 </li>
                 <li><%=lang.readXMl("experience_header")%>
                 </li>
@@ -37,13 +81,13 @@
                 </li>
                 <li><%=lang.readXMl("enow_header")%>
                 </li>
-                <li><a href="ListingImgRegion"><%=lang.readXMl("image_header")%>
+                <li><a href="<%=request.getContextPath()%>/ListingImgRegion"><%=lang.readXMl("image_header")%>
                 </a>
                 </li>
-                <li><a href="<%="./"+language+"/about-victoria.html"%>"><%=lang.readXMl("about_header")%></a>
+                <li><a href="<%=request.getContextPath() +"/"+language+"/about-victoria.html"%>"><%=lang.readXMl("about_header")%></a>
                 </li>
                 <li>
-                    <a href="<%="./"+language+"/contact-us.html"%>">
+                    <a href="<%=request.getContextPath() +"/"+language+"/contact-us.html"%>">
                     <%=lang.readXMl("contact_header")%>
                     </a>
                 </li>
@@ -76,4 +120,4 @@
 
     </div>
 </div>
-<script src="scripts/header-home.js"></script>
+<script src="<%=request.getContextPath() %>/scripts/header-home.js"></script>

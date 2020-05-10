@@ -67,7 +67,37 @@ public class Product extends DAOOject {
         }
         return (rs > 0);
     }
+    public boolean updateProduct(ProductTO productTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE " + StaticTO.DB_PRODUCT_NAME + " SET NAME=?,DESCRIPTION=?,FILE_IMG_URL=?,STATUS=?,REMARK=?,PRICE=?,UNIT=?,AMOUNT=?,cate_id=?,region_id=? WHERE ID=?";
+        int rs = 0;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
 
+            pstmt.setString(index++, productTO.getNAME());
+            pstmt.setString(index++, productTO.getDESCRIPTION());
+            pstmt.setString(index++, productTO.getFILE_IMG_URL());
+            pstmt.setString(index++, productTO.getSTATUS());
+            pstmt.setString(index++, productTO.getREMARK());
+            pstmt.setLong(index++, productTO.getPRICE());
+            pstmt.setString(index++, productTO.getUNIT());
+            pstmt.setInt(index++, productTO.getAMOUNT());
+            pstmt.setInt(index++, productTO.getCate_id());
+            pstmt.setInt(index++, productTO.getRegion_id());
+            pstmt.setInt(index++, productTO.getID());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("updateProduct+++" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("updateProduct+++" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
     public ArrayList<CategoriesTO> listCategory() {
         Connection conn = null;
         PreparedStatement pstmt = null;

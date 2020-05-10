@@ -6,14 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%LanguageControl lang=(LanguageControl)request.getSession().getAttribute("LanguageControl");%>
-<link rel="stylesheet" href="css/footer-css.css">
+<%LanguageControl lang=(LanguageControl)request.getSession().getAttribute("LanguageControl");
+    String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;
+%>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/footer-css.css">
 <footer>
     <div class="div-footer col-md-12">
         <div class="info-footer-represent-hotel col-md-12 row" >
             <div style="margin: 50px 0px;width: 100%;display:flex">
             <div class="col-md-4" id="img-footer">
-                <img src="./img/logo-footer.png"/>
+                <img src="<%=request.getContextPath() %>/img/logo-footer.png"/>
             </div>
             <div class="col-md-8">
                 <ul>
@@ -37,16 +39,16 @@
                     <h3 class="h3-footer"><%=lang.readXMl("more_contact")%></h3>
                     <ul>
                         <li>
-                            <a href="./en/contact-us.html"><%=lang.readXMl("contact_us")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/contact-us.html"><%=lang.readXMl("contact_us")%></a>
                         </li>
                         <li>
-                            <a href="./en/legal-information.html"><%=lang.readXMl("info_legal")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/legal-information.html"><%=lang.readXMl("info_legal")%></a>
                         </li>
                         <li>
-                            <a href="./en/career.html"><%=lang.readXMl("career")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/career.html"><%=lang.readXMl("career")%></a>
                         </li>
                         <li>
-                            <a href="./en/our-partners.html"><%=lang.readXMl("coordinator")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/our-partners.html"><%=lang.readXMl("coordinator")%></a>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +56,7 @@
                     <h3 class="h3-footer"><%=lang.readXMl("transportation_media")%></h3>
                     <ul>
                         <li>
-                            <a href="./en/brochures.html"><%=lang.readXMl("brochures")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/brochures.html"><%=lang.readXMl("brochures")%></a>
                         </li>
                         <li>
                             <a href="https://www.victoriahotels.asia/blog/"><%=lang.readXMl("Blog")%></a>
@@ -94,28 +96,28 @@
                     <h3 class="h3-footer"><%=lang.readXMl("go_aboad")%></h3>
                     <ul>
                         <li>
-                            <a href="./en/hotels-resorts/sapa.html"><%=lang.readXMl("resort_1")%> </a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/sapa.html"><%=lang.readXMl("resort_1")%> </a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/hoian.html"><%=lang.readXMl("resort_2")%> </a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/hoian.html"><%=lang.readXMl("resort_2")%> </a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/phanthiet.html"><%=lang.readXMl("resort_3")%> </a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/phanthiet.html"><%=lang.readXMl("resort_3")%> </a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/cantho.html"><%=lang.readXMl("resort_4")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/cantho.html"><%=lang.readXMl("resort_4")%></a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/chaudoc.html"><%=lang.readXMl("resort_5")%> </a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/chaudoc.html"><%=lang.readXMl("resort_5")%> </a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/nuisam.html"><%=lang.readXMl("resort_6")%>  </a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/nuisam.html"><%=lang.readXMl("resort_6")%>  </a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/xiengthong.html"><%=lang.readXMl("resort_7")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/xiengthong.html"><%=lang.readXMl("resort_7")%></a>
                         </li>
                         <li>
-                            <a href="./en/hotels-resorts/victoria-cruises.html"><%=lang.readXMl("resort_8")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/hotels-resorts/victoria-cruises.html"><%=lang.readXMl("resort_8")%></a>
                         </li>
                     </ul>
                 </div>
@@ -127,10 +129,10 @@
                     <ul>
 
                         <li>
-                            <a href="./en/victoria-train.html"><%=lang.readXMl("experience")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/victoria-train.html"><%=lang.readXMl("experience")%></a>
                         </li>
                         <li>
-                            <a href="./en/victoria-speedboat.html"><%=lang.readXMl("train_1")%></a>
+                            <a href="<%=request.getContextPath() %>/<%=language%>/victoria-speedboat.html"><%=lang.readXMl("train_1")%></a>
                         </li>
                         <li>
                             <a href="https://victoriavoyages.com/" target="_blank"><%=lang.readXMl("train_2")%></a>

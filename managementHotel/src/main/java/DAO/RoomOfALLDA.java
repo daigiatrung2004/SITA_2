@@ -222,6 +222,39 @@ public class RoomOfALLDA extends DAOOject {
 
         return listKindRoomTO;
     }
+    // retrive all kind room follow region id
+    public ArrayList<KindRoomTO> retrieveALLKindRoomByRegionId(int regionid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_KIND_ROOM_NAME +" KR INNER JOIN "+StaticTO.DB_ROOM_NAME+" R ON R.KIND_ROOM_ID=KR.KIND_ROOM_ID WHERE R.REGION_ID=? AND KR.STATUS=? GROUP BY KR.KIND_ROOM_ID ";
+
+        ArrayList<KindRoomTO> listKindRoomTO = new ArrayList<KindRoomTO>();
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,regionid);
+            pstmt.setString(2,StaticTO.ACTIVE_STATUS);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                KindRoomTO kindRoomTO = new KindRoomTO(rs.getInt("kind_room_id"),
+                        rs.getString("name_vi"),
+                        rs.getString("name_en"),
+                        rs.getString("status"),
+                        rs.getString("remark")
+                );
+                listKindRoomTO.add(kindRoomTO);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(rs);
+        }
+
+        return listKindRoomTO;
+    }
+
 
     //get kind room by id
     public KindRoomTO retrieveKindRoomById(int kind_room_id) {

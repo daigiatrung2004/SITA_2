@@ -21,7 +21,7 @@
 <head>
     <title><%=lang.readXMl("contact_us")%></title>
     <jsp:include page="Library.jsp"></jsp:include>
-    <link rel="stylesheet" href="css/home-css.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/home-css.css"/>
     <style>
         .header-div-main {
             position: relative !important;
@@ -41,7 +41,7 @@
 </div>
 
     <div class="form-report container" style="background-color: white;padding: 10px;display: flex;">
-       <form id="frm" action="FooterControl" method="post" style="display: flex;">
+       <form id="frm" action="<%=request.getContextPath() %>/FooterControl" method="post" style="display: flex;">
            <input type="hidden" name="type" value="updateContactus">
         <div class="col-md-4">
              <%

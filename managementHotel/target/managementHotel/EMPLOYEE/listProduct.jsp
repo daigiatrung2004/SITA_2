@@ -30,6 +30,8 @@
             phẩm</a></li>
         <li><a href="ListProduct" class="activeWarhouse" style="color: #424242;font-weight: unset!important;opacity: 0.5;font-size: 16px;">Danh
             sách các sản phẩm</a></li>
+        <li><a href="Warehouse?type=in" style="color: #424242;font-weight: unset!important;opacity: 0.5;font-size: 16px;">Nhập kho</a></li>
+        <li><a href="Warehouse?type=ex" style="color: #424242;font-weight: unset!important;opacity: 0.5;font-size: 16px;">Xuất kho</a></li>
     </ul>
 </div>
 <div class="div-main-warehouse">
@@ -84,6 +86,7 @@
     </form>
 
     <div>
+        <h2 style="text-align: center;margin-top: 20px;margin-bottom: 20px;">Danh sách sản phẩm</h2>
         <table class="table">
             <thead>
             <th>STT</th>

@@ -30,6 +30,7 @@ public class StaticTO {
     public static final String  DB_INVOICE_NAME="invoice";
     public static final String  DB_SYSTEM_NAME="sys_meta";
     public static final String  DB_REPORT_USER_NAME="reportuser";
+    public static final String  DB_WARSEHOUSE="warsehouse";
 
 
     // status name static
@@ -45,6 +46,9 @@ public class StaticTO {
     public static final String  REPORT_REPLY="report_reply";
     public static final String  REPORT_CAREER_SEND="career_customer";
     public static final String  CONFIRM_BOOKING_HTML="C:\\Users\\ADMIN\\IdeaProjects\\SITA\\managementHotel\\src\\main\\webapp\\email\\confirm_booking.html";
+    public static final String WEB_STATIC="http://localhost:8080/managementHotel_war_exploded";
+    public static final String IMPORT_WARSEHOUSE="import";
+    public static final String EXPORT_WARSEHOUSE="export";
 
 
 

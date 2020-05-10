@@ -1,3 +1,4 @@
+
 <!DOCTYPE web-app PUBLIC
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
@@ -25,7 +26,21 @@
         <param-name>CONFIRM_BOOKING_HTML</param-name>
         <param-value>C:\Users\ADMIN\IdeaProjects\SITA\managementHotel\src\main\webapp\email\confirm_booking.html</param-value>
     </context-param>
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <init-param>
+            <param-name>requestEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+
+
+    </filter-mapping>
     <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>servlet.Home</servlet-class>
@@ -256,6 +271,22 @@
         <servlet-name>UpdateRegion</servlet-name>
         <servlet-class>servlet.Admin.UpdateRegion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DetailRegion</servlet-name>
+        <servlet-class>servlet.DetailRegion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccomodationDetail</servlet-name>
+        <servlet-class>servlet.AccomodationDetail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccomodationDetail</servlet-name>
+        <url-pattern>/AccomodationDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailRegion</servlet-name>
+        <url-pattern>/DetailRegion</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateRegion</servlet-name>
         <url-pattern>/UpdateRegion</url-pattern>
@@ -500,28 +531,7 @@
         <error-code>404</error-code>
         <location>/ErrorHandle</location>
     </error-page>
-    <error-page>
-        <location>/ErrorHandle</location>
-    </error-page>
-    <filter>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-        <init-param>
-            <param-name>statusEnabledOnHosts</param-name>
-            <param-value>localhost, dev.*.myco.com, *.uat.mycom.com</param-value>
-        </init-param>
-        <init-param>
-            <param-name>requestEncoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
 
-    <filter-mapping>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
 
-    </filter-mapping>
 
 </web-app>

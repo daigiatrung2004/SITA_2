@@ -20,7 +20,7 @@
     <title><%=lang.readXMl("career")%>
     </title>
     <jsp:include page="Library.jsp"></jsp:include>
-    <link rel="stylesheet" href="css/home-css.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/home-css.css"/>
     <style>
         .header-div-main {
             position: relative !important;

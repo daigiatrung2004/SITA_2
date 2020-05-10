@@ -60,6 +60,11 @@ public class TextCustomizeFormat {
         }
         return listDate;
     }
+    public static String convertTextToString(String text){
+        text=text.trim();
+        text=text.replaceAll(" ","-");
+        return text;
+    }
 
     public static void main(String[] args) {
         long amount = 1000;

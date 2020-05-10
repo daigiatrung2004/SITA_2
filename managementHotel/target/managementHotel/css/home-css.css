@@ -171,7 +171,10 @@
 }
 
 .menu-header ul li {
-    margin: 10px 20px;
+    margin: 0px 20px;
+    display: flex;
+    align-items: center;
+
 
 }
 
