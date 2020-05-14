@@ -318,10 +318,10 @@
                             </p>
                             <p>
                                 <%if (language.equals(LanguageControl.VN_LAN)) {%>
-                                <a class="view-details" href="/vi/about-victoria.html" style="color: black!important">Chi
+                                <a class="view-details" href="./vi/contact-us.html" style="color: black!important">Chi
                                     tiết</a>
                                 <%} else {%>
-                                <a class="view-details" href="/vi/about-victoria.html" style="color: black!important">View
+                                <a class="view-details" href="./en/contact-us.html" style="color: black!important">View
                                     Details</a>
                                 <%}%>
                             </p></div>

@@ -27,7 +27,8 @@ public class SettingManagerHotel extends WebServletAdmin {
             if ((!vi.equals("") && !en.equals("")||type.equals("room")||type.equals("price_room"))) {
                 if (type.equals("kindroom")) {
                     // add du lieu loai phong
-                    kindRoomTO = new KindRoomTO(0, vi, en, StaticTO.ACTIVE_STATUS, "");
+                    String remarks=request.getParameter("remarks")!=null?(String)request.getParameter("remarks"):"";
+                    kindRoomTO = new KindRoomTO(0, vi, en, StaticTO.ACTIVE_STATUS, remarks);
                     checkSuccess = roomOfALLDA.addKindRoom(kindRoomTO);
                 }else if(type.equals("price_room")){
                     String type_vi=request.getParameter("type_vi")!=null?(String)request.getParameter("type_vi"):"";

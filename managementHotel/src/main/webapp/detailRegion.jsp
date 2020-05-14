@@ -260,13 +260,13 @@
                 <!-- The slideshow -->
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="<%=request.getContextPath()%>/img/trainghiem-1.jpg" alt="Los Angeles">
+                        <img src="<%=request.getContextPath()%>/img/trainghiem-1.jpg" alt="Los Angeles" style="width: 100%">
                     </div>
                     <div class="carousel-item">
-                        <img src="<%=request.getContextPath()%>/img/trainghiem-2.jpg" alt="Chicago">
+                        <img src="<%=request.getContextPath()%>/img/trainghiem-2.jpg" alt="Chicago"  style="width: 100%">
                     </div>
                     <div class="carousel-item">
-                        <img src="<%=request.getContextPath()%>/img/trainghiem-3.jpg" alt="New York">
+                        <img src="<%=request.getContextPath()%>/img/trainghiem-3.jpg" alt="New York"  style="width: 100%">
                     </div>
                 </div>
 

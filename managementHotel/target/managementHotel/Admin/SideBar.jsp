@@ -13,7 +13,7 @@
     <div class="item" id="img-logo">
         <img src="./img/viclogo.png" height="100px;text-align:center;">
     </div>
-    <a class="item">
+    <a class="item" href="Admin">
         <i class="home icon"></i>
 
       <h4 style="vertical-align: inherit;">

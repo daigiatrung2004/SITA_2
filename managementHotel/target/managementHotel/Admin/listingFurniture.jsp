@@ -82,7 +82,7 @@
 
                 %>
                 <tr>
-                    <td><%=i%>i%></td>
+                    <td><%=i%></td>
                     <td><%=listingFurniture.get(i).getName_vi()%>
                     </td>
                     <td><%=listingFurniture.get(i).getPrice()%>
@@ -93,7 +93,7 @@
                     </td>
                     <td>
                         <button class="btn btn-primary">Chỉnh sửa</button>
-                        <button class="btn btn-damage">Xóa</button>
+                        <button class="btn btn-danger">Xóa</button>
                     </td>
                 </tr>
                 <%

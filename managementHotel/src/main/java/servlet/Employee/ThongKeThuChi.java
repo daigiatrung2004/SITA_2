@@ -60,8 +60,13 @@ public class ThongKeThuChi extends WebServletEmployee {
             ArrayList<RegionTO> listRegion = regionDA.retrieveAllRegion();
             request.setAttribute("listRegion", listRegion);
             Map<Integer, Long> listTongBooking = new HashMap<Integer, Long>();
+            Map<Integer, Long> listServiceMap = new HashMap<>();
+            Map<Integer, Long> listdichvuMap = new HashMap<>();
+            long tongtatcachiluong=0,tongtatcachidichvu=0,tongtatcachiservice=0;
             for (int i = 0; i < listRegion.size(); i++) {
                 listTongBooking.put(listRegion.get(i).getRegion_id(), Long.parseLong("0"));
+                listServiceMap.put(listRegion.get(i).getRegion_id(), Long.parseLong("0"));
+                listdichvuMap.put(listRegion.get(i).getRegion_id(), Long.parseLong("0"));
             }
             // tính toán tổng số booking  trên toàn bộ sản phẩm (Tính giá trị thu) tất tả các khu vực
             long tongThuTatCaRegion = 0;
@@ -96,7 +101,7 @@ public class ThongKeThuChi extends WebServletEmployee {
                             }
                             if (tongngay > 0) {
                                 tongtienphong = tongngay * priceRoomTO.getPrice_1_night();
-                                ArrayList<ProductTO> listProduct = product.retrieveBookingProduct(listBookingAll.get(i).getBooking_id());
+                                ArrayList<ProductTO> listProduct = product.retrieveBookingProductThongke(listBookingAll.get(i).getBooking_id());
                                 if (listProduct != null) {
                                     for (int j = 0; j < listProduct.size(); j++) {
                                         if (listProduct.get(j).getID() == StaticTO.PRODUCT_ID_MEAL) {
@@ -122,10 +127,206 @@ public class ThongKeThuChi extends WebServletEmployee {
                         tongtheoregion += tongtienphong + tongtiendichvu + tongtienservice;
                         listTongBooking.put(listBookingAll.get(i).getRegion_id(), tongtheoregion);
                     }
+                    // tính tổng tiền thiết bị hư hại theo từng khu vực
+                    if (listServiceMap.containsKey(listBookingAll.get(i).getRegion_id())) {
+                        long tongtheoregion = listServiceMap.get(listBookingAll.get(i).getRegion_id()).longValue();
+                        tongtheoregion += tongtienservice;
+                        tongtatcachiservice+=tongtienservice;
+                        listServiceMap.put(listBookingAll.get(i).getRegion_id(), tongtheoregion);
+                    }
+
+
+                    // tính tổng tiền dịch vu sài theo từng khu vực
+//                    if (listdichvuMap.containsKey(listBookingAll.get(i).getRegion_id())) {
+//                        long tongtheoregion = listdichvuMap.get(listBookingAll.get(i).getRegion_id()).longValue();
+//                        tongtheoregion += tongtiendichvu;
+//                        listdichvuMap.put(listBookingAll.get(i).getRegion_id(), tongtheoregion);
+//                    }
                     //tính tổng tiền tất cả booking
                     tongThuTatCaRegion += tongtienphong + tongtiendichvu + tongtienservice;
 
                 }
+                request.setAttribute("tongtatcachiservice",String.valueOf(tongtatcachiservice));
+
+                //tính các khoản chi về lương nhân viên trong tất cả các khu vực
+                EmployeeDA employeeDA = new EmployeeDA();
+                ArrayList<EmployeeTO> listEmployee = employeeDA.retrieveALLEmployee();
+                ArrayList<EmployeeTO> listEmployeeNew = new ArrayList<EmployeeTO>();
+                ArrayList<Integer> listNumofMonth = new ArrayList<Integer>();
+                ArrayList<Long> listTongLuong = new ArrayList<>();
+
+                long tongtienluong = 0;
+                Date date = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                long currentdate = date.getTime();
+                int currentyear = date.getYear();
+                int currentmonth = date.getMonth();
+                if (listEmployee != null) {
+                    for (int i = 0; i < listEmployee.size(); i++) {
+                        if (listEmployee.get(i).equals(StaticTO.ADMINID)) {
+                            continue;
+                        }
+                        EmployeeTO employeeTO = listEmployee.get(i);
+                        // Danh sách tổng lương cho nhân viên
+                        int tongsothang = 0;
+                        if (employeeTO.getStatus().equals(StaticTO.ACTIVE_STATUS)) {
+                            String dateStr = employeeTO.getStart_date();
+                            Date start_date;
+                            try {
+                                start_date = dateFormat.parse(dateStr);
+                            } catch (ParseException e) {
+                                start_date = null;
+                            }
+
+                            if (start_date != null) {
+                                int yearstart = start_date.getYear();
+                                int monthstart = start_date.getMonth();
+                                if (yearstart == currentyear) {
+                                    tongsothang = currentmonth - monthstart;
+                                } else {
+                                    tongsothang = ((currentyear - yearstart) - 1) * 12 + (12 - monthstart) + currentmonth;
+                                }
+
+                            }
+                        } else {
+                            // thực hiện cho nhân viên nghỉ làm
+                            String remarks = employeeTO.getRemark();
+                            String dateStr = "";
+                            String[] remarksSplit = remarks.split(";");
+                            if (remarksSplit.length > 0) {
+                                for (int j = 0; j < remarksSplit.length; j++) {
+                                    if (remarksSplit[j].indexOf("END_DATE") > -1) {
+                                        String[] splitEndDate = remarksSplit[j].split("/");
+                                        if (splitEndDate.length > 0) {
+                                            dateStr = splitEndDate[1];
+                                            Date start_date = null;
+                                            try {
+                                                start_date = dateFormat.parse(dateStr);
+                                            } catch (ParseException e) {
+                                                start_date = null;
+                                            }
+
+                                            if (start_date != null) {
+                                                int yearend = start_date.getYear();
+                                                int monthend = start_date.getMonth();
+                                                String startdateStr = employeeTO.getStart_date();
+                                                Date dateStart = null;
+                                                try {
+                                                    dateStart = dateFormat.parse(startdateStr);
+                                                } catch (ParseException e) {
+                                                    dateStart = null;
+                                                }
+                                                int yearstart = dateStart.getYear();
+                                                int monthstart = dateStart.getMonth();
+                                                if (yearend == yearstart) {
+                                                    tongsothang = monthend - monthstart;
+                                                } else {
+                                                    int tinhyear = ((yearend - yearstart) - 1) * 12;
+
+                                                    tongsothang = tinhyear + (12 - monthstart) + monthend;
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+                        listNumofMonth.add(tongsothang);
+                        listTongLuong.add(tongsothang * listEmployee.get(i).getSalary());
+                        tongtienluong += tongsothang * listEmployee.get(i).getSalary();
+                        listEmployeeNew.add(listEmployee.get(i));
+
+                    }
+                }
+
+                ArrayList<RegionTO> listRegionOrigin = regionDA.retrieveAllRegion();
+                // tong doanh chi
+                WarsehouseDA warsehouseDA = new WarsehouseDA();
+                if (listRegionOrigin != null) {
+
+                    for (int i = 0; i < listRegionOrigin.size(); i++) {
+                        ArrayList<Map<Integer, Long>> list=null;
+                        if(quyInt>0&&yearInt==0){
+                            int start_month=0;
+                            int end_month=0;
+                            switch (quyInt){
+                                case 1:
+                                    start_month=1;
+                                    end_month=3;
+                                    break;
+                                case 2:
+                                    start_month=4;
+                                            end_month=6;
+                                            break;
+                                case 3:
+                                    start_month=7;
+                                    end_month=9;
+                                case 4:
+                                    start_month=10;
+                                    end_month=12;
+                            }
+                            list = warsehouseDA.retrieveAllWarsehouse(start_month,end_month,StaticTO.IMPORT_WARSEHOUSE,listRegionOrigin.get(i).getRegion_id());
+                        }else if(quyInt==0&&yearInt>0){
+                            list = warsehouseDA.retrieveAllWarsehouse(yearInt,StaticTO.IMPORT_WARSEHOUSE,listRegionOrigin.get(i).getRegion_id());
+                        }else if(quyInt>0&&yearInt>0){
+                            int start_month=0;
+                            int end_month=0;
+                            switch (quyInt){
+                                case 1:
+                                    start_month=1;
+                                    end_month=3;
+                                    break;
+                                case 2:
+                                    start_month=4;
+                                    end_month=6;
+                                    break;
+                                case 3:
+                                    start_month=7;
+                                    end_month=9;
+                                case 4:
+                                    start_month=10;
+                                    end_month=12;
+                            }
+                            list = warsehouseDA.retrieveAllWarsehouseYear(yearInt,start_month,end_month,StaticTO.IMPORT_WARSEHOUSE,listRegionOrigin.get(i).getRegion_id());
+                        }else {
+                            list = warsehouseDA.retrieveAllWarsehouse(StaticTO.IMPORT_WARSEHOUSE, listRegionOrigin.get(i).getRegion_id());
+                        }
+                        if (list != null) {
+                            for (int j = 0; j < list.size(); j++) {
+                                Map<Integer, Long> mapdichvu = list.get(j);
+                                long tiendichvu=0;
+                                for (Map.Entry<Integer,Long> entry : mapdichvu.entrySet()) {
+                                    tiendichvu+=entry.getValue();
+
+                                }
+                                if (listdichvuMap.containsKey(listBookingAll.get(i).getRegion_id())) {
+                                    long tongtheoregion = listdichvuMap.get(listBookingAll.get(i).getRegion_id()).longValue();
+                                    tongtheoregion += tiendichvu;
+                                    tongtatcachidichvu+=tiendichvu;
+                                    listdichvuMap.put(listBookingAll.get(i).getRegion_id(), tongtheoregion);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                // request cho doanh muc chi
+                request.setAttribute("tongtatcachidichvu",String.valueOf(tongtatcachidichvu));
+                request.setAttribute("listRegionOrigin", listRegionOrigin);
+                request.setAttribute("listEmployeeNew", listEmployeeNew);
+                request.setAttribute("tongtienluong", String.valueOf(tongtienluong));
+                request.setAttribute("listTongLuong", listTongLuong);
+                request.setAttribute("listNumofMonth", listNumofMonth);
+                request.setAttribute("listServiceMap", listServiceMap);
+                request.setAttribute("listdichvuMap", listdichvuMap);
+
+
+                // request cho doanh muc thu
                 request.setAttribute("listTongBooking", listTongBooking);
                 request.setAttribute("tongThuTatCaRegion", String.valueOf(tongThuTatCaRegion));
                 request.setAttribute("listRegionTO", listRegionTO);

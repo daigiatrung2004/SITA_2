@@ -260,7 +260,8 @@ function insert(vi, en, type) {
 
     } else {
         var input_img_src = $("#regionModal .dropify-render img").attr("src");
-        url_ = "vi_region=" + vi + "&en_region=" + en + "&type=" + type;
+        var remarks=tinymce.get('remarks').getContent();
+        url_ = "vi_region=" + vi + "&en_region=" + en + "&type=" + type+"&remarks="+remarks;
     }
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

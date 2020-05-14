@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/scripts/slim/slimselect.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/jquery-ui.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/static.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/print.min.css">
 <script src="<%=request.getContextPath() %>/scripts/jquery-3.4.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/scripts/jquery-ui.js"></script>
 <%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--%>
@@ -18,3 +19,4 @@
 <script src="<%=request.getContextPath() %>/scripts/slim/slimselect.min.js"></script>
 <script src="<%=request.getContextPath() %>/scripts/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="<%=request.getContextPath() %>/scripts/Chart/Chart.min.js"></script>
+<script src="<%=request.getContextPath() %>/scripts/print.min.js"></script>

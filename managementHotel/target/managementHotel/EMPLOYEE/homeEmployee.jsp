@@ -52,7 +52,7 @@ String countAnnounce=request.getAttribute("countAnnounce")!=null?(String)request
                  style="background:url('./img/employee/statistics.jpg') no-repeat;min-height: 200px;background-size: 100% 90%;background-position: center;">
                 <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
             </div>
-            <div class="footer-tiem-img" style="background-color: #C38E5E;">
+            <div class="footer-tiem-img" style="background-color: #d95201;">
                 <h3 style="text-transform: uppercase;margin: 0px">Thông kê </h3>
                 <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">
                     Statistical</small>
@@ -85,6 +85,18 @@ String countAnnounce=request.getAttribute("countAnnounce")!=null?(String)request
             <div class="footer-tiem-img" style="background-color: #3682B5;">
                 <h3 style="text-transform: uppercase;margin: 0px">Kho</h3>
                 <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Warehouse</small>
+                </h5>
+            </div>
+        </div>
+        <div class="func-item-employee col-lg-3">
+            <a href="Advertisement" class="a-func-item"></a>
+            <div class="func-item-img"
+                 style="background:url('./img/employee/advertise.jpg') no-repeat;min-height: 200px;background-size: 90% 90%;background-position: center;">
+                <%--         <img src="" style="max-width: 200px;max-height:200px;">--%>
+            </div>
+            <div class="footer-tiem-img" style="background-color: #dae808;">
+                <h3 style="text-transform: uppercase;margin: 0px">Quảng cáo</h3>
+                <h5 style="margin: 0px;"><small style="text-transform: uppercase;margin: 0px">Advertisement</small>
                 </h5>
             </div>
         </div>

@@ -107,6 +107,12 @@
                 <label for="en_name">EngLish Name:</label>
                 <input type="text" class="form-control" placeholder="Enter English" id="en_name_kind" name="en_name">
             </div>
+            <div>
+                <label for="en_name"> Mô tả loại phòng:</label>
+                <textarea id="remarks">
+
+                </textarea>
+            </div>
             <button type="submit" class="btn btn-primary" id="btn-kind-room">Insert</button>
             <div class="error" id="result-insert-kind-room"></div>
         </div>
@@ -449,6 +455,21 @@
 <script>
     tinymce.init({
         selector: '#content_service_vi',
+        menu: {
+            file: {title: 'File', items: 'newdocument'},
+            edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},
+            insert: {title: 'Insert', items: 'link media | template hr'},
+            view: {title: 'View', items: 'visualaid'},
+            format: {
+                title: 'Format',
+                items: 'bold italic underline strikethrough superscript subscript | formats | removeformat'
+            },
+            table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
+            tools: {title: 'Tools', items: 'spellchecker code'}
+        }
+    });
+    tinymce.init({
+        selector: '#remarks',
         menu: {
             file: {title: 'File', items: 'newdocument'},
             edit: {title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall'},

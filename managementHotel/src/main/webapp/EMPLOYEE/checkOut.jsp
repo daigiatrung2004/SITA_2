@@ -19,15 +19,15 @@
     ArrayList<ProductTO> listProduct = (ArrayList<ProductTO>) request.getAttribute("listProduct");
     CustomerTO customer = (CustomerTO) request.getAttribute("customer");
     PriceRoomTO priceRoomTO = (PriceRoomTO) request.getAttribute("priceRoomTO");
-    String success=request.getAttribute("checkOutSuccess")!=null?(String)request.getAttribute("checkOutSuccess"):"false";
-    String songay=request.getAttribute("songay")!=null?(String)request.getAttribute("songay"):"1";
+    String success = request.getAttribute("checkOutSuccess") != null ? (String) request.getAttribute("checkOutSuccess") : "false";
+    String songay = request.getAttribute("songay") != null ? (String) request.getAttribute("songay") : "1";
     int songayInt;
     try {
-        songayInt=Integer.parseInt(songay);
+        songayInt = Integer.parseInt(songay);
     } catch (NumberFormatException e) {
-        songayInt=1;
+        songayInt = 1;
     }
-
+    RegionTO regionTO=(RegionTO)request.getAttribute("regionTO");
 
 %>
 <html>
@@ -56,7 +56,10 @@
                     <div class="container">
                         <div class="spinner-border"></div>
                     </div>
-                    <button class="btn btn-primary" id="saveCheckOut" style="display: flex;align-items: center;"><span class="loading-saveOrder lds-dual-ring" style="margin-right: 5px;align-items: center;"></span><span style="margin-left: 5px;">Lưu Hóa đơn</span></button>
+                    <button class="btn btn-primary" id="saveCheckOut" style="display: flex;align-items: center;"><span
+                            class="loading-saveOrder lds-dual-ring"
+                            style="margin-right: 5px;align-items: center;"></span><span style="margin-left: 5px;">Lưu Hóa đơn</span>
+                    </button>
                 </div>
             </div>
             <div class="div-invoice-table">
@@ -119,7 +122,7 @@
                 </table>
                 <script>
                     $('.table-invoice tbody tr td').on('click', '.close', function () {
-                        alert("xin chao");
+                        //alert("xin chao");
                         $(this).remove();
                     });
                 </script>
@@ -135,11 +138,13 @@
                     </tr>
                     <tr>
                         <td>Số ngày ở:</td>
-                        <td><%=songayInt%></td>
+                        <td><%=songayInt%>
+                        </td>
                     </tr>
                     <tr>
                         <td>Giá phòng:</td>
-                        <td><%=priceRoomTO.getPrice_1_night()%></td>
+                        <td><%=priceRoomTO.getPrice_1_night()%>
+                        </td>
                     </tr>
                     <tr>
                         <td>Tổng tiền phòng:</td>
@@ -147,7 +152,7 @@
                             <span>
                                  <%
                                      if (priceRoomTO != null) {
-                                         tong += priceRoomTO.getPrice_1_night()*songayInt;
+                                         tong += priceRoomTO.getPrice_1_night() * songayInt;
                                  %>
                             <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>
                             <%
@@ -210,9 +215,9 @@
 
                 </div>
                 <div class="div-load" id="div-food">
-                <div class="load-service item-1" id="spinerfood" >
+                    <div class="load-service item-1" id="spinerfood">
 
-                </div>
+                    </div>
                 </div>
 
             </div>
@@ -226,10 +231,10 @@
                 <div class="content-service">
 
                 </div>
-                <div class="div-load" id="div-services" >
-                <div class="load-service item-2" id="spiner">
+                <div class="div-load" id="div-services">
+                    <div class="load-service item-2" id="spiner">
 
-                </div>
+                    </div>
                 </div>
 
             </div>
@@ -238,10 +243,76 @@
 
     </div>
     <!---->
+    <script>
+        var someJSONdata = [
+            {
+                'Tên dịch vụ(service name)': 'Tiền phòng(Room charge) ',
+                'Giá': '<%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night())%>',
+                'Số lượng': '<%=songay%>',
+                'Tổng': '<%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night() * songayInt)%>'
+            },
+            <%
+              if(listProduct!=null&&listProduct.size()>0){
+                  for(int i = 0; i <listProduct.size() ; i++) {
+                    if(i>0){
+
+            %>
+            ,{
+                'Tên dịch vụ(service name)': '<%=listProduct.get(i).getNAME()%>',
+                'Giá': '<%=TextCustomizeFormat.currency_format(listProduct.get(i).getPRICE())%>',
+                'Số lượng': '<%=listProduct.get(i).getAmount()%>',
+                'Tổng': '<%=TextCustomizeFormat.currency_format(listProduct.get(i).getPRICE()*listProduct.get(i).getAmount())%>'
+            }
+            <%
+            }else{
+                        %>
+            {
+                'Tên dịch vụ(service name)': '<%=listProduct.get(i).getNAME()%>',
+                'Giá': '<%=TextCustomizeFormat.currency_format(listProduct.get(i).getPRICE())%>',
+                'Số lượng': '<%=listProduct.get(i).getAmount()%>',
+                'Tổng': '<%=TextCustomizeFormat.currency_format(listProduct.get(i).getPRICE()*listProduct.get(i).getAmount())%>'
+            }
+        <%
+            }
+            }
+            }
+            %>
+            ,
+            <%
+            if(listTax!=null&&listTax.size()>0){
+                for(int i = 0; i <listTax.size() ; i++) {
+                 if(i>0){
+
+            %>
+            ,{
+                'Tên dịch vụ(service name)': '<%=listTax.get(i).getName_vi()%>(<%=listTax.get(i).getName_en()%>)',
+                'Giá': '<%=TextCustomizeFormat.currency_format(listTax.get(i).getPrice())%>',
+                'Số lượng': '<%=1%>',
+                'Tổng': '<%=TextCustomizeFormat.currency_format(listTax.get(i).getPrice())%>'
+            }
+            <%
+            }else{
+                     %>
+            {
+                'Tên dịch vụ(service name)': '<%=listTax.get(i).getName_vi()%>(<%=listTax.get(i).getName_en()%>)',
+                'Giá': '<%=TextCustomizeFormat.currency_format(listTax.get(i).getPrice())%>',
+                'Số lượng': '1',
+                'Tổng': '<%=TextCustomizeFormat.currency_format(listTax.get(i).getPrice())%>'
+            }
+        <%
+            }
+             }
+            }
+            %>
+
+
+        ]
+
+    </script>
     <div class="ui modal small" id="invoiceModal">
         <div class="header">
             <div>
-            Hóa đơn thanh toán
+                Hóa đơn thanh toán
             </div>
             <span class="close-invoice" style="position: absolute;top: 10px;right: 10px;">
                 <i class="close icon"></i>
@@ -270,7 +341,8 @@
                 </tr>
                 <tr>
                     <td>CMND:</td>
-                    <td><%=customer.getVerify_person()%></td>
+                    <td><%=customer.getVerify_person()%>
+                    </td>
                 </tr>
                 <tr>
                     <td>Tổng tiền sử dụng dịch vụ :</td>
@@ -288,7 +360,7 @@
                         <%
                             if (priceRoomTO != null) {
                         %>
-                        <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night()*songayInt)%>
+                        <%=TextCustomizeFormat.currency_format(priceRoomTO.getPrice_1_night() * songayInt)%>
                         <%
                             }
                         %>
@@ -300,14 +372,14 @@
                 %>
                 </tbody>
             </table>
-            <span id="viewDetail">Chi tiết</span>
+
             <div>
                 <h5>Tổng:   <%=TextCustomizeFormat.currency_format(tong)%> đ</h5>
             </div>
         </div>
         <div class="actions" style="display: flex;">
             <form action="CheckOut" id="frm-checkout" method="post">
-                <%if(bookingTO!=null&&roomTO!=null&&customer!=null){%>
+                <%if (bookingTO != null && roomTO != null && customer != null) {%>
                 <input type="hidden" name="bookingId" value="<%=bookingTO.getBooking_id()%>">
                 <input type="hidden" name="customerId" value="<%=customer.getCustomer_id()%>">
                 <input type="hidden" name="roomId" value="<%=roomTO.getRoom_id()%>">
@@ -319,14 +391,98 @@
 
                 <%}%>
             </form>
-            <button type="submit" class="ui button green" id="checkOutNow" style="color: white;">Trả phòng ngay</button>
-            <button class="ui button  primary" id="inHoaDon" style="color: white;">Xuất hóa đơn và trả phòng</button>
+            <button type="submit" class="ui button green" id="checkOutNow" style="color: white;">Trả phòng ngay
+            </button>
+
+            <button class="ui button  primary" id="inHoaDon" style="color: white;" onclick="printJS({
+         printable: someJSONdata,
+	    properties: ['Tên dịch vụ(service name)', 'Giá', 'Số lượng','Tổng'],
+	    type: 'json',
+	    header: '<div class=\''+'div-header'+'\'><img class=\''+'img-logo'+'\' src=\''+'./img/viclogo_black.png'+'\'></div>' +
+	     '<div class=\''+'div-info'+'\'>' +
+	     '<h1 class=\''+'custom-h1'+'\'>Hóa đơn thanh toán(Invoice)</h1>' +
+	      '<table>' +
+	       '<tr>' +
+	        '<td>Họ và tên khách (name):</td>' +
+	         '<td><%=customer.getLastname()%>+\''+' '+'\'+<%=customer.getFirstname()%></td>' +
+	        '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'Điện thoại(phone):' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=customer.getContact_person()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'email:' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=customer.getEmail()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'CMND(IDENTITY):' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=customer.getVerify_person()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'Phòng:' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=roomTO.getName()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'Tên khách sạn:' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=regionTO.getName_en()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'Địa chỉ khách sạn:' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=regionTO.getAddress()%>' +
+                    '</td>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+                    'Tổng tiền(total):' +
+                    '</td>' +
+                    '<td>' +
+                    '<%=TextCustomizeFormat.currency_format(tong)%> đ'+
+                    '</td>' +
+                    '<td style=\''+'color:red;'+'\'>' +
+                    ' (<%=tong/StaticTO.USD%> USD)' +
+                    '</td>' +
+                    '</tr>' +
+	       '</table>' +
+	      '</div>',
+            style: '.custom-h1 { color: black;text-align:center; }' +
+             '.img-logo{width:350px;height:200px;}' +
+              '.div-header{border-bottom:3px solid black;}' +
+                    '.div-info{margin-top:20px;margin-bottom:20px;}',
+	    gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;',
+	    gridStyle: 'border: 2px solid #3971A5;'
+
+
+            })">Xuất hóa đơn và trả phòng
+            </button>
             <button class="ui cancel red button" id="cancel" style="color: white">Hủy</button>
         </div>
     </div>
-     <!--announce check out-->
+    <!--announce check out-->
     <div class="ui modal small" id="announceSuccess">
-        <div class="header">Trả phòng </div>
+        <div class="header">Trả phòng</div>
         <div class="content">
             Thực hiện trả phòng thành công
         </div>
@@ -337,20 +493,20 @@
 
     <jsp:include page="../Footer.jsp"></jsp:include>
     <script>
-       $("#traphongbtn").click(function(){
-           // alert("xin chao");
-           $('#invoiceModal').modal('show');
-       });
-       $(".close-invoice").click(function(){
-           $('#invoiceModal').modal('hide');
-       });
-       <%if(success.equals("true")){%>
-       $('#announceSuccess').modal('show');
-       <%
-       }
-       %>
-        $("#checkOutNow").click(function(){
-             $("#frm-checkout").submit();
+        $("#traphongbtn").click(function () {
+            // alert("xin chao");
+            $('#invoiceModal').modal('show');
+        });
+        $(".close-invoice").click(function () {
+            $('#invoiceModal').modal('hide');
+        });
+        <%if(success.equals("true")){%>
+        $('#announceSuccess').modal('show');
+        <%
+        }
+        %>
+        $("#checkOutNow").click(function () {
+            $("#frm-checkout").submit();
         });
 
     </script>

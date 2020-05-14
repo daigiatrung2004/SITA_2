@@ -42,4 +42,16 @@ public class SaveImageInServer {
 // write the image to a file
         return path;
     }
+    public static void deleteFileName(String path){
+        if(!path.equals("")) {
+            File myObj = new File(path);
+            if (myObj.delete()) {
+                System.out.println("Deleted the file: " + myObj.getName());
+            } else {
+                System.out.println("Failed to delete the file.");
+            }
+        }else{
+            System.out.println("Failed to delete the file.");
+        }
+    }
 }

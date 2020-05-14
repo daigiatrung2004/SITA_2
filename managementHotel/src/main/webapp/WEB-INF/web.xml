@@ -279,6 +279,22 @@
         <servlet-name>AccomodationDetail</servlet-name>
         <servlet-class>servlet.AccomodationDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Advertisement</servlet-name>
+        <servlet-class>servlet.Employee.Advertisement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateOffer</servlet-name>
+        <servlet-class>servlet.Employee.CreateOffer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateOffer</servlet-name>
+        <url-pattern>/CreateOffer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Advertisement</servlet-name>
+        <url-pattern>/Advertisement</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccomodationDetail</servlet-name>
         <url-pattern>/AccomodationDetail</url-pattern>

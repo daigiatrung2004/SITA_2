@@ -10,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class WarsehouseDA extends DAOOject {
     public boolean inputWarsehouse(WarsehouseTO warsehouseTO) {
@@ -67,6 +66,117 @@ public class WarsehouseDA extends DAOOject {
                         rs.getString("remarks")
                 );
                 listInput.add(warsehouseTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listInput;
+    }
+    // theo quý
+    public ArrayList<Map<Integer,Long>> retrieveAllWarsehouse(int start_month,int end_month,String type,int region) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.ID,(SUM(w.AMOUNT)*p.price) AS AMOUNT FROM "+StaticTO.DB_WARSEHOUSE+"  w inner join  "+StaticTO.DB_EMPLOYEE_NAME+"  e on e.employee_id=w.employee_id inner join "+StaticTO.DB_PRODUCT_NAME+" p on p.ID=w.ID where e.region_id=? and w.type=? and month(w.inputdate) between ? and ?  GROUP BY ID;";
+        conn = getConnection();
+        ArrayList<Map<Integer,Long>> listInput = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,region);
+            pstmt.setString(2, type);
+            pstmt.setInt(3,start_month);
+            pstmt.setInt(4,end_month);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Map<Integer,Long> item=new HashMap<>();
+                item.put(rs.getInt("ID"),rs.getLong("AMOUNT"));
+
+
+
+                listInput.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listInput;
+    }
+    // theo năm
+    public ArrayList<Map<Integer,Long>> retrieveAllWarsehouse(int year,String type,int region) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.ID,(SUM(w.AMOUNT)*p.price) AS AMOUNT FROM "+StaticTO.DB_WARSEHOUSE+"  w inner join  "+StaticTO.DB_EMPLOYEE_NAME+"  e on e.employee_id=w.employee_id inner join "+StaticTO.DB_PRODUCT_NAME+" p on p.ID=w.ID where e.region_id=? and w.type=? and year(w.inputdate)=?  GROUP BY ID;";
+        conn = getConnection();
+        ArrayList<Map<Integer,Long>> listInput = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,region);
+            pstmt.setString(2, type);
+            pstmt.setInt(3,year);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Map<Integer,Long> item=new HashMap<>();
+                item.put(rs.getInt("ID"),rs.getLong("AMOUNT"));
+
+
+
+                listInput.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listInput;
+    }
+    // có năm có year
+    public ArrayList<Map<Integer,Long>> retrieveAllWarsehouseYear(int year,int start_month,int end_month,String type,int region) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.ID,(SUM(w.AMOUNT)*p.price) AS AMOUNT FROM "+StaticTO.DB_WARSEHOUSE+"  w inner join  "+StaticTO.DB_EMPLOYEE_NAME+"  e on e.employee_id=w.employee_id inner join "+StaticTO.DB_PRODUCT_NAME+" p on p.ID=w.ID where e.region_id=? and w.type=? and year(w.inputdate)=? and month(inputdate)  between ? and ? GROUP BY ID";
+        conn = getConnection();
+        ArrayList<Map<Integer,Long>> listInput = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,region);
+            pstmt.setString(2, type);
+            pstmt.setInt(3,year);
+            pstmt.setInt(4,start_month);
+            pstmt.setInt(5,end_month);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+
+                Map<Integer,Long> item=new HashMap<>();
+                item.put(rs.getInt("ID"),rs.getLong("AMOUNT"));
+
+
+
+                listInput.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listInput;
+    }
+    public ArrayList<Map<Integer,Long>> retrieveAllWarsehouse(String type,int region) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.ID,(SUM(w.AMOUNT)*p.price) AS AMOUNT FROM "+StaticTO.DB_WARSEHOUSE+"  w inner join  "+StaticTO.DB_EMPLOYEE_NAME+"  e on e.employee_id=w.employee_id inner join "+StaticTO.DB_PRODUCT_NAME+" p on p.ID=w.ID where e.region_id=? and type=? GROUP BY ID;";
+        conn = getConnection();
+        ArrayList<Map<Integer,Long>> listInput = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,region);
+            pstmt.setString(2, type);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+
+                  Map<Integer,Long> item=new HashMap<>();
+                item.put(rs.getInt("ID"),rs.getLong("AMOUNT"));
+
+
+
+                listInput.add(item);
             }
         } catch (SQLException e) {
             e.printStackTrace();

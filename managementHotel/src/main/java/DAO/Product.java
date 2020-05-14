@@ -131,12 +131,13 @@ public class Product extends DAOOject {
     public ArrayList<ProductTO> listProduct() {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_PRODUCT_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_PRODUCT_NAME +" WHERE STATUS NOT LIKE ?";
         ArrayList<ProductTO> listProduct = new ArrayList<ProductTO>();
         ResultSet rs = null;
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,StaticTO.REMOVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 ProductTO productTO = new ProductTO(rs.getInt("ID"),
@@ -293,6 +294,48 @@ public class Product extends DAOOject {
 
             pstmt.setLong(1, bookingId);
             pstmt.setString(2,StaticTO.ACTIVE_STATUS);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                productTO = new ProductTO(rs.getInt("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getString("FILE_IMG_URL"),
+                        rs.getString("STATUS"),
+                        rs.getString("REMARK"),
+                        rs.getLong("PRICE"),
+                        rs.getString("UNIT"),
+                        rs.getInt("AMOUNT"),
+                        rs.getInt("cate_id"),
+                        rs.getInt("region_id"),
+                        rs.getLong("booking_id"),
+                        rs.getInt("amount_pr"),
+                        rs.getLong("pay")
+                );
+                listProductTO.add(productTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("retrieveProductById+++" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("retrieveProductById+++" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return listProductTO;
+    }
+    // danh sách các sản phẩm dựa theo booking product và product
+    public ArrayList<ProductTO> retrieveBookingProductThongke(long bookingId) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "SELECT P.*,BP.* FROM " + StaticTO.DB_PRODUCT_NAME + " P INNER JOIN " + StaticTO.DB_BOOKING_PRODUCT_NAME + " BP ON BP.ID=P.ID INNER JOIN "+StaticTO.DB_BOOKING_NAME+" B ON B.BOOKiNG_ID=BP.BOOKING_ID WHERE  BP.BOOKING_ID=?";
+        ProductTO productTO = null;
+        ResultSet rs = null;
+        conn = getConnection();
+        ArrayList<ProductTO> listProductTO=new ArrayList<ProductTO>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setLong(1, bookingId);
+
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 productTO = new ProductTO(rs.getInt("ID"),

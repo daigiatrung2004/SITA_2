@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -20,7 +21,13 @@ public class CheckOut extends WebServletEmployee {
     @Override
     protected void process(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
-
+            HttpSession session=request.getSession();
+            EmployeeTO employeeTO=(EmployeeTO)session.getAttribute("mem_sid") ;
+            if(employeeTO!=null){
+                RegionDA regionDA=new RegionDA();
+                RegionTO regionTO=regionDA.retrieveAllRegion(employeeTO.getRegion_id());
+                request.setAttribute("regionTO",regionTO);
+            }
             String roomId = request.getParameter("roomId") != null ? (String) request.getParameter("roomId") : "0";
             String type = request.getParameter("type") != null ? (String) request.getParameter("type") : "";
             int roomIdInt;

@@ -13,8 +13,8 @@
 </head>
 <body>
 <jsp:include page="HeaderAdmin.jsp"></jsp:include>
-<div class="home-admin">
-    Trang Chủ
+<div class="home-admin" style="height:100%;background:url('./img/Admin/welcome-employee.jpg') no-repeat;background-size: 100% 100%;background-position: center">
+
 </div>
 
 <jsp:include page="SideBar.jsp"></jsp:include>
