@@ -87,13 +87,21 @@ public class UpdateRegion extends WebServletAdmin {
             if(splitOrigin.length>0){
                 filename=splitOrigin[0];
             }
+
+            String path=regionTOOld.getFile_url_img();
+            try {
+                path=SaveImageInServer.createImageFromBase64(base64,filename+"_img_region");
+            } catch (Exception e) {
+                path=regionTOOld.getFile_url_img();
+            }
             if(regionTOOld!=null){
-                fileimgurl=regionTOOld.getFile_url_img();
-                deleteFileName(fileimgurl);
+                if(!path.equals(regionTOOld.getFile_url_img())) {
+                    fileimgurl = regionTOOld.getFile_url_img();
+                    deleteFileName(fileimgurl);
+                }
 
             }
-
-            RegionTO regionTO = new RegionTO(regionInt, name_vi, name_en, status, remark, SaveImageInServer.createImageFromBase64(base64,filename+"_img_region"),address,phone);
+            RegionTO regionTO = new RegionTO(regionInt, name_vi, name_en, status, "description:"+remark+";",path,address,phone);
             boolean checkSuccess=regionDA.updateRegion(regionTO);
             try {
                 response.getWriter().print("{\"success\":"+checkSuccess+"}");

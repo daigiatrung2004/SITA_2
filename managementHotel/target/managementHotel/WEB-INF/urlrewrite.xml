@@ -42,6 +42,23 @@
         <to type="redirect">%{context-path}/Home</to>
     </rule>
     <rule enabled="true">
+        <from>^/vi/([0-9]+)/([0-9]+)/endow.html$</from>
+        <to>/DetailOffer?regionid=$1&amp;packageid=$2</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/([0-9]+)/([0-9]+)/endow.html$</from>
+        <to>/DetailOffer?regionid=$1&amp;packageid=$2</to>
+    </rule>
+
+    <rule enabled="true">
+        <from>^/vi/benefit-booking$</from>
+        <to>/BenefitBooking</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/benefit-booking$</from>
+        <to>/BenefitBooking</to>
+    </rule>
+    <rule enabled="true">
         <from>^/vi/legal-information.html$</from>
         <to>/FooterControl?type=legalInfo</to>
     </rule>
@@ -76,6 +93,7 @@
         <from>^/vi/contact-us.html$</from>
         <to type="permanent-redirect">/FooterControl?type=contactus</to>
     </rule>
+
 
 
 

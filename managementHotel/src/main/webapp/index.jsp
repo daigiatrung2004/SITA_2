@@ -1,9 +1,14 @@
 <%@ page import="DTO.RegionTO" %>
 <%@ page import="Language.LanguageControl" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="DTO.AdvertisementTO" %>
+<%@ page import="DTO.StaticTO" %>
+<%@ page import="Utils.TextCustomizeFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%LanguageControl lang = (LanguageControl) session.getAttribute("LanguageControl");%>
-<% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;%>
+<% String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;
+    ArrayList<AdvertisementTO> listAdvertisement = (ArrayList<AdvertisementTO>) request.getAttribute("listAdvertisement");
+%>
 <html>
 <head>
     <title>Home-Victoria Secret</title>
@@ -19,18 +24,18 @@
 
     %>
     <div class="div-main-home-customer">
-<%--        <div class="ui rail">--%>
-<%--            <div class="ui sticky ">--%>
-<%--                <!-- Any arbitrary content !-->--%>
-<%--                hello--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div id="context">--%>
-<%--            <!-- Long flowing text content !-->--%>
-<%--            <h2>xin choa</h2>--%>
-<%--        </div>--%>
+        <%--        <div class="ui rail">--%>
+        <%--            <div class="ui sticky ">--%>
+        <%--                <!-- Any arbitrary content !-->--%>
+        <%--                hello--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
+        <%--        <div id="context">--%>
+        <%--            <!-- Long flowing text content !-->--%>
+        <%--            <h2>xin choa</h2>--%>
+        <%--        </div>--%>
         <!--danh cho booking-->
-        <nav class="navbar navbar-inverse " id="nav-booking" >
+        <nav class="navbar navbar-inverse " id="nav-booking">
             <div class="search-booking  ">
                 <!--search booking-->
                 <form id="form-search-home" method="get" action="SearchControl">
@@ -45,7 +50,15 @@
                             </div>
                             <div class="element-search">
                                 <select class="select-search" name="location">
-                                    <option value="0">Tất cả</option>
+                                    <option value="0">
+                                        <%
+                                            if (language.equals(LanguageControl.VN_LAN)) {
+                                        %>
+                                        Tất cả
+                                        <%}else{%>
+                                        All
+                                        <%}%>
+                                    </option>
                                     <%
                                         if (listRegionTO != null) {
                                             for (int i = 0; i < listRegionTO.size(); i++) {
@@ -57,7 +70,7 @@
                                     <%
                                     } else {
                                     %>
-                                    <option value="<%=listRegionTO.get(i).getRegion_id()%>"><%=listRegionTO.get(i).getName_vi()%>
+                                    <option value="<%=listRegionTO.get(i).getRegion_id()%>"><%=listRegionTO.get(i).getName_en()%>
                                     </option>
                                     <%
 
@@ -111,14 +124,29 @@
                                 <div class="select-customize">
 
                                 <span id="show-num-people">
+                                    <%
+                                        if (language.equals(LanguageControl.VN_LAN)) {
+                                    %>
                                     <span id="soluong">2</span> người lớn
+                                    <%} else {%>
+                                     <span id="soluong">2</span> person
+                                    <%}%>
                                     <input type="hidden" value="2" name="numOfPeo" id="numOfPeo"/>
                                 </span>
                                     <span class="icon"><i class="angle down icon"></i></span>
                                 </div>
                                 <div class="pos-show-num-people">
                                     <div>
+                                        <%
+                                            if (language.equals(LanguageControl.VN_LAN)) {
+                                        %>
                                         <label>Người lớn per room</label>
+                                        <%
+                                        } else {
+                                        %>
+                                        <label>adult per room</label>
+                                        <%
+                                            }%>
                                         <div style="display: flex;justify-content: center;">
                                             <div class="bg-num-people substract">
                                                 <button type="button" class="btn-peo">-</button>
@@ -140,7 +168,8 @@
                                 </label>
                             </div>
                             <div class="element-search">
-                                <input type="text" value="" name="promote" id="promote" placeholder="Mã Khuyến Mãi">
+                                <input type="text" value="" name="promote" id="promote"
+                                       placeholder="<%if(language.equals(LanguageControl.VN_LAN)){%>Mã Khuyến Mãi<%}else{%>Promote Code<%}%>">
 
                             </div>
                         </li>
@@ -170,7 +199,8 @@
                             <li>Giảm giá dịch vụ Spa &amp; Ăn uống</li>
                         </ul>
                         <div class="video-content-link">
-                            <a href="https://www.victoriahotels.asia/benefit-booking">CHI TIẾT</a>
+
+                            <a href="./vi/benefit-booking">CHI TIẾT</a>
                         </div>
 
                         <%} else {%>
@@ -183,7 +213,7 @@
                             <li>Discount on Spa, Food and Beverage</li>
                         </ul>
                         <div class="video-content-link">
-                            <a href="https://www.victoriahotels.asia/benefit-booking">FIND OUT MORE</a>
+                            <a href="./en/benefit-booking">FIND OUT MORE</a>
                         </div>
                         <%}%>
                     </div>
@@ -263,6 +293,9 @@
 
         <!--dành cho giá ưu đãi-->
         <div class="endow  col-md-12" style=" padding-bottom: 100px!important;">
+            <%
+                if (listAdvertisement != null) {
+            %>
             <div class="block-title">
                 <h2><%=lang.readXMl("enow_header")%>
                 </h2>
@@ -274,15 +307,33 @@
 
                 <!-- The slideshow -->
                 <div class="carousel-inner">
+                    <%
+                        if (listAdvertisement.size() > 0) {
+                            for (int i = 0; i < listAdvertisement.size(); i++) {
+
+                                if (i == 0) {
+                    %>
                     <div class="carousel-item active">
-                        <img src="./img/215-big.jpg" alt="" class="img-size-endow">
+                        <a href="./<%=language%>/<%=listAdvertisement.get(i).getRegion_id()%>/<%=listAdvertisement.get(i).getID()%>/endow.html">
+                            <img src="<%=listAdvertisement.get(i).getFILE_URL_IMG().replace(StaticTO.STATIC_PATH,"")%>"
+                                 alt="" class="img-size-endow">
+                        </a>
                     </div>
-                    <div class="carousel-item">
-                        <img src="./img/226-big.jpg" alt="" class="img-size-endow">
+                    <%
+                    } else {
+                    %>
+                    <div class="carousel-item ">
+                        <a href="./<%=language%>/<%=listAdvertisement.get(i).getRegion_id()%>/<%=listAdvertisement.get(i).getID()%>/endow.html">
+
+                            <img src="<%=listAdvertisement.get(i).getFILE_URL_IMG().replace(StaticTO.STATIC_PATH,"")%>"
+                                 alt="" class="img-size-endow">
+                        </a>
                     </div>
-                    <div class="carousel-item">
-                        <img src="./img/227-big.jpg" alt="" class="img-size-endow">
-                    </div>
+                    <%
+                                }
+                            }
+                        }
+                    %>
                 </div>
 
                 <!-- Left and right controls -->
@@ -293,6 +344,9 @@
                     <span class="carousel-control-next-icon"></span>
                 </a>
             </div>
+            <%
+                }
+            %>
         </div>
 
         <!-- giới thiệu về victoria-->
@@ -318,10 +372,10 @@
                             </p>
                             <p>
                                 <%if (language.equals(LanguageControl.VN_LAN)) {%>
-                                <a class="view-details" href="./vi/contact-us.html" style="color: black!important">Chi
+                                <a class="view-details" href="./vi/about-victoria.html" style="color: black!important">Chi
                                     tiết</a>
                                 <%} else {%>
-                                <a class="view-details" href="./en/contact-us.html" style="color: black!important">View
+                                <a class="view-details" href="./en/about-victoria.html" style="color: black!important">View
                                     Details</a>
                                 <%}%>
                             </p></div>

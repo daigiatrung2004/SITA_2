@@ -42,7 +42,7 @@ public class ServletSettingsHR extends WebServletAdmin {
                 String region = request.getParameter("region") != null ? request.getParameter("region") : "0";
 
                 // ma hoa password
-                Random rd = new Random(11);
+                Random rd = new Random();
                 String sankey = String.valueOf(rd.nextInt(StaticTO.numOfRandom));
                 EncryptDecryptPassword encryptDecryptPassword = new EncryptDecryptPassword(sankey);
                 String encryptPass = encryptDecryptPassword.encrypt(pwd);

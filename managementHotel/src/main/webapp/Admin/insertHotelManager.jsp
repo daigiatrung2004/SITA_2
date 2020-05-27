@@ -498,6 +498,7 @@
             tools: {title: 'Tools', items: 'spellchecker code'}
         }
     });
+
 </script>
 <script src="./scripts/Admin/InsertHotelManager.js"></script>
 

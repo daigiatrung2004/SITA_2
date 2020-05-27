@@ -59,7 +59,29 @@ public class AjaxInsertTransport extends WebServletAdmin {
 
                 }
 
-            } else {
+            }
+            else if(!type.equals("")&&type.equals("delete")){
+                // xóa vận chuyển theo từng khu vực
+               String regionid=request.getParameter("regionid")!=null?(String)request.getParameter("regionid"):"";
+               String transportid=request.getParameter("transportid")!=null?(String)request.getParameter("transportid"):"";
+               long transportidLong;
+               int regionidInt;
+                try {
+                    transportidLong=Long.parseLong(transportid);
+                } catch (NumberFormatException e) {
+                    transportidLong=0;
+                }
+                try {
+                    regionidInt=Integer.parseInt(regionid);
+                } catch (NumberFormatException e) {
+                    regionidInt=0;
+                }
+                 checkSuccess=transportDA.deleteTransportRegion(transportidLong,regionidInt);
+
+
+
+            }
+            else {
                 // thêm dữ liệu transport(Vân chuyển)
                 TransportTO transportTO = new TransportTO(0, name_trans_vi, name_trans_en, detail_trans_vi, detail_trans_en, price_trans_long, StaticTO.ACTIVE_STATUS, "");
                 checkSuccess = transportDA.addTransport(transportTO);

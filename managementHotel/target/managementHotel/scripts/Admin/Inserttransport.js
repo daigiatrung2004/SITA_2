@@ -49,7 +49,7 @@ function insertTrans() {
 
 }
 function insertTransportation(url){
-    alert(url);
+    // alert(url);
     var xmlhttp = getXMLHTTP();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

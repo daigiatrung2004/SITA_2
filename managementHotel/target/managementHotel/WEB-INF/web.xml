@@ -287,6 +287,70 @@
         <servlet-name>CreateOffer</servlet-name>
         <servlet-class>servlet.Employee.CreateOffer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxListingFurniture</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxListingFurniture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BenefitBooking</servlet-name>
+        <servlet-class>servlet.BenefitBooking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailOffer</servlet-name>
+        <servlet-class>servlet.DetailOffer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailAllOffer</servlet-name>
+        <servlet-class>servlet.DetailAllOffer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingTransport</servlet-name>
+        <servlet-class>servlet.Admin.ListingTransport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxAdvertisement</servlet-name>
+        <servlet-class>servlet.Ajax.AjaxAdvertisement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingService</servlet-name>
+        <servlet-class>servlet.Admin.ListingService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListingKindRoom</servlet-name>
+        <servlet-class>servlet.Admin.ListingKindRoom</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListingKindRoom</servlet-name>
+        <url-pattern>/ListingKindRoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingService</servlet-name>
+        <url-pattern>/ListingService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxAdvertisement</servlet-name>
+        <url-pattern>/AjaxAdvertisement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListingTransport</servlet-name>
+        <url-pattern>/ListingTransport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailAllOffer</servlet-name>
+        <url-pattern>/DetailAllOffer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailOffer</servlet-name>
+        <url-pattern>/DetailOffer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BenefitBooking</servlet-name>
+        <url-pattern>/BenefitBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxListingFurniture</servlet-name>
+        <url-pattern>/AjaxListingFurniture</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateOffer</servlet-name>
         <url-pattern>/CreateOffer</url-pattern>

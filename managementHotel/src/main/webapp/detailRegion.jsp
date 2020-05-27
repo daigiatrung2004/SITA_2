@@ -1,9 +1,7 @@
-<%@ page import="DTO.RegionTO" %>
 <%@ page import="Language.LanguageControl" %>
-<%@ page import="DTO.StaticTO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="DTO.KindRoomTO" %>
-<%@ page import="DTO.UploadResourceTO" %><%--
+<%@ page import="DTO.*" %>
+<%@ page import="DAO.PromoteDA" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 07/05/2020
@@ -17,6 +15,7 @@
     String language = session.getAttribute("language") != null ? (String) session.getAttribute("language") : LanguageControl.VN_LAN;
     ArrayList<KindRoomTO> listRoom=(ArrayList<KindRoomTO>)request.getAttribute("listRoom");
     ArrayList<UploadResourceTO> listResource=(ArrayList<UploadResourceTO>)request.getAttribute("listResource");
+    ArrayList<AdvertisementTO> listAdvertisementTO=(ArrayList<AdvertisementTO>)request.getAttribute("listAdvertisementTO");
 %>
 <html>
 <head>
@@ -41,6 +40,59 @@
         .header-div-main {
             position: relative !important;
         }
+        .title-contact {
+            padding: 100px;
+            margin-bottom: 100px;
+            background: white;
+        }
+
+        .btn-custom {
+            padding: 5px !important;
+            width: 200px;
+            margin-bottom: 14px;
+        }
+
+        .item-other-offer {
+            margin-left: 10px;
+            margin-top: 20px;
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 0px!important;
+        }
+
+        .offer-other {
+            padding: 0px !important;
+        }
+
+        .item-content {
+            min-height: 450px;
+
+            text-align: center;
+        }
+
+        .other-div-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-booking {
+            width: 200px;
+            text-align: center;
+            clear: both;
+        }
+        .scrolling-wrapper-flexbox {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+        .card {
+            flex: 0 0 auto;
+        }
+        .drag {
+            -webkit-overflow-scrolling: touch;
+        }
+
     </style>
     <jsp:include page="library_detail.jsp"></jsp:include>
 </head>
@@ -82,7 +134,7 @@
                             <li>Giảm giá dịch vụ Spa &amp; Ăn uống</li>
                         </ul>
                         <div class="video-content-link">
-                            <a href="https://www.victoriahotels.asia/benefit-booking">CHI TIẾT</a>
+                            <a href="<%=request.getContextPath()+"/vi/benefit-booking"%>">CHI TIẾT</a>
                         </div>
 
                         <%} else {%>
@@ -95,7 +147,7 @@
                             <li>Discount on Spa, Food and Beverage</li>
                         </ul>
                         <div class="video-content-link">
-                            <a href="https://www.victoriahotels.asia/benefit-booking">FIND OUT MORE</a>
+                            <a href="<%=request.getContextPath()+"/en/benefit-booking"%>">FIND OUT MORE</a>
                         </div>
                         <%}%>
                     </div>
@@ -198,11 +250,29 @@
                     <a href="amthuc"></a>
                 </div>
                 <div class="content-entertainment">
-                    <h3>Ẩm thực</h3>
+                    <h3>
+                        <%if (language.equals(LanguageControl.VN_LAN)) {%>
+                        Ẩm thực
+                        <%}else{%>
+                        Food
+                        <%}%>
+                    </h3>
+                    <%if (language.equals(LanguageControl.VN_LAN)) {%>
                     <p style="word-break: break-word">
-                        Cảm nhận đặc trưng của ẩm thực Sapa thông qua nguyên liệu, hương vị độc đáo tại nhà hàng Tả Văn và bar Tả Fin với lò sưởi ấm áp cùng tầm nhìn hùng vĩ của Fansipan.
+                        Cảm nhận đặc trưng của ẩm thực Victoria thông qua nguyên liệu, hương vị độc đáo tại nhà hàng Tả Văn và bar Tả Fin với lò sưởi ấm áp cùng tầm nhìn hùng vĩ của Fansipan.
                     </p>
-                    <a href="amthuc" style="color: black">Chi tiết</a>
+                    <%}else{%>
+                    <p style="word-break: break-word">
+                        Feel the characteristics of Victoria cuisine through unique ingredients and flavors at Ta Van restaurant and Ta Fin bar with warm fireplace and majestic views of Fansipan.
+                    </p>
+                    <%}%>
+                    <a href="amthuc" style="color: black">
+                        <%if (language.equals(LanguageControl.VN_LAN)) {%>
+                        Chi tiết
+                        <%}else{%>
+                        View Detail
+                        <%}%>
+                    </a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -210,17 +280,36 @@
                     <a href="thugian"></a>
                 </div>
                 <div class="content-entertainment">
-                    <h3>Thư giãn</h3>
+                    <%if (language.equals(LanguageControl.VN_LAN)) {%>
+                    <h3>
+
+                        Thư giãn
+
+
+                    </h3>
                     <p style="word-break: break-word">
                         Spa Victoria trải dài hai tầng với hệ thống xông hơi và bồn tắm bằng gỗ thông được thiết kế riêng. Khu phức hợp bao gồm 8 phòng trị liệu đơn và 4 phòng trị liệu đôi.
                     </p>
                     <a href="thugian" style="color: black">Chi tiết</a>
+                    <%}else{%>
+                    <h3>
+
+                        Relax
+
+
+                    </h3>
+                    <p style="word-break: break-word">
+                        The Victoria Spa spans two floors with a sauna system and a pine-designed bathtub. The complex includes 8 single treatment rooms and 4 double treatment rooms.
+                    </p>
+                    <a href="thugian" style="color: black">View detail</a>
+                    <%}%>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="img-entertainment" style="background: url('<%=request.getContextPath()%>/img/dichvu.jpg') no-repeat;">
                     <a href="dichvu"></a>
                 </div>
+                <%if (language.equals(LanguageControl.VN_LAN)) {%>
                 <div class="content-entertainment">
                     <h3>Dịch vụ</h3>
                     <p style="word-break: break-word">
@@ -228,6 +317,15 @@
                     </p>
                     <a href="dichvu" style="color: black">Chi tiết</a>
                 </div>
+                <%}else{%>
+                <div class="content-entertainment">
+                    <h3>Service</h3>
+                    <p style="word-break: break-word">
+                        The resort offers a wide range of services from transportation and sightseeing itinerary to babysitting and children's play area.
+                    </p>
+                    <a href="dichvu" style="color: black">View detail</a>
+                </div>
+                <%}%>
             </div>
         </div>
     </div>
@@ -293,74 +391,105 @@
         </h2>
         <div class="under-line"></div>
     </div>
-    <div class="content-detail col-md-12">
-        <div class="col-md-12 row" id="offers">
-            <div class="col-md-4">
-                <div class="img-entertainment" style="background: url('<%=request.getContextPath()%>/img/uudai-1.jpg') no-repeat;">
-                    <a href="amthuc"></a>
+    <div class="content-detail col-md-12" style="overflow: auto">
+        <div class="col-md-12 drag" style="display:flex;overflow: auto">
+            <%
+                if (listAdvertisementTO != null) {
+                    for (int i = 0; i < listAdvertisementTO.size(); i++) {
+                        PromoteDA promoteDA = new PromoteDA();
+                        PromoteTO promoteTO1 = promoteDA.retrievePromotePrice(listAdvertisementTO.get(i).getPromote_id());
+                        if (promoteTO1 != null) {
+
+            %>
+            <div class="item-other-offer col-md-4">
+                <div class="item-img"
+                     style="height: 250px;background: url('<%=request.getContextPath()%>/<%=listAdvertisementTO.get(i).getFILE_URL_IMG().replace(StaticTO.STATIC_PATH,"").replace("\\","/")%>') no-repeat;background-size: 100% 100%;background-position: center;">
+
                 </div>
-                <div class="content-entertainment">
-                    <h3>Gói Tham Dự Giải Chạy Vietnam Mountain Marathon 2020</h3>
-                    <p style="word-break: break-word">
-                        US $410/ 2 khách hoặc US $305/ khách
-                    </p>
-                    <p style="word-break: break-word">
-                        Cùng Victoria Sapa vượt qua giới hạn bản thân với giải Vietnam Mountain Marathon 2020 trên những cung đường thử thách nhất Việt Nam tại Sapa.
-                    </p>
-                    <p style="word-break: break-word">
-                    3 Ngày / 2 Đêm
-                </p>
-                    <p style="word-break: break-word">
-                        Áp dụng đến 20/09/2020
-                    </p>
-                    <a href="amthuc" style="color: black">Chi tiết</a>
+                <div class="div-content">
+                    <div class="item-content">
+                        <h2>
+                            <%
+                                if (language.equals(LanguageControl.VN_LAN)) {
+                            %>
+                            <%=listAdvertisementTO.get(i).getTITLE()%>
+                            <%}else{%>
+                            <%=listAdvertisementTO.get(i).getTILTLE_EN()%>
+                            <%}%>
+                        </h2>
+                        <p>
+                            <%
+                                if (language.equals(LanguageControl.VN_LAN)) {
+                            %>
+                            <%=listAdvertisementTO.get(i).getSHORT_DESCRIPTION()%>
+                            <%}else{%>
+                            <%=listAdvertisementTO.get(i).getSHORT_DESCRIPTION_EN()%>
+                            <%}%>
+                        </p>
+                    </div>
+                    <div>
+                        <%
+                            if (language.equals(LanguageControl.VN_LAN)) {
+                        %>
+                        <div class="other-div-item">
+                            <a href="<%=request.getContextPath()%>/vi/<%=regionTO.getRegion_id()%>/<%=listAdvertisementTO.get(i).getID()%>/endow.html">
+                                <%
+                                    if (language.equals(LanguageControl.VN_LAN)) {
+                                %>
+                                <button class="btn btn-custom"
+                                        style="border: 2px solid #B9975B;color: #B9975B;padding: 10px 20px;">Chi
+                                    tiết
+                                </button>
+                                <%}else{%>
+                                <button class="btn btn-custom"
+                                        style="border: 2px solid #B9975B;color: #B9975B;padding: 10px 20px;">
+                                    View Detail
+                                </button>
+                                <%}%>
+                            </a>
+                        </div>
+                        <div class="other-div-item">
+
+                            </div>
+                                <%
+                                } else {
+                                %>
+                                <div class="other-div-item">
+                                    <a href="<%=request.getContextPath()%>/en/<%=regionTO.getRegion_id()%>/<%=listAdvertisementTO.get(i).getID()%>/endow.html">
+                                        <button class="btn btn-custom"
+                                                style="border: 2px solid #B9975B;color: #B9975B;padding: 10px 20px;">VIEW
+                                            DETAIL
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="other-div-item">
+
+                                </div>
+                                <%
+                                    }
+                                %>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="img-entertainment" style="background: url('<%=request.getContextPath()%>/img/uudai-2.jpg') no-repeat;">
-                    <a href="thugian"></a>
-                </div>
-                <div class="content-entertainment">
-                    <h3>Gói Tham Dự Giải Chạy Vietnam Mountain Marathon 2020 Bao Gồm Tàu</h3>
-                    <p style="word-break: break-word">
-                        US $710/ 2 khách hoặc US $435/ 1 khách
-                    </p>
-                    <p style="word-break: break-word">
-                        Trải nghiệm cuộc đua hoàn hảo hơn với tàu Victoria Express 2 chiều khởi hành từ Hà Nội, thưởng thức những bữa ăn bổ dưỡng và mát-xa thư giãn chuẩn bị cho cuộc đua.
-                    </p>
-                    <p style="word-break: break-word">
-                        3 Ngày / 2 Đêm
-                    </p>
-                    <p style="word-break: break-word">
-                        Áp dụng đến 20/09/2020
-                    </p>
-                    <a href="thugian" style="color: black">Chi tiết</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="img-entertainment" style="background: url('<%=request.getContextPath()%>/img/trainghiem-2.jpg') no-repeat;">
-                    <a href="dichvu"></a>
-                </div>
-                <div class="content-entertainment">
-                    <h3>Khám Phá Sapa Cùng Tàu Victoria Express</h3>
-                    <p style="word-break: break-word">
-                        VND 4,136,000 ++ / khách – Tối thiểu 2 khách 1 phòng
-                    </p>
-                    <p style="word-break: break-word">
-                        (Giảm thêm 20% cho khách khởi hành vào thứ 3 hàng tuần)
-                    </p>
-                    <p style="word-break: break-word">
-                        Trải nghiệm Sapa hoàn hảo với 2 ngày 1 đêm nghỉ tại Victoria Sapa bao gồm vé tàu 2 chiều từ Hà Nội, tour thưởng ngoạn sapa, dịch vụ mát xa, ăn tối và nhiều ưu đãi khác
-                    </p>
-                    <p style="word-break: break-word">
-                        2 Ngày / 1 Đêm
-                    </p>
-                    <p style="word-break: break-word">
-                        Áp dụng đến 23/12/2020
-                    </p>
-                    <a href="dichvu" style="color: black">Chi tiết</a>
-                </div>
-            </div>
+
+            <%
+                    }
+                }
+            } else {
+            %>
+            <%
+                if (language.equals(LanguageControl.VN_LAN)) {
+            %>
+            <h2>Hiện tại không có dữ liệu liên quan</h2>
+            <%
+            } else {
+            %>
+            <h2>There are currently no related data</h2>
+            <%
+                    }
+                }
+            %>
         </div>
     </div>
     <!---->
@@ -417,6 +546,7 @@
                 });
             }
         }
+
 
     });
 </script>

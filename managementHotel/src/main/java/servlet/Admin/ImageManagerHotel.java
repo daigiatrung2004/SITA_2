@@ -30,6 +30,7 @@ public class ImageManagerHotel extends WebServletAdmin{
                 }
                 request.setAttribute("listImg",listImg);
             }
+            request.setAttribute("listRegion",listRegion);
 
             forward("/Admin/ListImageHotel.jsp",request,response);
         } catch (ServletException e) {

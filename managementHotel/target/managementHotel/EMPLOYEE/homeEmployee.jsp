@@ -21,7 +21,7 @@ String countAnnounce=request.getAttribute("countAnnounce")!=null?(String)request
 <jsp:include page="/EMPLOYEE/Header-employee.jsp"></jsp:include>
 <div class="welcome-div-employee"
      style="min-height: 700px; background-size: cover;background-position: center;margin: 100px">
-    <div class="func col-lg-12 row">
+    <div class="func col-lg-12 row" style="justify-content: center;">
         <div class="func-item-employee col-lg-3 ">
             <a href="ListingBooking" class="a-func-item"></a>
             <div class="func-item-img"

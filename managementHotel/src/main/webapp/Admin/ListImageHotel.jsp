@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="DTO.UploadResourceTO" %>
-<%@ page import="DTO.StaticTO" %><%--
+<%@ page import="DTO.StaticTO" %>
+<%@ page import="DTO.RegionTO" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 29/04/2020
@@ -10,6 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList listImg=(ArrayList) request.getAttribute("listImg");
+    ArrayList<RegionTO> listRegion=(ArrayList<RegionTO>)request.getAttribute("listRegion");
 %>
 <html>
 <head>
@@ -17,7 +19,7 @@
     <jsp:include page="../Library.jsp"></jsp:include>
     <link rel="stylesheet" href="./css/Admin/ListImageHotel.css">
 </head>
-<body>
+<body style="background: #e6e8e7">
 <jsp:include page="HeaderAdmin.jsp"></jsp:include>
 <div class="div-main-listing-hotel">
 <div class="div-insert col-lg-12" style="margin:20px">
@@ -27,13 +29,17 @@
     <div class="col-lg-12" style=";border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;padding: 10px;">
     <h3 style="text-align: center;color:black">Danh sách hình ảnh</h3>
     </div>
-    <div style="display: flex;padding: 20px;height: 100%;background: #e6e8e7">
+    <div style="background: #e6e8e7;padding: 30px;">
 <%
-    if(listImg!=null&&listImg.size()>0){
+    if(listImg!=null&&listImg.size()>0&&listRegion!=null){
         for (int i = 0; i <listImg.size() ; i++) {
 
            ArrayList<UploadResourceTO> listResource=(ArrayList<UploadResourceTO>) listImg.get(i);
-           if(listResource!=null){
+           if(listResource!=null&&listResource.size()>0){
+               %>
+        <h2 ><%=listRegion.get(i).getName_vi()%></h2>
+        <div style="display: flex;padding: 20px;height: 100%;background: #e6e8e7">
+        <%
                for (int j = 0; j <listResource.size() ; j++) {
 
 
@@ -46,6 +52,9 @@
 </div>
     <%
                     }
+               %>
+        </div>
+            <%
                 }
             }
         }

@@ -118,7 +118,9 @@ function insertPromote(url) {
             var data = xmlhttp.responseText;
             var json = JSON.parse(data);
             if (json['success']) {
+
                 alert("Thành công");
+                location.reload();
             } else {
                 alert("Thất bại");
             }
@@ -141,6 +143,7 @@ function serviceRoom() {
             var json = JSON.parse(data);
             if (json['success']) {
                 alert('thành công');
+                location.reload();
             } else {
                 alert('thất bại');
 
@@ -190,6 +193,7 @@ function insertService() {
         success: function (data) {
             if (data['success']) {
                 alert("Thành công");
+                location.reload();
             } else {
                 alert("Thất bại");
             }
@@ -227,7 +231,7 @@ function insertImg() {
         success: function (data) {
             if (data['success']) {
                 alert("Thành công");
-
+                location.reload();
             } else {
                 alert("Thất bại");
 
@@ -273,15 +277,19 @@ function insert(vi, en, type) {
                 if (type === 'kindroom') {
                     // $("#result-insert-kind-room").text("Thành công");
                     alert("Thành công");
+                    location.reload();
                 } else if (type === 'room') {
                     alert("Thành công");
+                    location.reload();
                     // $("#result-insert-room").text("Thành công");
                 } else if (type === 'price-room') {
                     // $("#result-price-room").text("Thành công");
                     alert("Thành công");
+                    location.reload();
                 } else {
                     // $("#result-insert-region").text("Thành công");
                     alert("Thành công");
+                    location.reload();
                 }
 
 
@@ -343,6 +351,7 @@ function insertRegion(){
         success: function (data) {
             if (data['success']) {
                 alert("Thành công");
+                location.reload();
             } else {
                 alert("Thất bại");
             }

@@ -34,6 +34,31 @@ public class RoomOfALLDA extends DAOOject {
         }
         return (rs > 0);
     }
+    // update kind room
+    public boolean updateKindRoom(KindRoomTO kindRoomTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE " + StaticTO.DB_KIND_ROOM_NAME + " SET name_vi=?,name_en=?,status=?,remark=? WHERE kind_room_id=?";
+        conn = getConnection();
+        int rs = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+
+            pstmt.setString(index++, kindRoomTO.getName_vi());
+            pstmt.setString(index++, kindRoomTO.getName_en());
+            pstmt.setString(index++, kindRoomTO.getStatus());
+            pstmt.setString(index++, kindRoomTO.getRemark());
+            pstmt.setInt(index++, kindRoomTO.getKindroom_id());
+            rs = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
 
     // update room
     public boolean updateRoom(RoomTO roomTO) {
@@ -89,17 +114,43 @@ public class RoomOfALLDA extends DAOOject {
 
         return (rs > 0);
     }
+    // update price roomj
+    public boolean updatePriceRoom(PriceRoomTO priceRoomTO) {
+        int rs = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE " + StaticTO.DB_PRICE_ROOM + " SET type_price_room_vi=?,type_price_room_en=?,price_1_night=?,kind_room_id=?,status=?,remark=? WHERE price_id=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+
+            pstmt.setString(index++, priceRoomTO.getType_price_room_vi());
+            pstmt.setString(index++, priceRoomTO.getType_price_room_en());
+            pstmt.setLong(index++, priceRoomTO.getPrice_1_night());
+            pstmt.setInt(index++, priceRoomTO.getKind_room_id());
+            pstmt.setString(index++, priceRoomTO.getStatus());
+            pstmt.setString(index++, priceRoomTO.getRemark());
+            pstmt.setInt(index++, priceRoomTO.getPrice_id());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return (rs > 0);
+    }
 
     //  lấy danh sách các giá
     public ArrayList<PriceRoomTO> retrieveALLPrice() {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_PRICE_ROOM;
+        String sql = "SELECT * FROM " + StaticTO.DB_PRICE_ROOM +" WHERE STATUS=?";
         ArrayList<PriceRoomTO> listPriceRoomTO = new ArrayList<PriceRoomTO>();
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 PriceRoomTO priceRoomTO = new PriceRoomTO(rs.getInt("price_id"),
@@ -192,17 +243,51 @@ public class RoomOfALLDA extends DAOOject {
 
         return listPriceRoomTO;
     }
+     // danh sach cac gia phong theo tung laoi phong
+     public ArrayList<PriceRoomTO> retrievePriceByKindRoom(int kind_room_id) {
+         Connection conn = null;
+         PreparedStatement pstmt = null;
+         ResultSet rs = null;
+         String sql = "SELECT * FROM "+StaticTO.DB_PRICE_ROOM +" WHERE KIND_ROOM_ID=? AND STATUS=?";
+         ArrayList<PriceRoomTO> listPriceRoomTO = new ArrayList<PriceRoomTO>();
+         conn = getConnection();
+         try {
+             pstmt = conn.prepareStatement(sql);
+             pstmt.setInt(1, kind_room_id);
 
+             pstmt.setString(2, StaticTO.ACTIVE_STATUS);
+             rs = pstmt.executeQuery();
+             while (rs.next()) {
+                 PriceRoomTO priceRoomTO = new PriceRoomTO(rs.getInt("price_id"),
+                         rs.getString("type_price_room_vi"),
+                         rs.getString("type_price_room_en"),
+                         rs.getLong("price_1_night"),
+                         rs.getInt("kind_room_id"),
+                         rs.getString("status"),
+                         rs.getString("remark")
+                 );
+                 listPriceRoomTO.add(priceRoomTO);
+
+             }
+         } catch (SQLException e) {
+             e.printStackTrace();
+         } finally {
+             DbUtils.closeQuietly(rs);
+         }
+
+         return listPriceRoomTO;
+     }
     // lấy tất cả các loại phòng
     public ArrayList<KindRoomTO> retrieveALLKindRoom() {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_KIND_ROOM_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_KIND_ROOM_NAME+" WHERE STATUS=?";
         ArrayList<KindRoomTO> listKindRoomTO = new ArrayList<KindRoomTO>();
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 KindRoomTO kindRoomTO = new KindRoomTO(rs.getInt("kind_room_id"),
@@ -540,6 +625,60 @@ public class RoomOfALLDA extends DAOOject {
         return listRoomTO;
     }
 
+    // tìm tất cả các phòng theo khu vuc
+    public  ArrayList<RoomTO> retrieveRoomByStatus(int region_id,String status){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        RoomTO roomTO = null;
+
+        ArrayList<RoomTO> listRoomTO=new ArrayList<RoomTO>();
+        String sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " R WHERE R.REGION_ID=? AND R.STATUS!=? ";
+        if(!status.equals("0")) {
+
+             sql = "SELECT * FROM " + StaticTO.DB_ROOM_NAME + " R WHERE R.REGION_ID=? AND R.STATUS=? ";
+        }
+        conn = getConnection();
+        try {
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date date1 = df.parse(checkOut);
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+            pstmt.setInt(index++, region_id);
+             if(status.equals("0")) {
+                 pstmt.setString(index++, StaticTO.REMOVE_STATUS);
+             }else if(status.equals("1")){
+                 pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+             }else {
+                 pstmt.setString(index++, StaticTO.COMPLETE_STATUS);
+             }
+//            pstmt.setString(index++, StaticTO.ACTIVE_STATUS);
+//            pstmt.setString(index++,date1.toString());
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                roomTO = new RoomTO(rs.getInt("room_id"),
+                        rs.getString("name"),
+                        rs.getInt("kind_room_id"),
+                        rs.getInt("region_id"),
+                        rs.getInt("price_id"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getInt("max_peopel")
+                );
+
+                listRoomTO.add(roomTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("++++++searchRoom" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return listRoomTO;
+    }
+
     // thêm furniture
     public boolean addfurniture(FurnitureTO furnitureTO) {
         Connection conn = null;
@@ -565,6 +704,35 @@ public class RoomOfALLDA extends DAOOject {
             e.printStackTrace();
         } finally {
             System.out.println("addfurniture" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
+    public boolean updateFurniture(FurnitureTO furnitureTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "UPDATE " + StaticTO.DB_FURNITURE_NAME + " SET name_vi=?,name_en=?,type=?,price=?,details=?,status=?,remark=?,type_en=? WHERE id_furniture=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+
+            pstmt.setString(index++, furnitureTO.getName_vi());
+            pstmt.setString(index++, furnitureTO.getName_en());
+            pstmt.setString(index++, furnitureTO.getType());
+            pstmt.setLong(index++, furnitureTO.getPrice());
+            pstmt.setString(index++, furnitureTO.getDetails());
+            pstmt.setString(index++, furnitureTO.getStatus());
+            pstmt.setString(index++, furnitureTO.getRemark());
+            pstmt.setString(index++, furnitureTO.getType_en());
+            pstmt.setInt(index++, furnitureTO.getId_furniture());
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("updateFurniture" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("updateFurniture" + pstmt.toString());
             DbUtils.closeQuietly(conn, pstmt);
         }
         return (rs > 0);
@@ -600,8 +768,101 @@ public class RoomOfALLDA extends DAOOject {
         } finally {
             System.out.println("listFurnitureAll:" + pstmt.toString());
             DbUtils.closeQuietly(rs);
+
         }
         return listFurniture;
+    }
+    // retrieve furniture by id
+    public FurnitureTO retrieveFurnitureById(int id){
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        FurnitureTO furnitureTO=null;
+        String sql = "SELECT * FROM " + StaticTO.DB_FURNITURE_NAME+" WHERE id_furniture=?";
+        ResultSet rs = null;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id);
+            rs = pstmt.executeQuery();
+            while(rs.next()) {
+                 furnitureTO = new FurnitureTO(rs.getInt("id_furniture"),
+                        rs.getString("name_vi"),
+                        rs.getString("name_en"),
+                        rs.getString("type"),
+                        rs.getLong("price"),
+                        rs.getString("details"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("type_en")
+                );
+
+            }
+        } catch (SQLException e) {
+            System.out.println("listFurnitureAll:" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("listFurnitureAll:" + pstmt.toString());
+            DbUtils.closeQuietly(rs);
+        }
+        return furnitureTO;
+    }
+    // delete  furniture
+    public boolean deleteFurniture(int kind_room_id,int id_furniture) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "DELETE  FROM "+StaticTO.DB_FURNITURE_ROOM_NAME+" WHERE id_furniture=? AND kind_room_id=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+
+            pstmt.setInt(index++,id_furniture);
+            pstmt.setInt(index++,kind_room_id);
+
+            rs = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("deleteFurniture" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("deleteFurniture" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
+    public ArrayList<FurnitureTO> retrieveFurnitureAllByKRId(int kind_room){
+        Connection conn=null;
+        PreparedStatement pstmt=null;
+        String sql="SELECT * FROM "+StaticTO.DB_FURNITURE_NAME+" F INNER JOIN "+StaticTO.DB_FURNITURE_ROOM_NAME+" FR ON FR.id_furniture=F.id_furniture WHERE KIND_ROOM_ID=?";
+        ArrayList<FurnitureTO> listFurniture=new ArrayList<FurnitureTO>();
+        conn=getConnection();
+        ResultSet rs=null;
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1,kind_room);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                FurnitureTO furnitureTO=new FurnitureTO(rs.getInt("id_furniture"),
+                        rs.getString("name_vi"),
+                        rs.getString("name_en"),
+                        rs.getString("type"),
+                        rs.getLong("price"),
+                        rs.getString("details"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("type_en")
+                        );
+                listFurniture.add(furnitureTO);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DbUtils.closeQuietly(rs);
+        }
+
+       return listFurniture;
     }
     // retrieve furniture type giường
 //    public ArrayList<FurnitureTO> listFurnitureAll() {

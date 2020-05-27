@@ -1,9 +1,6 @@
 package servlet;
 
-import DAO.BookingDA;
-import DAO.RegionDA;
-import DAO.RoomOfALLDA;
-import DAO.SystemDA;
+import DAO.*;
 import DTO.*;
 
 import javax.servlet.ServletException;
@@ -95,6 +92,11 @@ public class Home extends WebServlet {
 
             }
 
+            // Ưu đãi
+            AdvertisementDA advertisementDA=new AdvertisementDA();
+            ArrayList<AdvertisementTO> listAdvertisement=advertisementDA.retrieveAllTop3();
+            request.setAttribute("listAdvertisement",listAdvertisement);
+           //
             forward("/index.jsp", request, response);
         } catch (ServletException e) {
             e.printStackTrace();

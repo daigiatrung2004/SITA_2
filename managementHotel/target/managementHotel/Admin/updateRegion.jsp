@@ -75,7 +75,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="remark">Ghi chú:</label>
+            <label for="remark">Mô tả về khu vực:</label>
             <textarea id="remark" name="remark">
             </textarea>
         </div>

@@ -50,9 +50,8 @@
         <div id="div-manager-trans-admin">
             <ul class="ul-admin">
                 <li><a href="InsertTransport">Thêm dữ liệu vận chuyển</a></li>
-                <li>Danh sách dữ liệu vận chuyển</li>
-
-
+                <li><a href="ListingTransport?type=region">Danh sách vận chuyển từng khu vực</a></li>
+                <li><a href="ListingTransport">Danh sách thông tin vận chuyển</a></li>
             </ul>
         </div>
     </div>

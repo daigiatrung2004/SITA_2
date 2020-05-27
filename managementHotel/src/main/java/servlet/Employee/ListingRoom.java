@@ -16,12 +16,23 @@ public class ListingRoom extends WebServletEmployee {
     @Override
     protected void process(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         try {
+            String type=request.getParameter("type")!=null?(String)request.getParameter("type"):"";
             RoomOfALLDA roomOfALLDA = new RoomOfALLDA();
             EmployeeTO employeeTO = (EmployeeTO) session.getAttribute("mem_sid");
-            ArrayList<RoomTO> listRoomTO = roomOfALLDA.retrieveRoomByRegionId(employeeTO.getRegion_id());
+            if(type.equals("")) {
 
-            request.setAttribute("listRoomTO", listRoomTO);
-            forward("/EMPLOYEE/listingRoom.jsp", request, response);
+
+                ArrayList<RoomTO> listRoomTO = roomOfALLDA.retrieveRoomByRegionId(employeeTO.getRegion_id());
+
+                request.setAttribute("listRoomTO", listRoomTO);
+                forward("/EMPLOYEE/listingRoom.jsp", request, response);
+            }else{
+                String id=request.getParameter("id")!=null?(String)request.getParameter("id"):"";
+                ArrayList<RoomTO> listRoomTO = roomOfALLDA.retrieveRoomByStatus(employeeTO.getRegion_id(),id);
+
+                request.setAttribute("listRoomTO", listRoomTO);
+                forward("/EMPLOYEE/searchListingRoom.jsp", request, response);
+            }
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

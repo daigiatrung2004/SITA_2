@@ -38,6 +38,28 @@ public class EmployeeDA extends DAOOject {
         }
         return (rs > 0);
     }
+    // update position
+    public boolean updatePositionEmpoloyee(PositionEmployeeTO positionEmployeeTO) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE " + StaticTO.DB_EMPLOYEE_POSITION_NAME + " SET name=?,status=? WHERE position_employee_id=?";
+        int rs = 0;
+        conn = getConnection();
+        try {
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, positionEmployeeTO.getName());
+            pstmt.setString(2,positionEmployeeTO.getStatus());
+            pstmt.setLong(3,positionEmployeeTO.getId());
+            rs = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
 
     //tìm tất cả các vị trí
     public ArrayList<PositionEmployeeTO> retreiveAllPositionEmployee() {
@@ -46,12 +68,12 @@ public class EmployeeDA extends DAOOject {
         ArrayList<PositionEmployeeTO> listPosEmployee = new ArrayList<PositionEmployeeTO>();
 
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_POSITION_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_POSITION_NAME+" WHERE STATUS=?";
         PreparedStatement pstmt = null;
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
-
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
 
@@ -202,7 +224,64 @@ public class EmployeeDA extends DAOOject {
         }
         return employeeTO;
     }
+    // time employee bằng id
+    public EmployeeTO retrieveEmployeeByIdUser(long id) {
+        Connection conn = null;
+        EmployeeTO employeeTO = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_NAME + " WHERE EMPLOYEE_ID=? LIMIT 1";
+        PreparedStatement pstmt = null;
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                long employee_id = rs.getLong("employee_id");
+                long position_employee = rs.getLong("position_employee_id");
+                String loginname = rs.getString("loginname");
+                String sankey = rs.getString("sankey");
+                String encryptpass = rs.getString("encryptpass");
+                java.util.Date start_date = null, last_login = null;
+                String start_dateStr = "", last_login_str = "";
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                if (rs.getDate("start_date") != null) {
+                    start_date = new java.util.Date(rs.getTimestamp("start_date").getTime());
+                    start_dateStr = dateFormat.format(start_date);
+                }
+                if (rs.getDate("last_login") != null) {
+                    last_login = new java.util.Date(rs.getTimestamp("last_login").getTime());
+                    last_login_str = dateFormat.format(last_login);
+                }
+                employeeTO = new EmployeeTO(employee_id,
+                        position_employee,
+                        loginname,
+                        sankey,
+                        encryptpass,
+                        start_dateStr,
+                        rs.getString("address"),
+                        rs.getString("country"),
+                        rs.getString("contact_person"),
+                        rs.getString("contact_email"),
+                        rs.getLong("salary"),
+                        rs.getString("status"),
+                        rs.getString("remark"),
+                        rs.getString("ipAddress"),
+                        last_login_str,
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getInt("region_id")
+                );
 
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtils.closeQuietly(rs);
+        }
+        return employeeTO;
+    }
     // xac thuc đăng nhập
     public Boolean authenticateEmployee(String username, String password) {
         Connection conn = null;
@@ -235,12 +314,12 @@ public class EmployeeDA extends DAOOject {
         Connection conn = null;
         ArrayList<EmployeeTO> listEmployeeTO = new ArrayList<EmployeeTO>();
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_EMPLOYEE_NAME+" WHERE STATUS=?";
         PreparedStatement pstmt = null;
         conn = getConnection();
         try {
             pstmt = conn.prepareStatement(sql);
-
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 long employee_id = rs.getLong("employee_id");

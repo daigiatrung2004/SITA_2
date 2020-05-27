@@ -34,7 +34,7 @@
     <div class="main-career">
         <div class="header-career title-footer">
             <h2 style="text-align: center"><%=lang.readXMl("career")%>
-            </h2>
+        </h2>
             <%if (language.equals(LanguageControl.VN_LAN)) {%>
             <span style="font-size: 16px;text-align: center;">
                 Victoria Hotels & Resort là tập đoàn khách sạn hàng đầu và đang phát triển nhanh chóng, hoạt động bảy khách sạn quyến rũ trên khắp Việt Nam và Lào.<br/>

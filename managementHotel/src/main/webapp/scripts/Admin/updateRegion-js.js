@@ -54,7 +54,7 @@ $(document).ready(function () {
         var address=$("#address").val();
         var phone=$("#phone").val();
         var status=$("#select-status").val();
-        var remark=$("#remark").val();
+        var remark=tinymce.get("remark").getContent();
         var type=$("#type").val();
         var region=$("#region").val();
 

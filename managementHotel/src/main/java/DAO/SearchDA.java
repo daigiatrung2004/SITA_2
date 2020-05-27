@@ -79,7 +79,7 @@ public class SearchDA extends DAOOject {
         ArrayList<SearchTO> listSearchTO = new ArrayList<SearchTO>();
 
 
-        String sql = " SELECT RG.*,KR.*,b.*,R.STATUS AS STATUS_ROOM FROM " + StaticTO.DB_REGION_NAME + " RG  "
+        String sql = " SELECT RG.*,KR.kind_room_id,KR.name_vi as KR_NAME_VI,KR.name_en AS KR_NAME_EN,KR.status AS KR_STATUS,KR.remark AS KR_REMARK,b.*,R.STATUS AS STATUS_ROOM FROM " + StaticTO.DB_REGION_NAME + " RG  "
                 + " INNER JOIN " + StaticTO.DB_ROOM_NAME + " R ON RG.REGION_ID=R.REGION_ID "
                 + " INNER JOIN " + StaticTO.DB_KIND_ROOM_NAME + " KR ON KR.KIND_ROOM_ID=R.KIND_ROOM_ID  "
                 +"left join  booking b on (b.room_id=R.room_id and b.check_out_date>=?) "
@@ -109,10 +109,10 @@ public class SearchDA extends DAOOject {
                             rs.getString("remark")
                     );
                     KindRoomTO kindRoomTO = new KindRoomTO(rs.getInt("kind_room_id"),
-                            rs.getString("name_vi"),
-                            rs.getString("name_en"),
-                            rs.getString("status"),
-                            rs.getString("remark")
+                            rs.getString("KR_NAME_VI"),
+                            rs.getString("KR_NAME_EN"),
+                            rs.getString("KR_STATUS"),
+                            rs.getString("KR_REMARK")
 
                     );
                     SearchTO searchTO = new SearchTO(kindRoomTO, regionTO);

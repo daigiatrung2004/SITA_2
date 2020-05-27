@@ -10,5 +10,6 @@
 <div>
 <ul>
     <li class="active"><a href="Advertisement">Ưu đãi</a></li>
+    <li class="active"><a href="Advertisement"></a></li>
 </ul>
 </div>

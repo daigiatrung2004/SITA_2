@@ -31,6 +31,7 @@ public class StaticTO {
     public static final String  DB_SYSTEM_NAME="sys_meta";
     public static final String  DB_REPORT_USER_NAME="reportuser";
     public static final String  DB_WARSEHOUSE="warsehouse";
+    public static final String  DB_PACKAGE="package";
 
 
     // status name static

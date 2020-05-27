@@ -1,6 +1,7 @@
 <%@ page import="DTO.PromoteTO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="DTO.PriceRoomTO" %><%--
+<%@ page import="DTO.PriceRoomTO" %>
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 4/4/2020
@@ -11,6 +12,7 @@
 <%
     ArrayList<PriceRoomTO> listPriceRoom = (ArrayList<PriceRoomTO>) request.getAttribute("listPriceRoom");
     ArrayList<PromoteTO> listPromote = (ArrayList<PromoteTO>) request.getAttribute("listPromote");
+    ArrayList<Map<PriceRoomTO, PromoteTO>> listCodePrice = (ArrayList<Map<PriceRoomTO, PromoteTO>>) request.getAttribute("listCodePrice");
 %>
 <html>
 <head>
@@ -22,6 +24,9 @@
 <div class="ui top attached tabular menu menu_insertPromote">
     <a class="item active" data-tab="promotion">Tạo mã giảm giá</a>
     <a class="item" data-tab="promote-price">Cập nhật mã giảm cho từng kiểu giá</a>
+    <a class="item" data-tab="listpromote">Danh sách các mã giảm giá</a>
+    <a class="item" data-tab="listpromotePrice">Danh sách các mã giảm giá cho từng kiểu giá</a>
+
 </div>
 <!--promotion-->
 <div class="ui bottom attached tab segment active" data-tab="promotion">
@@ -40,6 +45,7 @@
     </div>
     <button class="btn btn-primary" id="btn-promotion">Thêm</button>
 </div>
+
 <!---->
 
 <!--promote price-->
@@ -82,7 +88,81 @@
         <button class="btn btn-primary" id="btn-promote-price">Thêm</button>
     </div>
 </div>
-<jsp:include page="SideBar.jsp" ></jsp:include>
+<!--Danh sach cac mã giảm giá-->
+<div class="ui bottom attached tab segment" data-tab="listpromote">
+    <h2 style="text-align: center;margin-bottom: 14px;">DANH SÁCH CÁC MÃ GIẢM GIÁ</h2>
+    <table class="table">
+        <thead>
+        <th>Mã khuyến mãi</th>
+        <th>Giá trị mã khuyến mãi</th>
+        <th>Ngày hết hạn</th>
+        <th>Hành động</th>
+        </thead>
+        <tbody>
+        <%
+            if (listPromote != null) {
+                for (int i = 0; i < listPromote.size(); i++) {
+
+        %>
+        <tr>
+            <td><%=listPromote.get(i).getPro_code()%>
+            </td>
+            <td><%=listPromote.get(i).getPro_value()%>
+            </td>
+            <td>
+                <%=listPromote.get(i).getExpired_date()%>
+            </td>
+            <td>
+                <a href="ListingPromote?type=edit-code&promoteid=<%=listPromote.get(i).getPromte_id()%>"><button class="btn btn-primary">Chỉnh sửa</button></a>
+            </td>
+        </tr>
+        <%
+                }
+            }
+        %>
+        </tbody>
+    </table>
+</div>
+<!---->
+
+<!--danh sách cho từng kiểu giá -->
+<div class="ui bottom attached tab segment" data-tab="listpromotePrice">
+    <h2 style="text-align: center;margin-bottom: 14px;">DANH SÁCH CÁC MÃ GIẢM GIÁ THEO TỪNG KIỂU GIÁ</h2>
+    <table class="table">
+        <thead>
+        <th>Kiểu giá phòng</th>
+        <th>Mã giảm giá</th>
+        <th>Giá trị mã giảm giá</th>
+        <th>Hành động</th>
+        </thead>
+        <tbody>
+        <%
+            if (listCodePrice != null && listCodePrice.size() > 0) {
+                for (int i = 0; i <listCodePrice.size() ; i++) {
+                    Map<PriceRoomTO,PromoteTO> map=listCodePrice.get(i);
+                    for(Map.Entry m:map.entrySet()){
+                   PriceRoomTO priceRoomTO=(PriceRoomTO) m.getKey();
+                   PromoteTO promoteTO=(PromoteTO)m.getValue();
+                    if(priceRoomTO!=null&&promoteTO!=null){
+        %>
+         <tr>
+             <td><%=priceRoomTO.getType_price_room_vi()%></td>
+             <td><%=promoteTO.getPro_code()%></td>
+             <td><%=promoteTO.getPro_value()%></td>
+             <td><a href="ListingPromote?type=edit&priceId=<%=priceRoomTO.getPrice_id()%>&promoteId=<%=promoteTO.getPromte_id()%>"><button class="btn btn-primary edit" >Chỉnh sửa</button></a></td>
+         </tr>
+        <%
+                        }
+                    }
+                }
+            }
+        %>
+        </tbody>
+    </table>
+</div>
+
+<!---->
+<jsp:include page="SideBar.jsp"></jsp:include>
 <!---->
 <script src="./scripts/Admin/InsertHotelManager.js"></script>
 

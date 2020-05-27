@@ -66,7 +66,11 @@
 
                         %>
                             <div class="col-md-6 item-region">
+                                <%if(language.equals(LanguageControl.VN_LAN)){%>
                                 <a href="<%=StaticTO.WEB_STATIC%>/vi/<%=listRegionTO.get(i).getRegion_id()%>/<%=TextCustomizeFormat.convertTextToString(listRegionTO.get(i).getName_en())%>.html" style="color:black;font-size: 18px;"><%=listRegionTO.get(i).getName_vi()%></a>
+                                <%}else{%>
+                                <a href="<%=StaticTO.WEB_STATIC%>/en/<%=listRegionTO.get(i).getRegion_id()%>/<%=TextCustomizeFormat.convertTextToString(listRegionTO.get(i).getName_en())%>.html" style="color:black;font-size: 18px;"><%=listRegionTO.get(i).getName_en()%></a>
+                                <%}%>
                             </div>
                         <%
                                 }
@@ -79,7 +83,7 @@
                 </li>
 <%--                <li><%=lang.readXMl("voyages_header")%>--%>
                 </li>
-                <li><%=lang.readXMl("enow_header")%>
+                <li><A href="DetailAllOffer"><%=lang.readXMl("enow_header")%></A>
                 </li>
                 <li><a href="<%=request.getContextPath()%>/ListingImgRegion"><%=lang.readXMl("image_header")%>
                 </a>

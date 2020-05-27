@@ -40,6 +40,36 @@ public class TransportDA extends DAOOject {
         }
         return (rs > 0);
     }
+    // update dữ liệu
+    public boolean updateTransport(TransportTO transportTO) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int rs = 0;
+        String sql = "UPDATE  " + StaticTO.DB_TRANSPORT_NAME + " SET name_vi=?,name_en=?,details_vi=?,details_en=?,price=?,status=?,remark=? WHERE transport_id=?";
+        conn = getConnection();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            int index = 1;
+
+            pstmt.setString(index++, transportTO.getName_vi());
+            pstmt.setString(index++, transportTO.getName_en());
+            pstmt.setString(index++, transportTO.getDetails_vi());
+            pstmt.setString(index++, transportTO.getDetails_en());
+            pstmt.setLong(index++, transportTO.getPrice());
+            pstmt.setString(index++, transportTO.getStatus());
+            pstmt.setString(index++, transportTO.getRemark());
+            pstmt.setLong(index++, transportTO.getTransport_id());
+            rs = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("updateTransport++++" + pstmt.toString());
+            e.printStackTrace();
+        } finally {
+            System.out.println("updateTransport++++" + pstmt.toString());
+            DbUtils.closeQuietly(conn, pstmt);
+        }
+        return (rs > 0);
+    }
   // thêm dữ liệu phí khác
     public boolean addTransportOther(TransportTO transportTO) {
         Connection conn = null;
@@ -101,9 +131,10 @@ public class TransportDA extends DAOOject {
         PreparedStatement pstmt = null;
         conn = getConnection();
         ResultSet rs = null;
-        String sql = "SELECT * FROM " + StaticTO.DB_TRANSPORT_NAME;
+        String sql = "SELECT * FROM " + StaticTO.DB_TRANSPORT_NAME+" WHERE STATUS=?";
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 TransportTO transportTO = new TransportTO(rs.getLong("transport_id"),
@@ -127,6 +158,25 @@ public class TransportDA extends DAOOject {
         }
 
         return listTrans;
+    }
+    // delete transport region
+    public boolean deleteTransportRegion(long transportid,int regionid){
+        Connection conn=null;
+        PreparedStatement pstmt=null;
+        String sql="DELETE FROM "+StaticTO.DB_TRANS_REGION_NAME+" WHERE TRANSPORT_ID=? AND REGION_ID=?";
+        conn=getConnection();
+        int rs=0;
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setLong(1,transportid);
+            pstmt.setInt(2,regionid);
+            rs=pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DbUtils.closeQuietly(conn,pstmt);
+        }
+        return (rs>0);
     }
     // lấy ra các phí dịch vụ
     public ArrayList<TransportTO> retreiveAllFeesOther() {
@@ -198,7 +248,7 @@ public class TransportDA extends DAOOject {
         return listTrans;
     }
     // lấy tất cả các vận chuyển THEO ID
-    public TransportTO retreiveAllTransById(int transport_id) {
+    public TransportTO retreiveAllTransById(long transport_id) {
         TransportTO transportTO=null;
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -208,7 +258,7 @@ public class TransportDA extends DAOOject {
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,transport_id);
+            pstmt.setLong(1,transport_id);
             pstmt.setString(2,StaticTO.ACTIVE_STATUS);
             rs = pstmt.executeQuery();
             while (rs.next()) {

@@ -19,9 +19,10 @@ function getHTTPXML() {
 
 function getLingtingBooking(name) {
     var xmlhttp = getHTTPXML();
+    $(".loading").show();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
+            $(".loading").hide();
             $(".details-booking").html(xmlhttp.responseText);
         }
     };

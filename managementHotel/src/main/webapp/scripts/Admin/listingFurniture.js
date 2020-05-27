@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    $("#search").click(function(){
+        search();
+    });
 $("#btn-furniture").click(function(){
     var name_furniture_vi=$("#name_furniture_vi").val();
     var name_furniture_en=$("#name_furniture_en").val();
@@ -30,7 +33,7 @@ function getXMLHTTP(){
 }
 function insertFurniture(url){
 
-alert(""+url);
+
 var xmlhttp=getXMLHTTP();
 xmlhttp.onreadystatechange=function(){
   if(xmlhttp.readyState==4&&xmlhttp.status==200){
@@ -47,4 +50,18 @@ xmlhttp.onreadystatechange=function(){
 xmlhttp.open("POST","AjaxInsertFurniture?"+url,true);
 xmlhttp.send();
 
+}
+function search(){
+    $(".div-ring-main").show();
+    var kindroom=$("#kindroom").val();
+   var xmlhttp=getXMLHTTP();
+   xmlhttp.onreadystatechange=function(){
+       if(xmlhttp.readyState==4||xmlhttp.status==200){
+           var data=xmlhttp.responseText;
+           $(".div-ring-main").hide();
+          $("#content").html(data);
+       }
+   }
+   xmlhttp.open("POST","AjaxListingFurniture?kindroom="+kindroom,true);
+   xmlhttp.send();
 }

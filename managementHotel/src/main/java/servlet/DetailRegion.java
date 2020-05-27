@@ -1,8 +1,10 @@
 package servlet;
 
+import DAO.AdvertisementDA;
 import DAO.RegionDA;
 import DAO.RoomOfALLDA;
 import DAO.UploadResourceDA;
+import DTO.AdvertisementTO;
 import DTO.KindRoomTO;
 import DTO.RegionTO;
 import DTO.UploadResourceTO;
@@ -46,6 +48,14 @@ public class DetailRegion extends WebServlet {
                 request.setAttribute("listResource", listResource);
                 RegionTO regionTO = regionDA.retrieveAllRegion(regionidInt);
                 request.setAttribute("regionTO", regionTO);
+
+                // ưu đãi
+                AdvertisementDA advertisementDA=new AdvertisementDA();
+                if(regionTO!=null) {
+                    ArrayList<AdvertisementTO> listAdvertisementTO = advertisementDA.retrievePackageByRegionId(regionTO.getRegion_id());
+                    request.setAttribute("listAdvertisementTO",listAdvertisementTO);
+
+                }
                 forward("detailRegion.jsp", request, response);
             }
         } catch (ServletException e) {
