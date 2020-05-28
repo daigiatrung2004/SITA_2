@@ -68,12 +68,12 @@ public class SendMail {
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
                 // Set Subject: header field
-                message.setSubject("Đặt phòng thành công tại  " + location);
+                message.setSubject("Book successfully at  " + location);
                 // string content;
                 String content_template = ConvertHTMLToString.htmlToString(StaticTO.CONFIRM_BOOKING_HTML);
                 String content = transformContentConfirmBooking(content_template, infolist);
                 // Now set the actual message
-                message.setContent(content, "text/html;charset=UTF-8");
+                message.setContent(content, "text/html;charset=utf-8");
 
                 System.out.println("sending...");
                 // Send message

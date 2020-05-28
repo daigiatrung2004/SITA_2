@@ -92,6 +92,9 @@
         .drag {
             -webkit-overflow-scrolling: touch;
         }
+        .content-entertainment{
+            background-color: white;
+        }
 
     </style>
     <jsp:include page="library_detail.jsp"></jsp:include>
@@ -266,7 +269,7 @@
                         Feel the characteristics of Victoria cuisine through unique ingredients and flavors at Ta Van restaurant and Ta Fin bar with warm fireplace and majestic views of Fansipan.
                     </p>
                     <%}%>
-                    <a href="amthuc" style="color: black">
+                    <a href="<%=request.getContextPath()%>/Introduction?type=amthuc" style="color: black">
                         <%if (language.equals(LanguageControl.VN_LAN)) {%>
                         Chi tiết
                         <%}else{%>
@@ -290,7 +293,7 @@
                     <p style="word-break: break-word">
                         Spa Victoria trải dài hai tầng với hệ thống xông hơi và bồn tắm bằng gỗ thông được thiết kế riêng. Khu phức hợp bao gồm 8 phòng trị liệu đơn và 4 phòng trị liệu đôi.
                     </p>
-                    <a href="thugian" style="color: black">Chi tiết</a>
+                    <a href="<%=request.getContextPath()%>/Introduction?type=relax" style="color: black">Chi tiết</a>
                     <%}else{%>
                     <h3>
 
@@ -301,7 +304,7 @@
                     <p style="word-break: break-word">
                         The Victoria Spa spans two floors with a sauna system and a pine-designed bathtub. The complex includes 8 single treatment rooms and 4 double treatment rooms.
                     </p>
-                    <a href="thugian" style="color: black">View detail</a>
+                    <a href="<%=request.getContextPath()%>/Introduction?type=relax" style="color: black">View detail</a>
                     <%}%>
                 </div>
             </div>
@@ -315,7 +318,7 @@
                     <p style="word-break: break-word">
                         Khu nghỉ dưỡng cung cấp nhiều dịch vụ từ vận chuyển và lịch trình tham quan đến trông trẻ và khu vui chơi trẻ em.
                     </p>
-                    <a href="dichvu" style="color: black">Chi tiết</a>
+                    <a href="<%=request.getContextPath()%>/Introduction?type=service" style="color: black">Chi tiết</a>
                 </div>
                 <%}else{%>
                 <div class="content-entertainment">
@@ -323,7 +326,7 @@
                     <p style="word-break: break-word">
                         The resort offers a wide range of services from transportation and sightseeing itinerary to babysitting and children's play area.
                     </p>
-                    <a href="dichvu" style="color: black">View detail</a>
+                    <a href="<%=request.getContextPath()%>/Introduction?type=service" style="color: black">View detail</a>
                 </div>
                 <%}%>
             </div>

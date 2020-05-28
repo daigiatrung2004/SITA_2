@@ -67,8 +67,10 @@ public class AjaxPaymentEndPoint extends WebServlet {
             if (!arraySelectAddition.equals("")&&arraySelectAdditionSplit.length > 0) {
                 for (int i = 0; i < arraySelectAdditionSplit.length; i++) {
                     TransportTO transportTO = transportDA.retreiveAllTransById(Integer.parseInt(arraySelectAdditionSplit[i]));
-                    listTransport.add(transportTO);
-                    total += transportTO.getPrice();
+                    if(transportTO!=null) {
+                        listTransport.add(transportTO);
+                        total += transportTO.getPrice();
+                    }
                 }
             }
             request.setAttribute("total", String.valueOf(total));

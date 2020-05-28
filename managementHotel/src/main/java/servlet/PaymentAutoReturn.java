@@ -131,7 +131,13 @@ public class PaymentAutoReturn extends WebServlet {
             RegionTO regionTO = regionDA.retrieveAllRegion(region_idInt);
             ArrayList<String> infolist = new ArrayList<String>();
             infolist.add(regionTO.getName_en());
-            infolist.add(total);
+            long totalLong_2;
+            try {
+                totalLong_2=Long.parseLong(total);
+            } catch (NumberFormatException e) {
+                totalLong_2=0;
+            }
+            infolist.add(TextCustomizeFormat.currency_format(totalLong_2));
             infolist.add(firstname + " " + lastname);
             infolist.add(verify_person);
             infolist.add(buyer_phone);
@@ -149,12 +155,16 @@ public class PaymentAutoReturn extends WebServlet {
 
             String timeStr = "";
             if (checkInDate != null && checkOutDate != null) {
-                long time = (checkOutDate.getTime() - checkInDate.getTime()) / (24 * 60 * 60 * 1000);
+                long time = ((checkOutDate.getTime() - checkInDate.getTime()) / (24 * 60 * 60 * 1000)+1);
                 timeStr = String.valueOf(time);
 
             }
             infolist.add(timeStr);
-            infolist.add(TextCustomizeFormat.currency_format(priceRoomTO.getPrice_id()));
+            if(priceRoomTO!=null) {
+                infolist.add(TextCustomizeFormat.currency_format(priceRoomTO.getPrice_id()));
+            }else{
+                infolist.add(TextCustomizeFormat.currency_format(0));
+            }
             infolist.add(pass);
             infolist.add(email);
             SendMail.sendmail(infolist);

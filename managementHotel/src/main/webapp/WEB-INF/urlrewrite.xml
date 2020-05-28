@@ -62,7 +62,22 @@
         <from>^/vi/legal-information.html$</from>
         <to>/FooterControl?type=legalInfo</to>
     </rule>
-
+    <rule enabled="true">
+        <from>^/en/hotels-resorts/hoian/side-car.html</from>
+        <to >/PR?type=side-car</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/vi/hotels-resorts/hoian/side-car.html</from>
+        <to >/PR?type=side-car</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/en/hotels-resorts/sapa/victoria-express-train.html</from>
+        <to >/PR?type=victoria-express-train</to>
+    </rule>
+    <rule enabled="true">
+        <from>^/vi/hotels-resorts/sapa/victoria-express-train.html</from>
+        <to >/PR?type=victoria-express-train</to>
+    </rule>
     <rule enabled="true">
         <from>^/vi/([a-zA-Z\-]+)\.html$</from>
         <to >/FooterControl?type=$1</to>

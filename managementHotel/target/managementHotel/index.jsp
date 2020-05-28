@@ -242,7 +242,7 @@
                 <div class="col-md-12  experiences ">
                     <div class="col-md-8 experience-item ">
 
-                        <a class="view-details" href="/vi/hotels-resorts/hoian/side-car.html">
+                        <a class="view-details" href="./vi/hotels-resorts/hoian/side-car.html">
                             <div class="experiences-bg" style="background: url('./img/13-med.jpg'); background-repeat: no-repeat;
 							background-position: center 35%;
 							background-size: cover;">
@@ -264,7 +264,7 @@
 
                     </div>
                     <div class="col-md-4 experience-item">
-                        <a class="view-details" href="/vi/hotels-resorts/sapa/victoria-express-train.html">
+                        <a class="view-details" href="./vi/hotels-resorts/sapa/victoria-express-train.html">
                             <div class="experiences-bg" style="background: url('./img/12-med.jpg');
 						background-repeat: no-repeat;
 						background-position: center 35%;
@@ -402,18 +402,23 @@
         // $("#text-check-in").text(checkIn);
         // $("#text-check-out").text(checkOut);
         $(function () {
+
             $("#checkOut").datepicker({
-                format: 'dd/mm/yyyy',
+                dateFormat: 'dd/mm/yy',
                 changeMonth: true,
-                minDate: 0
+                minDate: 0,
+
             });
             $("#checkIn").datepicker({
-                format: 'dd/mm/yyyy',
+                dateFormat: 'dd/mm/yy',
                 changeMonth: true,
-                minDate: 0
+                minDate: 0,
+
             });
+            // $("#checkIn").datepicker().datepicker("setDate", new Date());
         });
         $(".select-customize").click(function () {
+
             $("#text-check-out").hide();
             $("#pos-check-in").hide();
             $(".pos-show-num-people").toggle();
@@ -423,7 +428,7 @@
             if (numOfPeo < 10) {
                 numOfPeo++;
             }
-            $("#numOfPeople").val(numOfPeo);
+            $("#numOfPeo").val(numOfPeo);
             $("#show-num-people #soluong").text(numOfPeo);
             $(".div-show-num-people").text(numOfPeo);
 
@@ -433,7 +438,7 @@
             if (numOfPeo > 1) {
                 numOfPeo--;
             }
-            $("#numOfPeople").val(numOfPeo);
+            $("#numOfPeo").val(numOfPeo);
             $("#show-num-people #soluong").text(numOfPeo);
             $(".div-show-num-people").text(numOfPeo);
         });

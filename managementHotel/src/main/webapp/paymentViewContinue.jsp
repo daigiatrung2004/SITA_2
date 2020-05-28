@@ -89,7 +89,7 @@
                 </div>
                 <!--lua chon dieu kien bo sung-->
                 <%
-                    if (listTrans != null) {
+                    if (listTrans != null&&listTrans.size()>0) {
                         for (int i = 0; i < listTrans.size(); i++) {
 
                 %>
@@ -193,6 +193,16 @@
 
                 <%
                         }
+                    }else{
+                %>
+                <%
+                    if (language.equals(LanguageControl.VN_LAN)) {
+                %>
+                <h2>Không có dữ liệu vận chuyển!!</h2>
+                <%}else{%>
+                <h2>Not data Transport!!</h2>
+                <%}%>
+                <%
                     }
                 %>
             </div>
@@ -283,8 +293,9 @@
                             <%if (codeValueInt > 0) {%>
                             Bạn có mã giảm giá:<%=codeValueInt%> %<br/>
                             <%}%>
-
+                             <%if(priceRoomTO!=null){%>
                             Loại thanh toán:<%=priceRoomTO.getType_price_room_vi()%><br/>
+                            <%}%>
                             <%
                                 if (listFeeOther != null) {
                                     for (int i = 0; i < listFeeOther.size(); i++) {

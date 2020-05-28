@@ -16,6 +16,8 @@ public abstract class WebServlet extends HttpServlet {
     protected abstract void process(HttpServletRequest request, HttpServletResponse response);
 
     protected void forward(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(url);
         String web_server = getServletContext().getInitParameter("WEB_SERVER");
         request.setAttribute("web_server", web_server);
@@ -23,13 +25,16 @@ public abstract class WebServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         setLanguage(request,response);
         process(request, response);
         return;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         setLanguage(request,response);
         process(request, response);
         return;

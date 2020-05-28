@@ -298,9 +298,9 @@
                                <%
                                    if (language.equals(LanguageControl.VN_LAN)) {
                                %>
-							<span placeholder="2 người">2 người</span>
+							<span placeholder="2 người"><%=numOfPeo%> người</span>
                             <%} else {%>
-                            <span placeholder="2 người">2 person</span>
+                            <span placeholder="2 người"><%=numOfPeo%> person</span>
                             <%}%>
 						</span>
                                     </div>

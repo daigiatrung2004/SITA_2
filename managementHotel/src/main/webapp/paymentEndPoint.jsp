@@ -322,11 +322,11 @@
                                     %>
                                     <span class="fb-translate" data-key="adult" data-mode="2" data-fallback=""
                                           data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                          data-placeholders="[2]">2 người lớn</span>
+                                          data-placeholders="[2]"><%=numberOfPeo%> người lớn</span>
                                     <%} else {%>
                                     <span class="fb-translate" data-key="adult" data-mode="2" data-fallback=""
                                           data-disablehtmlclean="false" data-nodefaultlanguagefallback="false"
-                                          data-placeholders="[2]">2 person</span>
+                                          data-placeholders="[2]"><%=numberOfPeo%> person</span>
                                     <%}%>
                                 </div>
                             </div>

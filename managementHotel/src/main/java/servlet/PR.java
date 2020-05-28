@@ -11,7 +11,12 @@ public class PR extends WebServlet {
     @Override
     protected void process(HttpServletRequest request, HttpServletResponse response) {
         try {
-            forward("pr-staitc.jsp",request,response);
+             String type=request.getParameter("type")!=null?(String)request.getParameter("type"):"";
+             if(type.equals("")) {
+                 forward("pr-static.jsp", request, response);
+             }else{
+                 forward("experience-static.jsp",request,response);
+             }
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

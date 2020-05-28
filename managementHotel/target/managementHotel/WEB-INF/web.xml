@@ -319,6 +319,22 @@
         <servlet-name>ListingKindRoom</servlet-name>
         <servlet-class>servlet.Admin.ListingKindRoom</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PR</servlet-name>
+        <servlet-class>servlet.PR</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Introduction</servlet-name>
+        <servlet-class>servlet.Introduction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Introduction</servlet-name>
+        <url-pattern>/Introduction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PR</servlet-name>
+        <url-pattern>/PR</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListingKindRoom</servlet-name>
         <url-pattern>/ListingKindRoom</url-pattern>
